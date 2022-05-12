@@ -1,0 +1,64 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+// class for switching between dark and light theme
+class Theme {
+  static ThemeData light = ThemeData(
+    scaffoldBackgroundColor: Colors.white,
+    primaryColor: Colors.deepOrange,
+    colorScheme: const ColorScheme.light(),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.deepOrange,
+    ),
+  );
+
+  static ThemeData dark = ThemeData(
+    scaffoldBackgroundColor: Colors.black,
+    primaryColor: Colors.deepOrange,
+    colorScheme: const ColorScheme.dark(),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.deepOrange,
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Reddit',
+      theme: Theme.light,
+      darkTheme: Theme.dark,
+      home: const MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  State<MyHomePage> createState() => MyHomePageState();
+}
+
+class MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Reddit",
+          style: TextStyle(fontSize: 25),
+        ),
+      ),
+      body: Center(
+        child: Column(),
+      ),
+    );
+  }
+}
