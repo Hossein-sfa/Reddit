@@ -29,9 +29,7 @@ class SignInState extends State<SignIn> {
     super.initState();
     password.addListener(() {
       setState(() {
-        button = (password.text != '' &&
-            isValidPassword(password.text) &&
-            userName.text != '');
+        button = (password.text != '' && isValidPassword(password.text) && userName.text != '');
       });
     });
   }
@@ -81,8 +79,7 @@ class SignInState extends State<SignIn> {
                   filled: true,
                   labelText: 'Password: ',
                   suffixIcon: IconButton(
-                    icon:
-                        Icon(obscure ? Icons.visibility : Icons.visibility_off),
+                    icon: Icon(obscure ? Icons.visibility : Icons.visibility_off),
                     onPressed: () {
                       setState(() {
                         obscure = !obscure;
@@ -119,8 +116,7 @@ class SignInState extends State<SignIn> {
             ),
             const SizedBox(height: 10),
             ElevatedButton(
-              onPressed: button
-                  ? () {
+              onPressed: button ? () {
                       userName.clear();
                       password.clear();
                       Navigator.push(
