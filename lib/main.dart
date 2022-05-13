@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'siginpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +12,7 @@ class Theme {
     primaryColor: Colors.deepOrange,
     colorScheme: const ColorScheme.light(),
     appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.deepOrange,
+      backgroundColor: Color(0xFFE53F3F),
     ),
   );
 
@@ -20,7 +21,7 @@ class Theme {
     primaryColor: Colors.deepOrange,
     colorScheme: const ColorScheme.dark(),
     appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.deepOrange,
+      backgroundColor: Color(0xFFE53F3F),
     ),
   );
 }
@@ -49,15 +50,18 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return
+      Scaffold(
       appBar: AppBar(
         title: const Text(
           "Reddit",
           style: TextStyle(fontSize: 25),
         ),
       ),
-      body: Center(
-        child: Column(),
+      body: const SafeArea(
+        child: Center(
+          child: SignIn(),
+        ),
       ),
     );
   }
