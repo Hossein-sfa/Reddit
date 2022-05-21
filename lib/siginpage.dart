@@ -29,7 +29,7 @@ class SignInState extends State<SignIn> {
     super.initState();
     password.addListener(() {
       setState(() {
-        button = (password.text != '' && isValidPassword(password.text) && userName.text != '');
+        button = (isValidPassword(password.text) && userName.text != '');
       });
     });
   }
