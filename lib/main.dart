@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reddit/signuppage.dart';
 import 'siginpage.dart';
 
 void main() {
@@ -50,19 +51,14 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return
-      Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text(
           "Reddit",
           style: TextStyle(fontSize: 25),
         ),
       ),
-      body: const SafeArea(
-        child: Center(
-          child: SignIn(),
-        ),
-      ),
+      body: const SignUp(),
     );
   }
 }

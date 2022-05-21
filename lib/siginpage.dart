@@ -44,105 +44,117 @@ class SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      children: [
-        Column(
+    return SafeArea(
+      child: Center(
+        child: Wrap(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              child: TextField(
-                controller: userName,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  filled: true,
-                  labelText: 'UserName: ',
-                  labelStyle: const TextStyle(color: Colors.redAccent),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(100),
-                    borderSide: const BorderSide(color: Color(0xfffdfdfd)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(100),
-                    borderSide: const BorderSide(color: Color(0xfffc4040)),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              child: TextFormField(
-                controller: password,
-                obscureText: obscure,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  filled: true,
-                  labelText: 'Password: ',
-                  suffixIcon: IconButton(
-                    icon: Icon(obscure ? Icons.visibility : Icons.visibility_off),
-                    onPressed: () {
-                      setState(() {
-                        obscure = !obscure;
-                      });
-                    },
-                  ),
-                  labelStyle: const TextStyle(color: Colors.redAccent),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(100),
-                    borderSide: const BorderSide(color: Color(0xfffdfdfd)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(100),
-                    borderSide: const BorderSide(color: Color(0xfffc4040)),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 8),
-            Row(
+            Column(
               children: [
-                const SizedBox(width: 25),
-                const Text("Don't have an account? : "),
-                TextButton(
-                  child: const Text('Sign up'),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const SignUp()),
-                    );
-                  },
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: TextField(
+                    controller: userName,
+                    keyboardType: TextInputType.text,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      filled: true,
+                      labelText: 'UserName: ',
+                      labelStyle: const TextStyle(color: Colors.redAccent),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100),
+                        borderSide: const BorderSide(color: Color(0xfffdfdfd)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100),
+                        borderSide: const BorderSide(color: Color(0xfffc4040)),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: TextFormField(
+                    controller: password,
+                    obscureText: obscure,
+                    keyboardType: TextInputType.text,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      filled: true,
+                      labelText: 'Password: ',
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                            obscure ? Icons.visibility : Icons.visibility_off),
+                        onPressed: () {
+                          setState(() {
+                            obscure = !obscure;
+                          });
+                        },
+                      ),
+                      labelStyle: const TextStyle(color: Colors.redAccent),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100),
+                        borderSide: const BorderSide(color: Color(0xfffdfdfd)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100),
+                        borderSide: const BorderSide(color: Color(0xfffc4040)),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    const SizedBox(width: 25),
+                    const Text("Don't have an account? : "),
+                    TextButton(
+                      child: const Text('Sign up'),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignUp()),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: button
+                      ? () {
+                          // TODO: sending userName and password to server in phase 2 project
+
+                          userName.clear();
+                          password.clear();
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Feed()),
+                          );
+                        }
+                      : null,
+                  child: const Text(
+                    'Log in',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    primary: const Color(0xffffb34f),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 120,
+                      vertical: 25,
+                    ),
+                  ),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: button ? () {
-                      userName.clear();
-                      password.clear();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Feed()),
-                      );
-                    }
-                  : null,
-              child: const Text(
-                'Log in',
-                style: TextStyle(fontSize: 20),
-              ),
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                primary: const Color(0xffffb34f),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 120,
-                  vertical: 25,
-                ),
-              ),
-            ),
           ],
         ),
-      ],
+      ),
     );
   }
 }
