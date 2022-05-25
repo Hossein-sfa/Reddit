@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:reddit/signuppage.dart';
 import 'siginpage.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 // class for switching between dark and light theme
 class Theme {
@@ -58,7 +55,7 @@ class MyHomePageState extends State<MyHomePage> {
           style: TextStyle(fontSize: 25),
         ),
       ),
-      body: const SignUp(),
+      body: const SignIn(),
     );
   }
 }

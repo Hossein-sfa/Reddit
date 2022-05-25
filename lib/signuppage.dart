@@ -6,8 +6,7 @@ import 'feed.dart';
 isValidPassword(String pass) {
   if (pass.length >= 8) {
     String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
-    RegExp regex = RegExp(pattern);
-    return regex.hasMatch(pass);
+    return RegExp(pattern).hasMatch(pass);
   }
   return false;
 }
@@ -64,7 +63,8 @@ class SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Material(
+      child: SafeArea(
         child: Center(
           child: Wrap(
             children: [
@@ -82,13 +82,11 @@ class SignUpState extends State<SignUp> {
                         labelStyle: const TextStyle(color: Colors.redAccent),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(100),
-                          borderSide:
-                              const BorderSide(color: Color(0xfffdfdfd)),
+                          borderSide: const BorderSide(color: Color(0xfffdfdfd)),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(100),
-                          borderSide:
-                              const BorderSide(color: Color(0xfffc4040)),
+                          borderSide: const BorderSide(color: Color(0xfffc4040)),
                         ),
                       ),
                     ),
@@ -107,13 +105,11 @@ class SignUpState extends State<SignUp> {
                         labelStyle: const TextStyle(color: Colors.redAccent),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(100),
-                          borderSide:
-                              const BorderSide(color: Color(0xfffdfdfd)),
+                          borderSide: const BorderSide(color: Color(0xfffdfdfd)),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(100),
-                          borderSide:
-                              const BorderSide(color: Color(0xfffc4040)),
+                          borderSide: const BorderSide(color: Color(0xfffc4040)),
                         ),
                       ),
                     ),
@@ -130,9 +126,8 @@ class SignUpState extends State<SignUp> {
                         filled: true,
                         labelText: 'Password: ',
                         suffixIcon: IconButton(
-                          icon: Icon(obscure
-                              ? Icons.visibility
-                              : Icons.visibility_off),
+                          icon: Icon(
+                              obscure ? Icons.visibility : Icons.visibility_off),
                           onPressed: () {
                             setState(() {
                               obscure = !obscure;
@@ -142,13 +137,11 @@ class SignUpState extends State<SignUp> {
                         labelStyle: const TextStyle(color: Colors.redAccent),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(100),
-                          borderSide:
-                              const BorderSide(color: Color(0xfffdfdfd)),
+                          borderSide: const BorderSide(color: Color(0xfffdfdfd)),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(100),
-                          borderSide:
-                              const BorderSide(color: Color(0xfffc4040)),
+                          borderSide: const BorderSide(color: Color(0xfffc4040)),
                         ),
                       ),
                     ),
@@ -184,7 +177,7 @@ class SignUpState extends State<SignUp> {
                           }
                         : null,
                     child: const Text(
-                      'Log in',
+                      'Sign Up',
                       style: TextStyle(fontSize: 20),
                     ),
                     style: ElevatedButton.styleFrom(
@@ -203,6 +196,7 @@ class SignUpState extends State<SignUp> {
             ],
           ),
         ),
+      ),
     );
   }
 }
