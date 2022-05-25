@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'feed.dart';
 import 'siginpage.dart';
 
 void main() => runApp(const MyApp());
@@ -20,6 +21,16 @@ class Theme {
     colorScheme: const ColorScheme.dark(),
     appBarTheme: const AppBarTheme(
       backgroundColor: Color(0xFFE53F3F),
+    ),
+  );
+}
+
+// contains app bar for different pages
+class AppBars {
+  static var reddit = AppBar(
+    title: const Text(
+      "Reddit",
+      style: TextStyle(fontSize: 25),
     ),
   );
 }
@@ -46,16 +57,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
+  var signedIn = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Reddit",
-          style: TextStyle(fontSize: 25),
-        ),
-      ),
-      body: const SignIn(),
+      body: signedIn ? const Feed() : const SignIn(),
     );
   }
 }
