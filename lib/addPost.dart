@@ -60,6 +60,12 @@ class _AddPostState extends State<AddPost> {
     ),
     Center(
       child: Icon(
+        Icons.keyboard_voice,
+        size: 150,
+      ),
+    ),
+    Center(
+      child: Icon(
         Icons.poll,
         size: 150,
       ),
@@ -120,6 +126,10 @@ class _AddPostState extends State<AddPost> {
           BottomNavigationBarItem(
             icon: Icon(Icons.add_link),
             label: 'Links',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.keyboard_voice),
+            label: 'Voice',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.poll),
