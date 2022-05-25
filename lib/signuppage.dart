@@ -218,8 +218,6 @@ class SignUpState extends State<SignUp> {
                       onPressed:
                           emailChecker && userNameChecker && passwordChecker
                               ? () {
-                                  userName.clear();
-                                  password.clear();
                                   // ToDo : sending username and password to server in phase to project
                                   Navigator.push(
                                     context,

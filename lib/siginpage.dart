@@ -3,16 +3,6 @@ import 'signuppage.dart';
 import 'feed.dart';
 import 'main.dart';
 
-// validate that password contains 8 chars and  at least one number and  a small and a capital character
-isValidPassword(String pass) {
-  if (pass.length >= 8) {
-    String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
-    RegExp regex = RegExp(pattern);
-    return regex.hasMatch(pass);
-  }
-  return false;
-}
-
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
   @override
@@ -22,18 +12,7 @@ class SignIn extends StatefulWidget {
 class SignInState extends State<SignIn> {
   TextEditingController userName = TextEditingController();
   TextEditingController password = TextEditingController();
-  bool obscure = true, button = false;
-
-  // disabling button when password is not valid and username and pass are not empty
-  @override
-  void initState() {
-    super.initState();
-    password.addListener(() {
-      setState(() {
-        button = (isValidPassword(password.text) && userName.text != '');
-      });
-    });
-  }
+  bool obscure = true;
 
   // deleting the text controller when widget is disposed (finalize method)
   @override
@@ -123,7 +102,8 @@ class SignInState extends State<SignIn> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const SignUp()),
+                                builder: (context) => const SignUp(),
+                              ),
                             );
                           },
                         ),
@@ -131,19 +111,15 @@ class SignInState extends State<SignIn> {
                     ),
                     const SizedBox(height: 10),
                     ElevatedButton(
-                      onPressed: button
-                          ? () {
-                              // TODO: sending userName and password to server in phase 2 project
-
-                              userName.clear();
-                              password.clear();
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Feed()),
-                              );
-                            }
-                          : null,
+                      onPressed: () {
+                        // TODO: sending userName and password to server in phase 2 project
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Feed(),
+                          ),
+                        );
+                      },
                       child: const Text(
                         'Log in',
                         style: TextStyle(fontSize: 20),
