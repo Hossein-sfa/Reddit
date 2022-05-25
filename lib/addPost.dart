@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'Post.dart';
 
 class AddPost extends StatefulWidget {
@@ -35,10 +36,7 @@ class _AddPostState extends State<AddPost> {
   }
 
   int _selectedIndex = 0;
-
-  // const TextEditingController txt = TextEditingController();
-  String str = "";
-  static List<Widget> _pages = <Widget>[
+  static const List<Widget> _pages = <Widget>[
     Center(),
     Center(
       child: Icon(
@@ -78,16 +76,9 @@ class _AddPostState extends State<AddPost> {
       appBar: AppBar(
         actions: [
           IconButton(
-            icon: Icon(
-              Icons.close_rounded,
-              color: Colors.grey,
-            ),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.next_plan,
-              color: Colors.orangeAccent,
+              color: Colors.deepOrangeAccent,
             ),
             onPressed: () {
               String title = titleC.text;
@@ -101,37 +92,44 @@ class _AddPostState extends State<AddPost> {
             },
           ),
         ],
-        title: const Text("Add Posts"),
-        backgroundColor: Colors.black12,
+        title: const Text("Add Post"),
+        backgroundColor: Colors.black45,
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black45,
         selectedFontSize: 20,
         selectedIconTheme:
-            IconThemeData(color: Colors.deepOrangeAccent, size: 38),
+            const IconThemeData(color: Colors.deepOrangeAccent, size: 28),
         selectedItemColor: Colors.deepOrangeAccent,
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+            backgroundColor: Colors.black45,
             icon: Icon(Icons.text_fields),
             label: 'Text',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Colors.black45,
             icon: Icon(Icons.image),
             label: 'Image',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Colors.black45,
             icon: Icon(Icons.video_collection),
             label: 'Video',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Colors.black45,
             icon: Icon(Icons.add_link),
             label: 'Links',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Colors.black45,
             icon: Icon(Icons.keyboard_voice),
             label: 'Voice',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Colors.black45,
             icon: Icon(Icons.poll),
             label: 'Poll',
           ),
@@ -140,27 +138,29 @@ class _AddPostState extends State<AddPost> {
         //New
         onTap: _onItemTapped,
       ),
-      body: (10 < 20)
+      body: (_selectedIndex == 0)
           ? Container(
               color: Colors.black26,
               padding: const EdgeInsets.all(40),
               child: Column(
                 children: [
                   Container(
-                    height: 50,
+                    height: 70,
                     child: TextField(
                       decoration: const InputDecoration(
-                          hintText: "Title", fillColor: Colors.grey),
+                          hintText: "An interesting title"),
                       controller: titleC,
                       keyboardType: TextInputType.text,
                     ),
                   ),
                   Container(
-                    height: 80,
+                    height: 150,
                     child: TextField(
-                      decoration:
-                          const InputDecoration(hintText: "Description"),
+                      decoration: const InputDecoration(hintText: "Text Body"),
                       controller: body,
+                      keyboardType: TextInputType.multiline,
+                      minLines: 10,
+                      maxLines: null,
                     ),
                   ),
                 ],
