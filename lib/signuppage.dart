@@ -219,7 +219,7 @@ class SignUpState extends State<SignUp> {
                           emailChecker && userNameChecker && passwordChecker
                               ? () {
                                   // ToDo : sending username and password to server in phase to project
-                                  Navigator.push(
+                                  Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => const Feed(),

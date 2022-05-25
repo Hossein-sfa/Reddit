@@ -113,6 +113,7 @@ class SignInState extends State<SignIn> {
                     ElevatedButton(
                       onPressed: () {
                         // TODO: sending userName and password to server in phase 2 project
+                        signedIn = true;
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
