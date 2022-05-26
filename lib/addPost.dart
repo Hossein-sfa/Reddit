@@ -136,9 +136,9 @@ class _AddPostState extends State<AddPost> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black45,
-        selectedFontSize: 20,
+        selectedFontSize: 18,
         selectedIconTheme:
-        const IconThemeData(color: Colors.deepOrangeAccent, size: 28),
+        const IconThemeData(color: Colors.deepOrangeAccent, size: 22),
         selectedItemColor: Colors.deepOrangeAccent,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
         items: const <BottomNavigationBarItem>[
