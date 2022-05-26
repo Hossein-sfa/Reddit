@@ -5,7 +5,7 @@ import 'siginpage.dart';
 void main() => runApp(const MyApp());
 
 // if user has signed in the main page directs to feed page
-var signedIn = false;
+var signedIn = true;
 
 // class for switching between dark and light theme
 class Theme {
@@ -60,7 +60,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
