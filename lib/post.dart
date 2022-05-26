@@ -6,6 +6,7 @@ class Post {
   int likes = 0, disLikes = 0, commentsNum = 0;
   List<Comment> comments = [];
 
+  // Bubble sort for comments based on number of likes
   getSortedComments() {
     for (int j = 0; j < comments.length - 1; j++) {
       for (int i = 0; i < comments.length - j - 1; i++) {
