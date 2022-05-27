@@ -195,6 +195,7 @@ class PeopleSearchResult extends State<People>
             return ListTile(
               title: Text('${items[index]}'),
             );
+
           },
         ),
      */
