@@ -1,22 +1,25 @@
-import 'comment.dart';
-
 class Post {
-  String ? community, userNamePoster, text;
-  DateTime ? date;
-  int likes = 0, disLikes = 0, commentsNum = 0;
-  List<Comment> comments = [];
+  String _title;
+  String _description;
+  int _likes ;
+  DateTime _dateTime ;
+  Post( this._title , this._description , this._likes , this._dateTime);
+  int get likes => _likes ;
+  void setLike (){
+    _likes ++;
+  }
 
-  // Bubble sort for comments based on number of likes
-  getSortedComments() {
-    for (int j = 0; j < comments.length - 1; j++) {
-      for (int i = 0; i < comments.length - j - 1; i++) {
-        if (comments[i].likes< comments[i + 1].likes) {
-          Comment temp = comments[i];
-          comments[i] = comments[i + 1];
-          comments[i + 1] = temp;
-        }
-      }
-    }
-    return comments;
+  DateTime get dateTime => _dateTime ;
+  set setDateTime (DateTime date){
+    _dateTime = date ; }
+
+  String get title => _title;
+  set setTitle (String str){
+    _title = str ;
+  }
+
+  String get description => _description;
+  set setDescription (String value){
+    _description = value ;
   }
 }

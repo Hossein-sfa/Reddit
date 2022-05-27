@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'Post.dart';
 import 'package:motion_toast/motion_toast.dart';
+import 'Post.dart';
 
 class AddPost extends StatefulWidget {
-  const AddPost({required Key key, required this.addNewPost}) : super(key: key);
-  final Function addNewPost;
+  const AddPost({Key? key}) : super(key: key);
+
+  //const AddPost(this.addNewPost, {Key? key}) : super(key: key);
+  //final Function addNewPost;
 
   @override
   State<AddPost> createState() => _AddPostState();
@@ -27,7 +29,8 @@ class _AddPostState extends State<AddPost> {
     super.initState();
   }
 
-  void dispode() {
+  @override
+  void dispose() {
     titleC.dispose();
 
     /// make state to unusable state
@@ -38,7 +41,6 @@ class _AddPostState extends State<AddPost> {
 
   int _selectedIndex = 0;
   static const List<Widget> _pages = <Widget>[
-    Center(),
     Center(
       child: Icon(
         Icons.add_a_photo,
@@ -87,7 +89,7 @@ class _AddPostState extends State<AddPost> {
                 String desc = body.text;
                 DateTime datetime = time;
                 Post post = Post(title, desc, 0, datetime);
-                widget.addNewPost(post);
+                //widget.addNewPost(post);
                 titleC.clear();
                 body.clear();
                 Navigator.pop(context);
@@ -183,7 +185,7 @@ class _AddPostState extends State<AddPost> {
         padding: const EdgeInsets.all(40),
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: 70,
               child: TextField(
                 decoration: const InputDecoration(
@@ -192,7 +194,7 @@ class _AddPostState extends State<AddPost> {
                 keyboardType: TextInputType.text,
               ),
             ),
-            Container(
+            SizedBox(
               height: 150,
               child: TextField(
                 decoration: const InputDecoration(hintText: "Text Body"),
