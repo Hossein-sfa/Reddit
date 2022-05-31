@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
-import 'Post.dart';
+import 'post.dart';
 
 class PostDetails extends StatelessWidget {
   const PostDetails({Key? key, required this.post}) : super(key: key);
@@ -36,7 +36,7 @@ class PostDetails extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          post.community,
+                          post.Community,
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontSize: 13,
