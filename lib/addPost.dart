@@ -4,7 +4,6 @@ import 'Post.dart';
 import 'posts.dart';
 
 class AddPost extends StatefulWidget {
-
   const AddPost({Key? key}) : super(key: key);
   @override
   State<AddPost> createState() => _AddPostState();

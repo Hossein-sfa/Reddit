@@ -19,7 +19,7 @@ class Post {
     if (date.difference(time).inSeconds < 60) {
       return date.difference(time).inSeconds.toString() + " sec";
     } else if (date.difference(time).inMinutes < 60) {
-      return date.difference(time).inMinutes.toString() + " mi";
+      return date.difference(time).inMinutes.toString() + " min";
     } else if (date.difference(time).inHours < 24) {
       return date.difference(time).inHours.toString() + " hour";
     } else if (date.difference(time).inDays < 7) {
