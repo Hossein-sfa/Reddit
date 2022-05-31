@@ -19,13 +19,53 @@ class FeedState extends State<Feed> {
             itemCount: UserPosts.posts.length,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                leading: const CircleAvatar(
-                  foregroundImage: AssetImage('assets/images/circleAvatar.png'),
+                leading: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const CircleAvatar(
+                          backgroundImage:
+                              AssetImage('assets/images/circleAvatar.png'),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              UserPosts.posts[index].userName,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),
+                            ),
+                            Text(
+                              UserPosts.posts[index].community,
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.white.withOpacity(0.8),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        IconButton(icon: const Icon(Icons.thumb_up), onPressed: () {},)
+                      ],
+                    ),
+                  ],
                 ),
-                trailing:
-                    Text(UserPosts.posts[index].passedTime(DateTime.now())),
-                title: Text(UserPosts.posts[index].userName),
-                subtitle: Text(UserPosts.posts[index].community),
+
+                // leading: const CircleAvatar(
+                //   backgroundImage: AssetImage('assets/images/circleAvatar.png'),
+                // ),
+                // trailing:
+                //     Text(UserPosts.posts[index].passedTime(DateTime.now())),
+                // title: Text(UserPosts.posts[index].userName),
+                // subtitle: Text(UserPosts.posts[index].community),
+
                 onTap: () {
                   Navigator.push(
                     context,
