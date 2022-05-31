@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'feed.dart';
 import 'SearchPage.dart';
 import 'addPost.dart';
+import 'home.dart';
 import 'posts.dart';
 
 class ToHome extends StatefulWidget {
   const ToHome({Key? key}) : super(key: key);
 
   @override
-  State<ToHome> createState() => ToDoListState();
+  State<ToHome> createState() => homeState();
 }
 
-class ToDoListState extends State<ToHome> {
+class homeState extends State<ToHome> {
   int _selectedIndex = 0;
 
   num length = UserPosts.posts.length;
@@ -51,12 +51,17 @@ class ToDoListState extends State<ToHome> {
                   onPressed: () {}, icon: const Icon(Icons.menu_rounded)))
         ],
       ),
-      body: const Feed(),
+      body: ListView.builder(
+        itemCount: UserPosts.posts.length,
+        itemBuilder: (contex, index) {
+          return TaskItem(post: UserPosts.posts[index],);
+        },
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black54,
         selectedFontSize: 18,
         selectedIconTheme:
-            const IconThemeData(color: Colors.orangeAccent, size: 22),
+        const IconThemeData(color: Colors.orangeAccent, size: 22),
         selectedItemColor: Colors.orangeAccent,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
         items: const <BottomNavigationBarItem>[
