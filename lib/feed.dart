@@ -52,7 +52,10 @@ class FeedState extends State<Feed> {
                     ),
                     Row(
                       children: [
-                        IconButton(icon: const Icon(Icons.thumb_up), onPressed: () {},)
+                        IconButton(
+                          icon: const Icon(Icons.thumb_up),
+                          onPressed: () {},
+                        )
                       ],
                     ),
                   ],

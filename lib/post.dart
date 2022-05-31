@@ -1,17 +1,18 @@
 class Post {
-  String title,description, userName, community;
-  int _likes ;
+  String title, description, userName, community;
+  int _likes;
   DateTime time;
 
-  Post(this.title, this.description , this._likes, this.time, this.userName, this.community);
+  Post(this.title, this.description, this._likes, this.time, this.userName,
+      this.community);
 
-  int get likes => _likes ;
-  void setLike (){
-    _likes ++;
+  int get likes => _likes;
+  void setLike() {
+    _likes++;
   }
 
-  set setDateTime (DateTime date){
-    time = date ;
+  set setDateTime(DateTime date) {
+    time = date;
   }
 
   // Method that calculate how much time is passed since the post was created
@@ -32,11 +33,12 @@ class Post {
       return (date.difference(time).inDays ~/ 365).toString() + " year";
     }
   }
-  set setTitle (String str){
-    title = str ;
+
+  set setTitle(String str) {
+    title = str;
   }
 
-  set setDescription (String value){
-    description = value ;
+  set setDescription(String value) {
+    description = value;
   }
 }
