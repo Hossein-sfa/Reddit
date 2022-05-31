@@ -8,10 +8,10 @@ class ToHome extends StatefulWidget {
   const ToHome({Key? key}) : super(key: key);
 
   @override
-  State<ToHome> createState() => ToDoListState();
+  State<ToHome> createState() => homeState();
 }
 
-class ToDoListState extends State<ToHome> {
+class homeState extends State<ToHome> {
   int _selectedIndex = 0;
 
   num length = UserPosts.posts.length;
@@ -54,7 +54,7 @@ class ToDoListState extends State<ToHome> {
       body: ListView.builder(
         itemCount: UserPosts.posts.length,
         itemBuilder: (contex, index) {
-          return TaskItem(UserPosts.posts[index]);
+          return TaskItem(post: UserPosts.posts[index],);
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
