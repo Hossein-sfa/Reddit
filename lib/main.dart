@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reddit/posts.dart';
 import 'feed.dart';
 import 'siginpage.dart';
 
@@ -62,8 +63,9 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: signedIn ? const Feed() : const SignIn(),
+    return const Scaffold(
+      // body: signedIn ? const Feed() : const SignIn(),
+      body: Feed(),
     );
   }
 }

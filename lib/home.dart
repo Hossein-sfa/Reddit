@@ -7,8 +7,6 @@ class TaskItem extends StatelessWidget {
 
   final Post post;
 
-  //final ToDoListState TodoList;
-
   @override
   Widget build(BuildContext context) {
     return ListTile(

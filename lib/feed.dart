@@ -18,19 +18,13 @@ class FeedState extends State<Feed> {
             itemCount: UserPosts.posts.length,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: Colors.greenAccent[400],
-                  radius: 100,
-                  child: const Text(
-                    'GeeksForGeeks',
-                    style: TextStyle(fontSize: 25, color: Colors.white),
-                  ), //Text
+                leading: const CircleAvatar(
+                  foregroundImage: AssetImage('assets/images/circleAvatar.png'),
                 ),
                 trailing: const Text(
                   "GFG",
-                  style: TextStyle(color: Colors.green, fontSize: 15),
                 ),
-                title: Text("List item $index"),
+                title: Text(UserPosts.posts[index].userName),
               );
             },
           ),
