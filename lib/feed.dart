@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reddit/posts.dart';
+import 'posts.dart';
 
 class Feed extends StatefulWidget {
   const Feed({Key? key}) : super(key: key);
@@ -21,10 +21,9 @@ class FeedState extends State<Feed> {
                 leading: const CircleAvatar(
                   foregroundImage: AssetImage('assets/images/circleAvatar.png'),
                 ),
-                trailing: const Text(
-                  "GFG",
-                ),
+                trailing: Text(UserPosts.posts[index].passedTime(DateTime.now())),
                 title: Text(UserPosts.posts[index].userName),
+                subtitle: Text(UserPosts.posts[index].community),
               );
             },
           ),
