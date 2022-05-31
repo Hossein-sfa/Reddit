@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'SearchPage.dart';
 import 'addPost.dart';
-import 'home.dart';
 import 'posts.dart';
+import 'feed.dart';
 
 class ToHome extends StatefulWidget {
   const ToHome({Key? key}) : super(key: key);
@@ -51,12 +51,7 @@ class homeState extends State<ToHome> {
                   onPressed: () {}, icon: const Icon(Icons.menu_rounded)))
         ],
       ),
-      body: ListView.builder(
-        itemCount: UserPosts.posts.length,
-        itemBuilder: (contex, index) {
-          return TaskItem(post: UserPosts.posts[index],);
-        },
-      ),
+      body: const Feed(),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black54,
         selectedFontSize: 18,

@@ -11,7 +11,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPage extends State<SearchPage> {
   //final TabController _tabController = TabController(length: 3 , vsync: this);
   final TextEditingController search =
-  TextEditingController(); // text editing controller for save search text!
+      TextEditingController(); // text editing controller for save search text!
   //ToDo => implement and find searched text from lists
   @override
   Widget build(BuildContext context) {
@@ -52,45 +52,45 @@ class _SearchPage extends State<SearchPage> {
                   borderRadius: BorderRadius.circular(100)),
               child: Center(
                   child: TextField(
-                    style: const TextStyle(color: Colors.black),
-                    keyboardType: TextInputType.text,
-                    controller: search,
-                    decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.search),
-                        suffixIcon: IconButton(
-                          icon: const Icon(Icons.clear),
-                          onPressed: () {
-                            search.clear();
+                style: const TextStyle(color: Colors.black),
+                keyboardType: TextInputType.text,
+                controller: search,
+                decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.search),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: () {
+                        search.clear();
 
-                            /// delete text field and renew it
-                          },
-                        ),
-                        hintText: 'Search...',
-                        border: InputBorder.none),
-                    //onSubmitted: (searchValue) {
-                    //getSubredditsTitles(searchValue, globals.bearerToken!.bodyToken)
-                    //.then((value) => setState(() {                 //ToDo => implement body for auto complete search result
-                    //ToDo => Linked associations list
-                    //       widget.searchResults = value;
-                    //}
-                  )),
+                        /// delete text field and renew it
+                      },
+                    ),
+                    hintText: 'Search...',
+                    border: InputBorder.none),
+                //onSubmitted: (searchValue) {
+                //getSubredditsTitles(searchValue, globals.bearerToken!.bodyToken)
+                //.then((value) => setState(() {                 //ToDo => implement body for auto complete search result
+                //ToDo => Linked associations list
+                //       widget.searchResults = value;
+                //}
+              )),
             ),
             bottom: (
-                //mainAxisAlignment: MainAxisAlignment.end,
-                //children: const [
-                const TabBar(tabs: [
-                  Tab(
-                    text: "Communities",
-                  ),
-                  Tab(
-                    text: "Posts",
-                  ),
-                  Tab(
-                    text: "People",
-                  )
-                ])
+                    //mainAxisAlignment: MainAxisAlignment.end,
+                    //children: const [
+                    const TabBar(tabs: [
+              Tab(
+                text: "Communities",
+              ),
+              Tab(
+                text: "Posts",
+              ),
+              Tab(
+                text: "People",
+              )
+            ])
                 //   ],
-            ),
+                ),
           ),
           body: (const TabBarView(
             children: [
