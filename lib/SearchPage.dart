@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'ToHome.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({required Key key}) : super(key: key);
+  const SearchPage({Key? key}) : super(key: key);
 
   @override
   State<SearchPage> createState() => _SearchPage();
@@ -10,7 +10,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPage extends State<SearchPage> {
   //final TabController _tabController = TabController(length: 3 , vsync: this);
-  final TextEditingController Search =
+  final TextEditingController search =
   TextEditingController(); // text editing controller for save search text!
   //ToDo => implement and find searched text from lists
   @override
@@ -31,7 +31,7 @@ class _SearchPage extends State<SearchPage> {
                         context,
                         MaterialPageRoute(
                           builder: (_) {
-                            return ToHome();
+                            return const ToHome();
 
                             /// back to main page home from Search box!
                           },
@@ -54,13 +54,13 @@ class _SearchPage extends State<SearchPage> {
                   child: TextField(
                     style: const TextStyle(color: Colors.black),
                     keyboardType: TextInputType.text,
-                    controller: Search,
+                    controller: search,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.search),
                         suffixIcon: IconButton(
                           icon: const Icon(Icons.clear),
                           onPressed: () {
-                            Search.clear();
+                            search.clear();
 
                             /// delete text field and renew it
                           },
@@ -92,9 +92,9 @@ class _SearchPage extends State<SearchPage> {
                 //   ],
             ),
           ),
-          body: (TabBarView(
+          body: (const TabBarView(
             children: [
-              const Communities(),
+              Communities(),
               Posts(),
               People(),
             ],
@@ -143,6 +143,8 @@ class CommunitiesSearchResult extends State<Communities>
 }
 
 class Posts extends StatefulWidget {
+  const Posts({Key? key}) : super(key: key);
+
   @override
   State<Posts> createState() => PostSearchResult();
 }
@@ -174,6 +176,8 @@ class PostSearchResult extends State<Posts>
 }
 
 class People extends StatefulWidget {
+  const People({Key? key}) : super(key: key);
+
   @override
   State<People> createState() => PeopleSearchResult();
 }

@@ -1,31 +1,20 @@
 import 'package:flutter/material.dart';
 import 'SearchPage.dart';
-import 'Post.dart';
 import 'addPost.dart';
 import 'home.dart';
+import 'posts.dart';
 
 class ToHome extends StatefulWidget {
+  const ToHome({Key? key}) : super(key: key);
+
   @override
   State<ToHome> createState() => ToDoListState();
 }
 
 class ToDoListState extends State<ToHome> {
-  List<Post> tasksList = [];
-
-  void addTask(Post post) {
-    setState(() {
-      tasksList.add(post);                //ToDo => shamsi date & each post of per associations
-      tasksList.sort((b, a) => a.dateTime!.compareTo(b.dateTime!));     // sort posts by time
-    });
-  }
-
-  void deleteTask(Post post) {
-    setState(() {                  //ToDo => For delete post
-      tasksList.remove(Post);
-    });
-  }
-
   int _selectedIndex = 0;
+
+  num length = UserPosts.posts.length;
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +23,13 @@ class ToDoListState extends State<ToHome> {
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0X73000000),
         title: const SizedBox(
-            width: double.infinity,
-            height: 40,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text("Reddit"),
-            )),
+          width: double.infinity,
+          height: 40,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text("Reddit"),
+          ),
+        ),
         actions: [
           IconButton(
               onPressed: () {
@@ -61,19 +51,17 @@ class ToDoListState extends State<ToHome> {
                   onPressed: () {}, icon: const Icon(Icons.menu_rounded)))
         ],
       ),
-      body: Container(
-        child: ListView.builder(
-          itemCount: tasksList.length,
-          itemBuilder: (contex, index) {
-            return TaskItem(post: tasksList[index], TodoList: ToDoListState());
-          },
-        ),
+      body: ListView.builder(
+        itemCount: UserPosts.posts.length,
+        itemBuilder: (contex, index) {
+          return TaskItem(UserPosts.posts[index]);
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black54,
         selectedFontSize: 18,
         selectedIconTheme:
-        const IconThemeData(color: Colors.orangeAccent, size: 22),
+            const IconThemeData(color: Colors.orangeAccent, size: 22),
         selectedItemColor: Colors.orangeAccent,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
         items: const <BottomNavigationBarItem>[
@@ -113,13 +101,14 @@ class ToDoListState extends State<ToHome> {
     setState(() {
       _selectedIndex = index;
     });
-    if (_selectedIndex == 2) {           // ToDo => if + selected means add post so push add post page
+    if (_selectedIndex == 2) {
+      // ToDo => if + selected means add post so push add post page
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (_) {
-            return AddPost(
-              addNewPost: addTask,
+            return const AddPost(
+              //addNewPost: addTask,
               key: Key("navid"),
             );
           },

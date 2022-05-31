@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'Post.dart';
+import 'posts.dart';
 
 class AddPost extends StatefulWidget {
+
   const AddPost({Key? key}) : super(key: key);
-
-  //const AddPost(this.addNewPost, {Key? key}) : super(key: key);
-  //final Function addNewPost;
-
   @override
   State<AddPost> createState() => _AddPostState();
 }
@@ -25,15 +23,13 @@ class _AddPostState extends State<AddPost> {
     body = TextEditingController();
     time = DateTime.now();
     titleC.text = "";
-    body.text = "" ;
+    body.text = "";
     super.initState();
   }
 
   @override
   void dispose() {
     titleC.dispose();
-
-    /// make state to unusable state
     body.dispose();
     time.toString();
     super.dispose();
@@ -84,50 +80,47 @@ class _AddPostState extends State<AddPost> {
               color: Colors.deepOrangeAccent,
             ),
             onPressed: () {
-              if(titleC.text != "" && body.text != "" && _selectedIndex == 0){
+              if (titleC.text != "" && body.text != "" && _selectedIndex == 0) {
                 String title = titleC.text;
                 String desc = body.text;
                 DateTime datetime = time;
                 Post post = Post(title, desc, 0, datetime);
-                //widget.addNewPost(post);
+                UserPosts.addPost(post);
                 titleC.clear();
                 body.clear();
                 Navigator.pop(context);
-              }
-              else if (_selectedIndex == 1) {
+              } else if (_selectedIndex == 1) {
                 MotionToast.error(
-                    title:  const Text("Error"),
-                    description:  const Text("Please insert your interesting images!")
+                  title: const Text("Error"),
+                  description:
+                      const Text("Please insert your interesting images!"),
                 ).show(context);
-              }
-              else if (_selectedIndex == 0) {
+              } else if (_selectedIndex == 0) {
                 MotionToast.error(
-                    title:  const Text("Error"),
-                    description:  const Text("Please fill interesting title and text body!")
+                  title: const Text("Error"),
+                  description: const Text(
+                      "Please fill interesting title and text body!"),
                 ).show(context);
-              }
-              else if (_selectedIndex == 2) {
+              } else if (_selectedIndex == 2) {
                 MotionToast.error(
-                    title:  const Text("Error"),
-                    description:  const Text("Please insert your interesting videos!")
+                  title: const Text("Error"),
+                  description:
+                      const Text("Please insert your interesting videos!"),
                 ).show(context);
-              }
-              else if (_selectedIndex == 3) {
+              } else if (_selectedIndex == 3) {
                 MotionToast.error(
-                    title:  const Text("Error"),
-                    description:  const Text("Please attach a link!")
+                  title: const Text("Error"),
+                  description: const Text("Please attach a link!"),
                 ).show(context);
-              }
-              else if (_selectedIndex == 4) {
+              } else if (_selectedIndex == 4) {
                 MotionToast.error(
-                    title:  const Text("Error"),
-                    description:  const Text("Please insert voice or music!")
+                  title: const Text("Error"),
+                  description: const Text("Please insert voice or music!"),
                 ).show(context);
-              }
-              else if (_selectedIndex == 5) {
+              } else if (_selectedIndex == 5) {
                 MotionToast.error(
-                    title:  const Text("Error"),
-                    description:  const Text("Please add a poll!")
+                  title: const Text("Error"),
+                  description: const Text("Please add a poll!"),
                 ).show(context);
               }
             },
@@ -140,7 +133,7 @@ class _AddPostState extends State<AddPost> {
         backgroundColor: Colors.black45,
         selectedFontSize: 18,
         selectedIconTheme:
-        const IconThemeData(color: Colors.deepOrangeAccent, size: 22),
+            const IconThemeData(color: Colors.deepOrangeAccent, size: 22),
         selectedItemColor: Colors.deepOrangeAccent,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
         items: const <BottomNavigationBarItem>[
@@ -181,36 +174,36 @@ class _AddPostState extends State<AddPost> {
       ),
       body: (_selectedIndex == 0)
           ? Container(
-        color: Colors.black26,
-        padding: const EdgeInsets.all(40),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 70,
-              child: TextField(
-                decoration: const InputDecoration(
-                    hintText: "An interesting title"),
-                controller: titleC,
-                keyboardType: TextInputType.text,
+              color: Colors.black26,
+              padding: const EdgeInsets.all(40),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 70,
+                    child: TextField(
+                      decoration: const InputDecoration(
+                          hintText: "An interesting title"),
+                      controller: titleC,
+                      keyboardType: TextInputType.text,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 150,
+                    child: TextField(
+                      decoration: const InputDecoration(hintText: "Text Body"),
+                      controller: body,
+                      keyboardType: TextInputType.multiline,
+                      minLines: 10,
+                      maxLines: null,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(
-              height: 150,
-              child: TextField(
-                decoration: const InputDecoration(hintText: "Text Body"),
-                controller: body,
-                keyboardType: TextInputType.multiline,
-                minLines: 10,
-                maxLines: null,
-              ),
-            ),
-          ],
-        ),
-      )
+            )
           : IndexedStack(
-        index: _selectedIndex,
-        children: _pages,
-      ),
+              index: _selectedIndex,
+              children: _pages,
+            ),
     );
   }
 
