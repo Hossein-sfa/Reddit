@@ -38,6 +38,7 @@ dependencies:
   motion_toast: ^2.1.7
   multilevel_drawer: ^2.0.0
   settings_ui: ^0.2.0
+  font_awesome_flutter: ^9.1.0
 
 dev_dependencies:
   flutter_test:
