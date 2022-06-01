@@ -3,12 +3,11 @@ class Post {
   int _likes;
   DateTime time;
 
-  Post(this.title, this.description, this._likes, this.time, this.userName,
-      this.community);
+  Post(this.title, this.description, this._likes, this.time, this.userName,this.community);
 
   int get likes => _likes;
 
-  String get Community => community ;
+ // String get Community => community ;
 
   void setLike() {
     _likes++;

@@ -36,7 +36,7 @@ class PostDetails extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          post.Community,
+                          post.community,
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontSize: 13,
