@@ -20,7 +20,7 @@ class AboutUsState extends State<AboutUs> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-
+      //ToDo => we must implementing navigation bar to back home!
 
       body:ListView(
         padding: EdgeInsets.zero,
@@ -29,8 +29,6 @@ class AboutUsState extends State<AboutUs> {
           buildContent(),
         ],
       )
-
-
     );
 
   }
@@ -54,15 +52,39 @@ class AboutUsState extends State<AboutUs> {
           const SizedBox(width: 12),
           buildSocialIcon(FontAwesomeIcons.telegram , "Navid"),
         ],
-      )
+      ),
+      const SizedBox(height: 16),
+      buildAboutUs(),
+      const SizedBox(height: 25),
     ],
   );
+  Widget buildAboutUs(){
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 48),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("About Us",
+            style: TextStyle(fontSize: 28 ,fontWeight: FontWeight.bold),),
+          const SizedBox(height: 16),
+          Text("We are students of computer engineering of Shahid Behesti University. We are studing in term 2 of university. This is our flutter project for Ap classes (Dr. Vahidi). We must implement reddit clone in flutter. Both of us live in Tehran. ",
+
+          style: TextStyle(fontSize: 18 , height: 1.4),),
+        ],
+      ),
+    );
+  }
   Widget buildTopBar() {
+    final bottom = profileHeight / 2 ;
     return Stack(
     clipBehavior: Clip.none,
     alignment: Alignment.center,
     children: [
-      buildCoverImage(),
+      Container(
+        margin: EdgeInsets.only(bottom: bottom),
+        child: buildCoverImage(),
+      ),
+
       Positioned(
           top: distanceFromTop,
           child: buildProfileImage()
