@@ -1,133 +1,328 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class AboutUs extends StatefulWidget {
-  const AboutUs({Key? key}) : super(key: key);
-
-  @override
-  State<AboutUs> createState() => AboutUsState();
-}
-
-class AboutUsState extends State<AboutUs> {
-  final double coverHeight = 280;
-  final double profileHeight = 144;
-  final double distanceFromTop = 68;
-  String src =
-      "https://static.vecteezy.com/system/resources/previews/003/335/579/large_2x/desktop-source-code-and-wallpaper-by-coding-and-programming-free-photo.jpg";
-  String src2 =
-      "https://thumbs.dreamstime.com/b/business-man-icon-illustration-business-man-icon-white-background-107722188.jpg";
+class ABUS extends StatelessWidget {
+  const ABUS({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const MaterialApp(
+      title: "User Profile",
+      debugShowCheckedModeBanner: false,
+      home: UserProfilePage(),
+    );
+  }
+}
 
-        //ToDo => we must implementing navigation bar to back home!
+class UserProfilePage extends StatelessWidget {
+  final String _fullName = "Hossein & Navid";
+  final String _status = "Computer Engineers Student";
+  final String _bio =
+      "\"Hi, ٌWE are computer engineers students from Iran. We are trying to make a better world."
+      "cadvdvvdzvdvdxvxvxvdz"
+      "vxdxvdvdvxdvxv"
+      "dzdfddzdzczczdcdzcdzcdzdzczdcdzczdcdzcdzcdz"
+      "czdcdzcdzcdzcdzdczczdczdcz"
+      "zdcdzczdczdcdzcdzcdzczdczdcdzcdzcdzcdzcdczcdzczcdzczcdzcz"
+      "zdcdzczdcdzcdzcdcdfefrsgtdhyfjyjtyhrgrsgsgrgdg"
+      "d"
+      "cadvdvvdzvdvdxvxvxvdz"
+      "vxdxvdvdvxdvxv"
+      "dzdfddzdzczczdcdzcdzcdzdzczdcdzczdcdzcdzcdz"
+      "czdcdzcdzcdzcdzdczczdczdcz"
+      "zdcdzczdczdcdzcdzcdzczdczdcdzcdzcdzcdzcdczcdzczcdzczcdzcz"
+      "zdcdzczdcdzcdzcdcdfefrsgtdhyfjyjtyhrgrsgsgrgdg"
+      "d"
+      "cadvdvvdzvdvdxvxvxvdz"
+      "vxdxvdvdvxdvxv"
+      "dzdfddzdzczczdcdzcdzcdzdzczdcdzczdcdzcdzcdz"
+      "czdcdzcdzcdzcdzdczczdczdcz"
+      "zdcdzczdczdcdzcdzcdzczdczdcdzcdzcdzcdzcdczcdzczcdzczcdzcz"
+      "zdcdzczdcdzcdzcdcdfefrsgtdhyfjyjtyhrgrsgsgrgdg"
+      "d"
+      "cadvdvvdzvdvdxvxvxvdz"
+      "vxdxvdvdvxdvxv"
+      "dzdfddzdzczczdcdzcdzcdzdzczdcdzczdcdzcdzcdz"
+      "czdcdzcdzcdzcdzdczczdczdcz"
+      "zdcdzczdczdcdzcdzcdzczdczdcdzcdzcdzcdzcdczcdzczcdzczcdzcz"
+      "zdcdzczdcdzcdzcdcdfefrsgtdhyfjyjtyhrgrsgsgrgdg"
+      "d"
+      "cadvdvvdzvdvdxvxvxvdz"
+      "vxdxvdvdvxdvxv"
+      "dzdfddzdzczczdcdzcdzcdzdzczdcdzczdcdzcdzcdz"
+      "czdcdzcdzcdzcdzdczczdczdcz"
+      "zdcdzczdczdcdzcdzcdzczdczdcdzcdzcdzcdzcdczcdzczcdzczcdzcz"
+      "zdcdzczdcdzcdzcdcdfefrsgtdhyfjyjtyhrgrsgsgrgdg"
+      "d"
+      "cadvdvvdzvdvdxvxvxvdz"
+      "vxdxvdvdvxdvxv"
+      "dzdfddzdzczczdcdzcdzcdzdzczdcdzczdcdzcdzcdz"
+      "czdcdzcdzcdzcdzdczczdczdcz"
+      "zdcdzczdczdcdzcdzcdzczdczdcdzcdzcdzcdzcdczcdzczcdzczcdzcz"
+      "zdcdzczdcdzcdzcdcdfefrsgtdhyfjyjtyhrgrsgsgrgdg"
+      "d"
+      "cadvdvvdzvdvdxvxvxvdz"
+      "vxdxvdvdvxdvxv"
+      "dzdfddzdzczczdcdzcdzcdzdzczdcdzczdcdzcdzcdz"
+      "czdcdzcdzcdzcdzdczczdczdcz"
+      "zdcdzczdczdcdzcdzcdzczdczdcdzcdzcdzcdzcdczcdzczcdzczcdzcz"
+      "zdcdzczdcdzcdzcdcdfefrsgtdhyfjyjtyhrgrsgsgrgdg"
+      "d"
+      "grsgrgrgtdhhyfjgyukulkkgmrskrjfejfkjekofjkrjkgjkrjgjrkjgrjg  jjt jvj jbbjjnjsjkjrjgkgjrkjgjuct leave a message.\"";
+  final String _stuid1 = "Navid";
+  final String _stuid2 = "Hossein";
 
-        body: ListView(
-      padding: EdgeInsets.zero,
-      children: <Widget>[
-        buildTopBar(),
-        buildContent(),
-      ],
-    ));
+  const UserProfilePage({Key? key}) : super(key: key);
+
+  Widget _buildCoverImage(Size screenSize) {
+    return Container(
+      height: screenSize.height / 3,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/cover.jpg'),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
   }
 
-  Widget buildContent() => Column(
-        children: [
-          const SizedBox(height: 8),
-          const Text(
-            "Hossein & Navid",
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+  Widget _buildProfileImage() {
+    return Center(
+      child: Container(
+        width: 90.0,
+        height: 90.0,
+        decoration: BoxDecoration(
+          image: const DecorationImage(
+            image: AssetImage('assets/images/circleAvatar.png'),
+            fit: BoxFit.cover,
           ),
-          const SizedBox(height: 8),
-          const Text(
-            "Computer Engineering Students",
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.black,
+          borderRadius: BorderRadius.circular(150.0),
+          border: Border.all(
+            color: Colors.white,
+            width: 5.0,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFullName() {
+    TextStyle _nameTextStyle = const TextStyle(
+      fontFamily: 'Roboto',
+      color: Colors.deepOrangeAccent,
+      fontSize: 25.0,
+      fontWeight: FontWeight.w700,
+    );
+
+    return Text(
+      _fullName,
+      style: _nameTextStyle,
+    );
+  }
+
+  Widget _buildStatus(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 6.0),
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: BorderRadius.circular(4.0),
+      ),
+      child: Text(
+        _status,
+        style: const TextStyle(
+          fontFamily: 'Spectral',
+          color: Colors.black,
+          fontSize: 20.0,
+          fontWeight: FontWeight.w300,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatItem(String label, String count) {
+    TextStyle _statLabelTextStyle = const TextStyle(
+      fontFamily: 'Roboto',
+      color: Colors.black,
+      fontSize: 16.0,
+      fontWeight: FontWeight.w200,
+    );
+
+    TextStyle _statCountTextStyle = const TextStyle(
+      color: Colors.black54,
+      fontSize: 24.0,
+      fontWeight: FontWeight.bold,
+    );
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          count,
+          style: _statCountTextStyle,
+        ),
+        Text(
+          label,
+          style: _statLabelTextStyle,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStatContainer() {
+    return Container(
+      height: 60.0,
+      margin: const EdgeInsets.only(top: 8.0),
+      decoration: const BoxDecoration(
+        color: Color(0xFFEFF4F7),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildStatItem("400243103", _stuid2),
+          _buildStatItem("400243103", _stuid1),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBio(BuildContext context) {
+    TextStyle bioTextStyle = const TextStyle(
+      fontFamily: 'Spectral',
+      fontWeight: FontWeight.w400,
+      //try changing weight to w500 if not thin
+      fontStyle: FontStyle.italic,
+      color: Color(0xFF799497),
+      fontSize: 16.0,
+    );
+
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      padding: EdgeInsets.all(8.0),
+      child: Text(
+        _bio,
+        textAlign: TextAlign.center,
+        style: bioTextStyle,
+      ),
+    );
+  }
+
+  Widget _buildSeparator(Size screenSize) {
+    return Container(
+      width: screenSize.width / 1.6,
+      height: 2.0,
+      color: Colors.black54,
+      margin: EdgeInsets.only(top: 4.0),
+    );
+  }
+
+  Widget _buildGetInTouch(BuildContext context) {
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      padding: EdgeInsets.only(top: 8.0),
+      child: Text(
+        "Get in Touch with ${_fullName.split(" ")[0]},",
+        style: TextStyle(fontFamily: 'Roboto', fontSize: 16.0),
+      ),
+    );
+  }
+
+  Widget _buildButtons() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: InkWell(
+              onTap: () {}, //TODO: open dialog box for telegram ID's
+              child: Container(
+                height: 40.0,
+                decoration: BoxDecoration(
+                  border: Border.all(),
+                  color: Color(0xFF404A5C),
+                ),
+                child: const Center(
+                  child: Text(
+                    "Contact  Us",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              buildSocialIcon(FontAwesomeIcons.telegram, "Hossein"),
-              const SizedBox(width: 12),
-              buildSocialIcon(FontAwesomeIcons.github, "Hossein"),
-              const SizedBox(width: 12),
-              buildSocialIcon(FontAwesomeIcons.github, "Navid"),
-              const SizedBox(width: 12),
-              buildSocialIcon(FontAwesomeIcons.telegram, "Navid"),
-            ],
-          ),
-          const SizedBox(height: 16),
-          buildAboutUs(),
-          const SizedBox(height: 25),
-        ],
-      );
-
-  Widget buildAboutUs() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 48),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "About Us",
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            "We are students of computer engineering of Shahid Behesti University. We are studing in term 2 of university. This is our flutter project for Ap classes (Dr. Vahidi). We must implement reddit clone in flutter. Both of us live in Tehran. ",
-            style: TextStyle(fontSize: 18, height: 1.4),
+          const SizedBox(width: 10.0),
+          Expanded(
+            child: InkWell(
+              onTap: () {}, //ToDo => go to home
+              child: Container(
+                height: 40.0,
+                decoration: BoxDecoration(
+                  border: Border.all(),
+                ),
+                child: const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(
+                      "Home",
+                      style: TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget buildTopBar() {
-    final bottom = profileHeight / 2;
-    return Stack(
-      clipBehavior: Clip.none,
-      alignment: Alignment.center,
-      children: [
-        Container(
-          margin: EdgeInsets.only(bottom: bottom),
-          child: buildCoverImage(),
-        ),
-        Positioned(top: distanceFromTop, child: buildProfileImage()),
-      ],
+  @override
+  Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          _buildCoverImage(screenSize),
+          SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: screenSize.height / 6.5),
+                  _buildProfileImage(),
+                  _buildFullName(),
+                  _buildStatus(context),
+                  _buildStatContainer(),
+                  _buildBio(context),
+                  _buildSeparator(screenSize),
+                  const SizedBox(height: 10.0),
+                  _buildGetInTouch(context),
+                  const SizedBox(height: 8.0),
+                  _buildButtons(),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget buildCoverImage() => Container(
-        color: Colors.grey,
-        width: double.infinity,
-        height: coverHeight,
-        child: Image.network(src),
-      );
-
-  Widget buildProfileImage() => CircleAvatar(
-        radius: profileHeight / 2,
-        backgroundColor: Colors.grey.shade800,
-        backgroundImage: const AssetImage('assets/images/circleAvatar.png'),
-      );
-
   Widget buildSocialIcon(IconData icon, String name) => CircleAvatar(
-        key: name == "Hossein" ? const Key("Hossein") : const Key("Navid"),
-        radius: 25,
-        child: Material(
-          color: Colors.transparent,
-          clipBehavior: Clip.hardEdge,
-          shape: const CircleBorder(),
-          child: InkWell(
-            onTap: () {},
-            child: Icon(
-              icon,
-              size: 32,
-            ),
-          ),
+    key: name == "Hossein" ? const Key("Hossein") : const Key("Navid"),
+    radius: 25,
+    child: Material(
+      color: Colors.transparent,
+      clipBehavior: Clip.hardEdge,
+      shape: const CircleBorder(),
+      child: InkWell(
+        onTap: () {},
+        child: Icon(
+          icon,
+          size: 32,
         ),
-      );
+      ),
+    ),
+  );
 }
