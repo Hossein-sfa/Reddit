@@ -139,6 +139,7 @@ class FeedState extends State<Feed> {
                               );
                             },
                           ),
+                          Text(UserPosts.posts[index].comments.toString()),
                           const Spacer(),
                           IconButton(
                             icon: const Icon(Icons.share),
