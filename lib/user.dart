@@ -1,4 +1,5 @@
-import 'Post.dart';
+import 'post.dart';
+
 class User {
   static late String _name;
   static late String _email;

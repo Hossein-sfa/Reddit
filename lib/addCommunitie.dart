@@ -1,21 +1,20 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class CreatProfile extends StatefulWidget {
-  const CreatProfile({required Key key}) : super(key: key);
+class CreateProfile extends StatefulWidget {
+  const CreateProfile({required Key key}) : super(key: key);
 
   @override
-  _CreatProfileState createState() => _CreatProfileState();
+  _CreateProfileState createState() => _CreateProfileState();
 }
 
-class _CreatProfileState extends State<CreatProfile> {
+class _CreateProfileState extends State<CreateProfile> {
  // final networkHandler = NetworkHandler();
   bool circular = false;
   late  PickedFile _imageFile;
-  final _globalkey = GlobalKey<FormState>();
+  final _globalKey = GlobalKey<FormState>();
   final TextEditingController _name = TextEditingController();
-  final TextEditingController _Case = TextEditingController();
+  final TextEditingController _case = TextEditingController();
   final TextEditingController _title = TextEditingController();
   final TextEditingController _about = TextEditingController();
   final ImagePicker _picker = ImagePicker();
@@ -28,7 +27,7 @@ class _CreatProfileState extends State<CreatProfile> {
         centerTitle: true,
       ),
       body: Form(
-        key: _globalkey,
+        key: _globalKey,
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
           children: <Widget>[
@@ -57,11 +56,11 @@ class _CreatProfileState extends State<CreatProfile> {
                 setState(() {
                   circular = true;
                 });
-                if (_globalkey.currentState!.validate()) {
+                if (_globalKey.currentState!.validate()) {
                   Map<String, String> data = {
                     "name": _name.text,
-                    "Case": _Case.text,
-                    "titleline": _title.text,
+                    "Case": _case.text,
+                    "titleLine": _title.text,
                     "about": _about.text,
                   };
                   /*
@@ -168,18 +167,18 @@ class _CreatProfileState extends State<CreatProfile> {
           ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
             FlatButton.icon(
-              icon: Icon(Icons.camera),
+              icon: const Icon(Icons.camera),
               onPressed: () {
                 takePhoto(ImageSource.camera);
               },
-              label: Text("Camera"),
+              label: const Text("Camera"),
             ),
             FlatButton.icon(
-              icon: Icon(Icons.image),
+              icon: const Icon(Icons.image),
               onPressed: () {
                 takePhoto(ImageSource.gallery);
               },
-              label: Text("Gallery"),
+              label: const Text("Gallery"),
             ),
           ])
         ],
@@ -227,7 +226,7 @@ class _CreatProfileState extends State<CreatProfile> {
 
   Widget caseTextField() {
     return TextFormField(
-      controller: _Case,
+      controller: _case,
       validator: (value) {
         if (value!.isEmpty) return "Case can't be empty";
         return null;

@@ -1,19 +1,19 @@
 class association {
   late String associationName;
-  late String Description;
-  late String associationmakerName;
+  late String description;
+  late String associationMakerName;
   DateTime startDate = DateTime.now();
   late int memberCount;
 
   association(
-      this.associationName, this.Description, this.associationmakerName);
+      this.associationName, this.description, this.associationMakerName);
 
   void setMemberCount() {
     memberCount++;
   }
 
   void setDescription(String desc) {
-    Description = desc;
+    description = desc;
   }
 
   void setAssociationName(String name) {
@@ -25,15 +25,15 @@ class association {
   }
 
   String getDescription() {
-    return Description;
+    return description;
   }
 
   String getAssociationName() {
     return associationName;
   }
 
-  String getAssociationmakerName() {
-    return associationmakerName;
+  String getAssociationMakerName() {
+    return associationMakerName;
   }
 
   DateTime getStartDate() {

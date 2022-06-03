@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ABUS extends StatelessWidget {
   const ABUS({Key? key}) : super(key: key);
@@ -197,7 +196,7 @@ class UserProfilePage extends StatelessWidget {
 
     return Container(
       color: Theme.of(context).scaffoldBackgroundColor,
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: Text(
         _bio,
         textAlign: TextAlign.center,
@@ -211,17 +210,17 @@ class UserProfilePage extends StatelessWidget {
       width: screenSize.width / 1.6,
       height: 2.0,
       color: Colors.black54,
-      margin: EdgeInsets.only(top: 4.0),
+      margin: const EdgeInsets.only(top: 4.0),
     );
   }
 
   Widget _buildGetInTouch(BuildContext context) {
     return Container(
       color: Theme.of(context).scaffoldBackgroundColor,
-      padding: EdgeInsets.only(top: 8.0),
+      padding: const EdgeInsets.only(top: 8.0),
       child: Text(
         "Get in Touch with ${_fullName.split(" ")[0]},",
-        style: TextStyle(fontFamily: 'Roboto', fontSize: 16.0),
+        style: const TextStyle(fontFamily: 'Roboto', fontSize: 16.0),
       ),
     );
   }
@@ -238,7 +237,7 @@ class UserProfilePage extends StatelessWidget {
                 height: 40.0,
                 decoration: BoxDecoration(
                   border: Border.all(),
-                  color: Color(0xFF404A5C),
+                  color: const Color(0xFF404A5C),
                 ),
                 child: const Center(
                   child: Text(

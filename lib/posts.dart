@@ -1,4 +1,4 @@
-import 'Post.dart';
+import 'post.dart';
 
 class UserPosts {
   static List<Post> posts = [

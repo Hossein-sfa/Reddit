@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:motion_toast/motion_toast.dart';
-import 'Post.dart';
+import 'post.dart';
 import 'posts.dart';
 
 class AddPost extends StatefulWidget {

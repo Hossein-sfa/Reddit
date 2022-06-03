@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Post.dart';
+import 'post.dart';
 
 class TaskItem extends StatelessWidget {
   const TaskItem({Key? key, required this.post}) : super(key: key);
