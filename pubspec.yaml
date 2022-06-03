@@ -36,6 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   motion_toast: ^2.1.7
+  image_picker: ^0.8.5+3
   multilevel_drawer: ^2.0.0
   settings_ui: ^2.0.2
   font_awesome_flutter: ^9.1.0
