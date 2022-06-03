@@ -29,38 +29,113 @@ class FeedState extends State<Feed> {
             itemCount: UserPosts.posts.length,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                leading: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const CircleAvatar(
-                      backgroundImage:
-                          AssetImage('assets/images/circleAvatar.png'),
-                    ),
-                    const SizedBox(width: 10),
-                    Column(
-                      //mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          UserPosts.posts[index].userName,
-                          textAlign: TextAlign.left,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              UserPosts.posts[index].community,
-                              textAlign: TextAlign.left,
+                title: SizedBox(
+                  width: MediaQuery.of(context).size.width - 40,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const CircleAvatar(
+                            backgroundImage:
+                                AssetImage('assets/images/circleAvatar.png'),
+                          ),
+                          const SizedBox(width: 10),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Text(
+                                UserPosts.posts[index].userName,
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                              Text(
+                                UserPosts.posts[index].community,
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.8),
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          Text(
+                            UserPosts.posts[index].passedTime(DateTime.now()),
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.7),
+                              fontSize: 10,
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        UserPosts.posts[index].title,
+                        textAlign: TextAlign.start,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 7),
+                      Text(UserPosts.posts[index].description),
+                      Row(
+                        //mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.thumb_up,
+                                color: UserPosts.posts[index].isLiked
+                                    ? Colors.deepOrange
+                                    : null),
+                            onPressed: () {
+                              // Todo : send liking and disliking to server in phase 2 project
+                              setState(() {
+                                if (UserPosts.posts[index].isLiked == false) {
+                                  UserPosts.posts[index].setLike();
+                                }
+                                else {
+                                  UserPosts.posts[index].setVoteLess();
+                                }
+
+                              });
+                            },
+                          ),
+                          Text(UserPosts.posts[index].likes.toString()),
+                          const SizedBox(width: 10),
+                          IconButton(
+                            icon: Icon(Icons.thumb_down,
+                                color: UserPosts.posts[index].isDisLiked
+                                    ? Colors.deepOrange
+                                    : null),
+                            onPressed: () {
+                              // Todo : send liking and disliking to server in phase 2 project
+                              setState(() {
+                                if (UserPosts.posts[index].isDisLiked == false) {
+                                  UserPosts.posts[index].setDisLike();
+                                }
+                                else {
+                                  UserPosts.posts[index].setVoteLess();
+                                }
+                              });
+                            },
+                          ),
+                          const Spacer(),
+                          IconButton(
+                            icon: const Icon(Icons.share),
+                            onPressed: () {},
+                          ),
+                          const SizedBox(width: 10),
+                          IconButton(
+                            icon: const Icon(Icons.bookmark_border),
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
                 // leading: SizedBox(
                 //   width: 100,

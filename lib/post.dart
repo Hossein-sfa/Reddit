@@ -1,14 +1,43 @@
 class Post {
   String title, description, userName, community;
-  int _likes;
+  int likes;
   DateTime time;
+  bool isLiked = false, isDisLiked = false;
 
-  Post(this.title, this.description, this._likes, this.time, this.userName,
+  Post(this.title, this.description, this.likes, this.time, this.userName,
       this.community);
 
-  int get likes => _likes;
-  void setLike() {
-    _likes++;
+  setLike() {
+    if (isDisLiked) {
+      isDisLiked = false;
+      likes += 2;
+    }
+    else {
+      likes++;
+    }
+    isLiked = true;
+  }
+
+  setVoteLess() {
+    if (isLiked) {
+      likes--;
+      isLiked = false;
+    }
+    else if (isDisLiked) {
+      likes++;
+      isDisLiked = false;
+    }
+  }
+
+  setDisLike() {
+    if (isLiked) {
+      isLiked = false;
+      likes -= 2;
+    }
+    else {
+      likes--;
+    }
+    isDisLiked = true;
   }
 
   set setDateTime(DateTime date) {
