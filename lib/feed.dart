@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'posts.dart';
 import 'post_details.dart';
+import 'user.dart';
 
 class Feed extends StatefulWidget {
   const Feed({Key? key}) : super(key: key);
-
   @override
   State<Feed> createState() => FeedState();
 }
@@ -46,9 +46,7 @@ class FeedState extends State<Feed> {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const SizedBox(
-                                height: 4,
-                              ),
+                              const SizedBox(height: 4),
                               Text(
                                 UserPosts.posts[index].userName,
                                 style: const TextStyle(
@@ -72,9 +70,15 @@ class FeedState extends State<Feed> {
                               fontSize: 10,
                             ),
                           ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.more_horiz,
+                            ),
+                            onPressed: () {},
+                          ),
                         ],
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 15),
                       Text(
                         UserPosts.posts[index].title,
                         textAlign: TextAlign.start,
@@ -83,40 +87,41 @@ class FeedState extends State<Feed> {
                       const SizedBox(height: 7),
                       Text(UserPosts.posts[index].description),
                       Row(
-                        //mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                            icon: Icon(Icons.thumb_up,
-                                color: UserPosts.posts[index].isLiked
-                                    ? Colors.deepOrange
-                                    : null),
+                            icon: Icon(
+                              Icons.thumb_up,
+                              color: UserPosts.posts[index].isLiked
+                                  ? Colors.deepOrange
+                                  : null,
+                            ),
                             onPressed: () {
                               // Todo : send liking and disliking to server in phase 2 project
                               setState(() {
                                 if (UserPosts.posts[index].isLiked == false) {
                                   UserPosts.posts[index].setLike();
-                                }
-                                else {
+                                } else {
                                   UserPosts.posts[index].setVoteLess();
                                 }
-
                               });
                             },
                           ),
                           Text(UserPosts.posts[index].likes.toString()),
                           const SizedBox(width: 10),
                           IconButton(
-                            icon: Icon(Icons.thumb_down,
-                                color: UserPosts.posts[index].isDisLiked
-                                    ? Colors.deepOrange
-                                    : null),
+                            icon: Icon(
+                              Icons.thumb_down,
+                              color: UserPosts.posts[index].isDisLiked
+                                  ? Colors.deepOrange
+                                  : null,
+                            ),
                             onPressed: () {
                               // Todo : send liking and disliking to server in phase 2 project
                               setState(() {
-                                if (UserPosts.posts[index].isDisLiked == false) {
+                                if (UserPosts.posts[index].isDisLiked ==
+                                    false) {
                                   UserPosts.posts[index].setDisLike();
-                                }
-                                else {
+                                } else {
                                   UserPosts.posts[index].setVoteLess();
                                 }
                               });
@@ -129,89 +134,28 @@ class FeedState extends State<Feed> {
                           ),
                           const SizedBox(width: 10),
                           IconButton(
-                            icon: const Icon(Icons.bookmark_border),
-                            onPressed: () {},
+                            icon: Icon(
+                              Icons.bookmark_border,
+                              color: User.isSaved(UserPosts.posts[index])
+                                  ? Colors.deepOrange
+                                  : null,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                if (!User.isSaved(UserPosts.posts[index])) {
+                                  User.savedPosts.add(UserPosts.posts[index]);
+                                } else {
+                                  User.savedPosts
+                                      .remove(UserPosts.posts[index]);
+                                }
+                              });
+                            },
                           ),
                         ],
                       ),
                     ],
                   ),
                 ),
-                // leading: SizedBox(
-                //   width: 100,
-                //   child: Column(
-                //     crossAxisAlignment: CrossAxisAlignment.start,
-                //     children: [
-                //       Expanded(
-                //         child: Row(
-                //           mainAxisSize: MainAxisSize.min,
-                //           children: [
-                //             const CircleAvatar(
-                //               backgroundImage: AssetImage(
-                //                   'assets/images/circleAvatar.png'),
-                //             ),
-                //             Expanded(
-                //               child: Column(
-                //                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                 children: [
-                //                   Text(
-                //                     UserPosts.posts[index].userName,
-                //                     style: const TextStyle(
-                //                       fontWeight: FontWeight.bold,
-                //                       fontSize: 15,
-                //                     ),
-                //                   ),
-                //                   const SizedBox(
-                //                     height: 5,
-                //                   ),
-                //                   Text(
-                //                     UserPosts.posts[index].community,
-                //                     textAlign: TextAlign.left,
-                //                     style: TextStyle(
-                //                       fontSize: 13,
-                //                       color: Colors.white.withOpacity(0.8),
-                //                     ),
-                //                   ),
-                //                   const SizedBox(
-                //                     height: 5,
-                //                   ),
-                //                 ],
-                //               ),
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //       const SizedBox(
-                //         height: 10,
-                //       ),
-                //       Expanded(
-                //         child: Row(
-                //           mainAxisSize: MainAxisSize.min,
-                //           children: [
-                //             IconButton(
-                //               icon: const Icon(Icons.thumb_up),
-                //               onPressed: () {},
-                //             )
-                //           ],
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // title: Text(
-                //   UserPosts.posts[index].title,
-                //   style: const TextStyle(
-                //     fontWeight: FontWeight.bold,
-                //     fontSize: 20,
-                //   ),
-                // ),
-                // leading: const CircleAvatar(
-                //   backgroundImage: AssetImage('assets/images/circleAvatar.png'),
-                // ),
-                // trailing:
-                //     Text(UserPosts.posts[index].passedTime(DateTime.now())),
-                // title: Text(UserPosts.posts[index].userName),
-                // subtitle: Text(UserPosts.posts[index].community),
                 onTap: () {
                   Navigator.push(
                     context,
