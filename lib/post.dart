@@ -1,16 +1,43 @@
 class Post {
   String title, description, userName, community;
-  int _likes;
+  int likes = 0, comments = 0;
   DateTime time;
+  bool isLiked = false, isDisLiked = false;
 
-  Post(this.title, this.description, this._likes, this.time, this.userName,this.community);
+  Post(this.title, this.description, this.time, this.userName,
+      this.community);
 
-  int get likes => _likes;
+  setLike() {
+    if (isDisLiked) {
+      isDisLiked = false;
+      likes += 2;
+    }
+    else {
+      likes++;
+    }
+    isLiked = true;
+  }
 
- // String get Community => community ;
+  setVoteLess() {
+    if (isLiked) {
+      likes--;
+      isLiked = false;
+    }
+    else if (isDisLiked) {
+      likes++;
+      isDisLiked = false;
+    }
+  }
 
-  void setLike() {
-    _likes++;
+  setDisLike() {
+    if (isLiked) {
+      isLiked = false;
+      likes -= 2;
+    }
+    else {
+      likes--;
+    }
+    isDisLiked = true;
   }
 
   set setDateTime(DateTime date) {
@@ -19,50 +46,20 @@ class Post {
 
   // Method that calculate how much time is passed since the post was created
   String passedTime(DateTime date) {
-    if (date
-        .difference(time)
-        .inSeconds < 60) {
-      return date
-          .difference(time)
-          .inSeconds
-          .toString() + " sec";
-    } else if (date
-        .difference(time)
-        .inMinutes < 60) {
-      return date
-          .difference(time)
-          .inMinutes
-          .toString() + " min";
-    } else if (date
-        .difference(time)
-        .inHours < 24) {
-      return date
-          .difference(time)
-          .inHours
-          .toString() + " hour";
-    } else if (date
-        .difference(time)
-        .inDays < 7) {
-      return date
-          .difference(time)
-          .inDays
-          .toString() + " day";
-    } else if (date
-        .difference(time)
-        .inDays < 30) {
-      return (date
-          .difference(time)
-          .inDays ~/ 7).toString() + " week";
-    } else if (date
-        .difference(time)
-        .inDays < 365) {
-      return (date
-          .difference(time)
-          .inDays ~/ 30).toString() + " month";
+    if (date.difference(time).inSeconds < 60) {
+      return date.difference(time).inSeconds.toString() + " sec";
+    } else if (date.difference(time).inMinutes < 60) {
+      return date.difference(time).inMinutes.toString() + " min";
+    } else if (date.difference(time).inHours < 24) {
+      return date.difference(time).inHours.toString() + " hour";
+    } else if (date.difference(time).inDays < 7) {
+      return date.difference(time).inDays.toString() + " day";
+    } else if (date.difference(time).inDays < 30) {
+      return (date.difference(time).inDays ~/ 7).toString() + " week";
+    } else if (date.difference(time).inDays < 365) {
+      return (date.difference(time).inDays ~/ 30).toString() + " month";
     } else {
-      return (date
-          .difference(time)
-          .inDays ~/ 365).toString() + " year";
+      return (date.difference(time).inDays ~/ 365).toString() + " year";
     }
   }
 
@@ -73,5 +70,4 @@ class Post {
   set setDescription(String value) {
     description = value;
   }
-
 }
