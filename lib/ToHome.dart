@@ -101,7 +101,7 @@ class HomeState extends State<ToHome> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) {
+          builder: (context) {
             return const AddPost(
               //addNewPost: addTask,
               key: Key("navid"),

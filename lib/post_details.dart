@@ -149,6 +149,14 @@ class _PostDetailsState extends State<PostDetails> {
                     ),
                   ],
                 ),
+                ListView.builder(
+                  itemCount: widget.post.comments.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: Container(),
+                    );
+                  },
+                ),
               ],
             ),
           ),
