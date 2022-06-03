@@ -8,10 +8,10 @@ class ToHome extends StatefulWidget {
   const ToHome({Key? key}) : super(key: key);
 
   @override
-  State<ToHome> createState() => homeState();
+  State<ToHome> createState() => HomeState();
 }
 
-class homeState extends State<ToHome> {
+class HomeState extends State<ToHome> {
   int _selectedIndex = 0;
 
   num length = UserPosts.posts.length;
