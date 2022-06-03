@@ -1,6 +1,9 @@
+import 'comment.dart';
+
 class Post {
   String title, description, userName, community;
-  int likes = 0, comments = 0;
+  int likes = 0, commentNum = 0;
+  List<Comment> comments = [];
   DateTime time;
   bool isLiked = false, isDisLiked = false;
 

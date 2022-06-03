@@ -39,6 +39,7 @@ dependencies:
   multilevel_drawer: ^2.0.0
   settings_ui: ^2.0.2
   font_awesome_flutter: ^9.1.0
+  shamsi_date: ^1.0.1
 
 dev_dependencies:
   flutter_test:
