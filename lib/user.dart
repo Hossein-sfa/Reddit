@@ -1,16 +1,23 @@
 import 'Post.dart';
-class user {
-  late String _name;
-  late String _email;
-  late String _password;
-  late String _username;
-  late String _profilePic;
+class User {
+  static late String _name;
+  static late String _email;
+  static late String _password;
+  static late String _username;
+  static late String _profilePic;
   //late List<association> _association;
-  late List<String> _post;
-  late List<String> _save ;
-  late List<String> _followers;
-  late List<String> _following;
+  static late List<String> _post;
+  static List<Post> savedPosts = [];
+  static late List<String> _followers;
+  static late List<String> _following;
   List<Post> tasksList = [];
+
+  static bool isSaved(post) {
+    if (savedPosts.contains(post)) {
+      return true;
+    }
+    return false;
+  }
 
   void setName(String name) {
     _name = name;
@@ -43,5 +50,4 @@ class user {
   void addFollowing(String following) {
     _following.add(following);
   }
-
 }
