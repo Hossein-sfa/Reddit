@@ -14,53 +14,122 @@ class FeedState extends State<Feed> {
   Widget build(BuildContext context) {
     return Material(
       child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            "Reddit",
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+        drawer: const Drawer(),
         body: SafeArea(
-          child: ListView.builder(
+          child: ListView.separated(
+            separatorBuilder: (context, index) {
+              return const Divider();
+            },
             itemCount: UserPosts.posts.length,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                leading: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                leading: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Row(
+                    const CircleAvatar(
+                      backgroundImage:
+                          AssetImage('assets/images/circleAvatar.png'),
+                    ),
+                    const SizedBox(width: 10),
+                    Column(
+                      //mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const CircleAvatar(
-                          backgroundImage:
-                              AssetImage('assets/images/circleAvatar.png'),
+                        const SizedBox(
+                          height: 4,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Text(
+                          UserPosts.posts[index].userName,
+                          textAlign: TextAlign.left,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              UserPosts.posts[index].userName,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                              ),
-                            ),
                             Text(
                               UserPosts.posts[index].community,
                               textAlign: TextAlign.left,
-                              style: TextStyle(
-                                fontSize: 13,
-                                color: Colors.white.withOpacity(0.8),
-                              ),
                             ),
                           ],
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.thumb_up),
-                          onPressed: () {},
-                        )
-                      ],
-                    ),
                   ],
                 ),
-
+                // leading: SizedBox(
+                //   width: 100,
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       Expanded(
+                //         child: Row(
+                //           mainAxisSize: MainAxisSize.min,
+                //           children: [
+                //             const CircleAvatar(
+                //               backgroundImage: AssetImage(
+                //                   'assets/images/circleAvatar.png'),
+                //             ),
+                //             Expanded(
+                //               child: Column(
+                //                 crossAxisAlignment: CrossAxisAlignment.start,
+                //                 children: [
+                //                   Text(
+                //                     UserPosts.posts[index].userName,
+                //                     style: const TextStyle(
+                //                       fontWeight: FontWeight.bold,
+                //                       fontSize: 15,
+                //                     ),
+                //                   ),
+                //                   const SizedBox(
+                //                     height: 5,
+                //                   ),
+                //                   Text(
+                //                     UserPosts.posts[index].community,
+                //                     textAlign: TextAlign.left,
+                //                     style: TextStyle(
+                //                       fontSize: 13,
+                //                       color: Colors.white.withOpacity(0.8),
+                //                     ),
+                //                   ),
+                //                   const SizedBox(
+                //                     height: 5,
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //       const SizedBox(
+                //         height: 10,
+                //       ),
+                //       Expanded(
+                //         child: Row(
+                //           mainAxisSize: MainAxisSize.min,
+                //           children: [
+                //             IconButton(
+                //               icon: const Icon(Icons.thumb_up),
+                //               onPressed: () {},
+                //             )
+                //           ],
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // title: Text(
+                //   UserPosts.posts[index].title,
+                //   style: const TextStyle(
+                //     fontWeight: FontWeight.bold,
+                //     fontSize: 20,
+                //   ),
+                // ),
                 // leading: const CircleAvatar(
                 //   backgroundImage: AssetImage('assets/images/circleAvatar.png'),
                 // ),
@@ -68,7 +137,6 @@ class FeedState extends State<Feed> {
                 //     Text(UserPosts.posts[index].passedTime(DateTime.now())),
                 // title: Text(UserPosts.posts[index].userName),
                 // subtitle: Text(UserPosts.posts[index].community),
-
                 onTap: () {
                   Navigator.push(
                     context,
