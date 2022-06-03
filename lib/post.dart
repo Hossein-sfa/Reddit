@@ -1,10 +1,10 @@
 class Post {
   String title, description, userName, community;
-  int likes;
+  int likes = 0, comments = 0;
   DateTime time;
   bool isLiked = false, isDisLiked = false;
 
-  Post(this.title, this.description, this.likes, this.time, this.userName,
+  Post(this.title, this.description, this.time, this.userName,
       this.community);
 
   setLike() {

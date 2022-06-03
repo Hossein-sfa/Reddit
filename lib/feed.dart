@@ -127,6 +127,18 @@ class FeedState extends State<Feed> {
                               });
                             },
                           ),
+                          IconButton(
+                            icon: const Icon(Icons.mode_comment_outlined),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      PostDetails(post: UserPosts.posts[index]),
+                                ),
+                              );
+                            },
+                          ),
                           const Spacer(),
                           IconButton(
                             icon: const Icon(Icons.share),
