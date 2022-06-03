@@ -1,5 +1,4 @@
 import 'Post.dart';
-
 class user {
   late String _name;
   late String _email;
