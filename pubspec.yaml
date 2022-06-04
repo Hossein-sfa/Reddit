@@ -68,6 +68,7 @@ flutter:
   assets:
      - assets/images/circleAvatar.png
      - assets/images/cover.jpg
+     - assets/images/profiledesign.jfif
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
