@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:reddit/userSetting.dart';
 import 'ToHome.dart';
-import 'userSetting.dart';
 
 class userDetail extends StatelessWidget {
   const userDetail ({Key? key}) : super(key: key);
@@ -48,10 +48,10 @@ class UserProfilePage extends StatelessWidget {
             image: AssetImage('assets/images/circleAvatar.png'),
             fit: BoxFit.cover,
           ),
-          borderRadius: BorderRadius.circular(150.0),
+          borderRadius: BorderRadius.circular(500.0),
           border: Border.all(
             color: Colors.deepOrange,
-            width: 3.0,
+            width: 1.4,
           ),
         ),
       ),
@@ -61,10 +61,11 @@ class UserProfilePage extends StatelessWidget {
   Widget _buildUserName() {
     TextStyle nameTextStyle = const TextStyle(
       fontFamily: 'Roboto',
-      color: Colors.deepOrangeAccent,
+      color: Colors.orangeAccent,
       fontSize: 22.0,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w500,
     );
+
     return Text(
       _Username,
       style: nameTextStyle,
@@ -152,7 +153,7 @@ class UserProfilePage extends StatelessWidget {
       fontSize: 16.0,
     );
     return Container(
-      color: Colors.white70,
+      //color: Colors.white70,
       padding: const EdgeInsets.all(10.0),
       child: Text( "\"$_bio\"", style: bioTextStyle,),
 
@@ -177,7 +178,7 @@ class UserProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
-    IconButton(
+          IconButton(
             icon: const Icon(Icons.change_circle , color: Colors.black,),
             onPressed: () {
               Navigator.push(
@@ -214,7 +215,7 @@ class UserProfilePage extends StatelessWidget {
                   _buildfullName(context),
                   _buildStatContainer(),
                   _buildBio(context),
-                 // _nameText(context),
+                  // _nameText(context),
                   _buildSeparator(screenSize),
                   const SizedBox(height: 10.0),
                 ],
