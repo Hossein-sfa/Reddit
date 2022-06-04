@@ -29,6 +29,7 @@ class _PostDetailsState extends State<PostDetails> {
             padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -150,10 +151,17 @@ class _PostDetailsState extends State<PostDetails> {
                   ],
                 ),
                 ListView.builder(
+                  shrinkWrap: true,
                   itemCount: widget.post.comments.length,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: Container(),
+                    return Expanded(
+                      child: ListTile(
+                        leading: Padding(
+                          padding: const EdgeInsets.all(18),
+                            child: Container(
+                              height: MediaQuery.of(context).size.height,
+                            ),),
+                      ),
                     );
                   },
                 ),
