@@ -1,5 +1,6 @@
-import 'package:shamsi_date/shamsi_date.dart';
 import 'package:flutter/material.dart';
+import 'package:shamsi_date/shamsi_date.dart';
+import 'package:comment_box/comment/comment.dart';
 import 'main.dart';
 import 'post.dart';
 import 'user.dart';
@@ -14,6 +15,8 @@ class PostDetails extends StatefulWidget {
 }
 
 class _PostDetailsState extends State<PostDetails> {
+  final TextEditingController comment = TextEditingController();
+
   // format date for reading humans in shamsi
   jalaliFormat(Date date) {
     return '${date.formatter.yyyy}/${date.formatter.mm}/${date.formatter.dd}';
@@ -210,17 +213,19 @@ class _PostDetailsState extends State<PostDetails> {
                                     IconButton(
                                       icon: Icon(
                                         Icons.thumb_up,
-                                        color: widget.post.comments[index].isLiked
-                                            ? Colors.deepOrange
-                                            : null,
+                                        color:
+                                            widget.post.comments[index].isLiked
+                                                ? Colors.deepOrange
+                                                : null,
                                       ),
                                       onPressed: () {
                                         // Todo : send liking and disliking to server in phase 2 project
                                         setState(() {
-                                          if (widget
-                                                  .post.comments[index].isLiked ==
+                                          if (widget.post.comments[index]
+                                                  .isLiked ==
                                               false) {
-                                            widget.post.comments[index].setLike();
+                                            widget.post.comments[index]
+                                                .setLike();
                                           } else {
                                             widget.post.comments[index]
                                                 .setVoteLess();
@@ -234,10 +239,10 @@ class _PostDetailsState extends State<PostDetails> {
                                     IconButton(
                                       icon: Icon(
                                         Icons.thumb_down,
-                                        color:
-                                            widget.post.comments[index].isDisLiked
-                                                ? Colors.deepOrange
-                                                : null,
+                                        color: widget
+                                                .post.comments[index].isDisLiked
+                                            ? Colors.deepOrange
+                                            : null,
                                       ),
                                       onPressed: () {
                                         // Todo : send liking and disliking to server in phase 2 project
@@ -255,8 +260,9 @@ class _PostDetailsState extends State<PostDetails> {
                                       },
                                     ),
                                     IconButton(
-                                      icon:
-                                          const Icon(Icons.reply,),
+                                      icon: const Icon(
+                                        Icons.reply,
+                                      ),
                                       onPressed: () {},
                                     ),
                                     Text(widget.post.commentNum.toString()),
@@ -286,7 +292,39 @@ class _PostDetailsState extends State<PostDetails> {
             ),
           ),
         ),
-      ),
+        // bottomNavigationBar: BottomNavigationBar(
+        //   items: <BottomNavigationBarItem> [
+        //     CommentBox(
+        //       userImage:
+        //       'assets/images/circleAvatar.png',
+        //       child: commentChild(filedata),
+        //       labelText: 'Write a comment...',
+        //       withBorder: false,
+        //       errorText: 'Comment cannot be blank',
+        //       sendButtonMethod: () {
+        //         if (formKey.currentState.validate()) {
+        //           setState(() {
+        //             var value = {
+        //               'name': 'New User',
+        //               'pic':
+        //               'https://lh3.googleusercontent.com/a-/AOh14GjRHcaendrf6gU5fPIVd8GIl1OgblrMMvGUoCBj4g=s400',
+        //               'message': comment.text
+        //             };
+        //             filedata.insert(0, value);
+        //           });
+        //           comment.clear();
+        //           FocusScope.of(context).unfocus();
+        //         }
+        //       },
+        //       formKey: formKey,
+        //       commentController: comment,
+        //       backgroundColor: Colors.black,
+        //       textColor: Colors.white,
+        //       sendWidget: const Icon(Icons.send_sharp, size: 30, color: Colors.white),
+        //     ),
+        //   ],
+        //),
+    ),
     );
   }
 }

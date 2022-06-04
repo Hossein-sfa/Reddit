@@ -40,6 +40,7 @@ dependencies:
   settings_ui: ^2.0.2
   font_awesome_flutter: ^9.1.0
   shamsi_date: ^1.0.1
+  comment_box: ^0.0.17
 
 dev_dependencies:
   flutter_test:
