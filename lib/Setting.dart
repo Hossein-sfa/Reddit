@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'AboutUs.dart';
+import 'ToHome.dart';
+import 'addCommunitie.dart';
 
 class Setting extends StatefulWidget {
   const Setting({required Key key}) : super(key: key);
@@ -18,88 +21,154 @@ class _SettingPage extends State<Setting> {
           title: const Text("Setting Page",
               style: TextStyle(color: Colors.deepOrangeAccent)),
           actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.home_filled))
+            IconButton(onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) {
+                    return  const ToHome (
+                    );
+                  },
+                ),
+              );
+            }, icon: const Icon(Icons.home_filled))
             //ToDo => it must go to feed page
           ],
         ),
         body: SettingsList(
           sections: [
-            SettingsSection(title: const Text('User'), tiles: [
-              SettingsTile(
-                leading: CircleAvatar(
-                    radius: 25,
-                    backgroundImage:
-                        const AssetImage('assets/images/circleAvatar.png'),
-                    child: InkWell(
+            SettingsSection(
+                title: const Text('User', textAlign: TextAlign.left),
+                tiles: [
+                  SettingsTile(
+                    leading: Row(
+                      children: [
+                        CircleAvatar(
+                          //radius: 20,
+                            backgroundImage: const AssetImage(
+                                'assets/images/circleAvatar.png'),
+                            child: InkWell(
+                              onTap: () {},
+                            )),
+                      ],
+                    ),
+                    title: const Text('User Profile Setting'),
+                    //ToDo => add new communities
+                  ),
+                  SettingsTile(
+                    title: const Text('Communities List'),
+                    leading: InkWell(
+                      child: const Icon(Icons.group_rounded),
                       onTap: () {},
-                    )),
-                title: const Text('User Profile Setting'),
-                //ToDo => add new communities
-              ),
-              SettingsTile(
-                title: const Text('Communities List'),
-                leading: InkWell(
-                  child: const Icon(Icons.group_rounded),
-                  onTap: () {},
-                ),
-              ),
-              SettingsTile(
-                title: const Text('Delete Account'),
-                leading: InkWell(
-                  child: const Icon(Icons.delete_rounded, color: Colors.red),
-                  //ToDo => delete account from list ang go to Login page
-                  onTap: () {},
-                ),
-              ),
-              SettingsTile(
-                title: const Text('Log out'),
-                leading: InkWell(
-                  child: const Icon(Icons.logout_rounded,
-                      color: Colors.blueAccent),
-                  //ToDO => Go to login page
-                  onTap: () {},
-                ),
-              ),
-            ]),
+                    ),
+                  ),
+                  SettingsTile(
+                    title: const Text('Delete Account'),
+                    leading: InkWell(
+                      child:
+                      const Icon(Icons.delete_rounded, color: Colors.red),
+
+                      //ToDo => delete account from list ang go to Login page
+                      onTap: () {},
+                    ),
+                  ),
+                  SettingsTile(
+                    title: const Text('Log out'),
+                    leading: InkWell(
+                      child: const Icon(Icons.logout_rounded,
+                          color: Colors.blueAccent),
+                      //ToDO => Go to login page
+                      onTap: () {},
+                    ),
+                  ),
+                ]),
             SettingsSection(title: const Text('Communities'), tiles: [
               SettingsTile(
+
                 title: const Text('Add New Communities'),
-                leading: const Icon(
-                  Icons.add,
-                  color: Colors.green,
-                ), //ToDo => add new communities
+                leading: //ToDo => add new communities
+                InkWell(
+                  child: const Icon(
+                    Icons.add,
+                    color: Colors.green,
+                  ),
+                  //ToDO => Go to login page
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) {
+                          return  const CreateProfile(
+                            key: Key("Add Communities"),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
               ),
               SettingsTile(
                 title: const Text('Blocked Communities'),
-                leading: const Icon(
-                  Icons.block_rounded,
-                  color: Colors.black87,
+                leading: InkWell(
+                  child: const Icon(
+                    Icons.block_rounded,
+                    color: Colors.black87,
+                  ),
+                  //ToDO => Go to login page
+                  onTap: () {},
                 ),
               ),
             ]),
             SettingsSection(title: const Text('Posts'), tiles: [
               SettingsTile(
                 title: const Text('Saved Posts'),
-                leading: const Icon(Icons.save_alt_rounded),
+                leading:
+                InkWell(
+                  child: const Icon(Icons.save_alt_rounded),
+                  //ToDO => Go to login page
+                  onTap: () {},
+                ),
               ),
               SettingsTile(
                 title: const Text('Like Posts'),
                 leading:
-                    const Icon(Icons.favorite_rounded, color: Colors.redAccent),
+                InkWell(
+                  child: const Icon(Icons.favorite_rounded, color: Colors.redAccent),
+                  //ToDO => Go to login page
+                  onTap: () {},
+                ),
               ),
             ]),
             SettingsSection(title: const Text('Common'), tiles: [
               SettingsTile(
                 title: const Text('Language'),
                 description: const Text('English'),
-                leading: const Icon(
-                  Icons.language,
-                  color: Colors.blueAccent,
+                leading: //
+                InkWell(
+                  child: const Icon(Icons.language, color: Colors.blueAccent,),
+                  //ToDO => Go to login page
+                  onTap: () {},
                 ),
               ),
               SettingsTile(
                 title: const Text('About Us'),
-                leading: const Icon(Icons.phone, color: Colors.brown),
+                leading://
+                InkWell(
+                  child: const Icon(Icons.phone, color: Colors.brown),
+                  //ToDO => Go to login page
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) {
+                          return  const ABUS (
+                            key: Key("About us"),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
               ),
             ]),
           ],
