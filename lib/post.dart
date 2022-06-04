@@ -66,6 +66,11 @@ class Post {
     }
   }
 
+  List<Comment> getSortedComments() {
+    comments.sort((b, a) => a.likes.compareTo(b.likes));
+    return comments;
+  }
+
   set setTitle(String str) {
     title = str;
   }

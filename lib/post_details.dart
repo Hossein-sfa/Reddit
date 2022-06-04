@@ -196,7 +196,7 @@ class _PostDetailsState extends State<PostDetails> {
                   ),
                   ListView.builder(
                     shrinkWrap: true,
-                    itemCount: widget.post.comments.length,
+                    itemCount: widget.post.getSortedComments().length,
                     itemBuilder: (context, index) {
                       return ListTile(
                         title: SizedBox(
