@@ -1,33 +1,52 @@
+//import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class CreateProfile extends StatefulWidget {
-  const CreateProfile({required Key key}) : super(key: key);
+import 'ToHome.dart';
+
+class CreatProfile extends StatefulWidget {
+  const CreatProfile({required Key key}) : super(key: key);
 
   @override
-  _CreateProfileState createState() => _CreateProfileState();
+  _CreatProfileState createState() => _CreatProfileState();
 }
 
-class _CreateProfileState extends State<CreateProfile> {
- // final networkHandler = NetworkHandler();
+class _CreatProfileState extends State<CreatProfile> {
+  // final networkHandler = NetworkHandler();
   bool circular = false;
-  late  PickedFile _imageFile;
-  final _globalKey = GlobalKey<FormState>();
+
+  //late PickedFile _imageFile;
+  final _globalkey = GlobalKey<FormState>();
   final TextEditingController _name = TextEditingController();
-  final TextEditingController _case = TextEditingController();
+  final TextEditingController _Case = TextEditingController();
   final TextEditingController _title = TextEditingController();
   final TextEditingController _about = TextEditingController();
   final ImagePicker _picker = ImagePicker();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:  const Color(0X73000000),
-        title: const Text('Add Communities'),
-        centerTitle: true,
+        backgroundColor: const Color(0X73000000),
+        title: const Text("Add Communities",
+            style: TextStyle(color: Colors.deepOrangeAccent)),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) {
+                      return ToHome();
+                    },
+                  ),
+                );
+              },
+              icon: const Icon(Icons.home_filled))
+        ],
       ),
       body: Form(
-        key: _globalKey,
+        key: _globalkey,
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
           children: <Widget>[
@@ -56,11 +75,11 @@ class _CreateProfileState extends State<CreateProfile> {
                 setState(() {
                   circular = true;
                 });
-                if (_globalKey.currentState!.validate()) {
+                if (_globalkey.currentState!.validate()) {
                   Map<String, String> data = {
                     "name": _name.text,
-                    "Case": _case.text,
-                    "titleLine": _title.text,
+                    "Case": _Case.text,
+                    "titleline": _title.text,
                     "about": _about.text,
                   };
                   /*
@@ -83,7 +102,8 @@ class _CreateProfileState extends State<CreateProfile> {
                      // Navigator.of(context).pushAndRemoveUntil();
                     }
                   }
-             */   }
+             */
+                }
               },
               child: Center(
                 child: Container(
@@ -103,7 +123,6 @@ class _CreateProfileState extends State<CreateProfile> {
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
-
                     ),
                   ),
                 ),
@@ -122,8 +141,8 @@ class _CreateProfileState extends State<CreateProfile> {
           radius: 60.0,
           backgroundImage: AssetImage('assets/images/circleAvatar.png'),
           //backgroundImage: (_imageFile == null)
-         //     ? const AssetImage("assets/images/circleAvatar.png")
-       //       :  AssetImage(_imageFile.path),
+          //     ? const AssetImage("assets/images/circleAvatar.png")
+          //       :  AssetImage(_imageFile.path),
         ),
         Positioned(
           bottom: 20.0,
@@ -149,7 +168,10 @@ class _CreateProfileState extends State<CreateProfile> {
   Widget bottomSheet() {
     return Container(
       height: 100.0,
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
       margin: const EdgeInsets.symmetric(
         horizontal: 20,
         vertical: 20,
@@ -166,19 +188,16 @@ class _CreateProfileState extends State<CreateProfile> {
             height: 20,
           ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-            FlatButton.icon(
-              icon: const Icon(Icons.camera),
+            IconButton(
               onPressed: () {
                 takePhoto(ImageSource.camera);
-              },
-              label: const Text("Camera"),
-            ),
-            FlatButton.icon(
-              icon: const Icon(Icons.image),
+              }, icon: Icon(Icons.camera,),),
+
+            IconButton(
               onPressed: () {
                 takePhoto(ImageSource.gallery);
               },
-              label: const Text("Gallery"),
+              icon: Icon(Icons.image),
             ),
           ])
         ],
@@ -226,7 +245,7 @@ class _CreateProfileState extends State<CreateProfile> {
 
   Widget caseTextField() {
     return TextFormField(
-      controller: _case,
+      controller: _Case,
       validator: (value) {
         if (value!.isEmpty) return "Case can't be empty";
         return null;
@@ -296,7 +315,8 @@ class _CreateProfileState extends State<CreateProfile> {
             )),
         labelText: "About",
         helperText: "Write about your Association & Communication",
-        hintText: "We are a group of students of Shahid Behesti University who are working on a project",
+        hintText:
+        "We are a group of students of Shahid Behesti University who are working on a project",
       ),
     );
   }
