@@ -8,7 +8,7 @@ class Post {
   bool isLiked = false, isDisLiked = false;
 
   Post(this.title, this.description, this.time, this.userName,
-      this.community);
+      this.community, this.comments);
 
   setLike() {
     if (isDisLiked) {
