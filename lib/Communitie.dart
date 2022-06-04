@@ -10,7 +10,6 @@ import 'addPost.dart';
 
 class ToHome extends StatefulWidget {
   const ToHome({Key? key}) : super(key: key);
-
   @override
   State<ToHome> createState() => homeState();
 }
