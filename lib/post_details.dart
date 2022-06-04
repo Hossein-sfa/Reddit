@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shamsi_date/shamsi_date.dart';
-import 'package:comment_box/comment/comment.dart';
 import 'main.dart';
 import 'post.dart';
 import 'user.dart';
@@ -29,13 +28,14 @@ class _PostDetailsState extends State<PostDetails> {
         appBar: AppBars.reddit,
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.only(left: 12, right: 12),
             child: SingleChildScrollView(
               physics: const ScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -154,6 +154,45 @@ class _PostDetailsState extends State<PostDetails> {
                         },
                       ),
                     ],
+                  ),
+                  const Divider(
+                    thickness: 0.8,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: ListTile(
+                      leading: const CircleAvatar(
+                        backgroundImage:
+                            AssetImage('assets/images/circleAvatar.png'),
+                      ),
+                      title: TextFormField(
+                        controller: comment,
+                        minLines: 1,
+                        maxLines: 3,
+                        decoration: const InputDecoration(
+                          labelText: 'Add a comment: ',
+                          labelStyle: TextStyle(
+                            color: Color(0xFFFFB34F),
+                          ),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                      trailing: TextButton(
+                        onPressed: () {
+                          // ToDo: adding comment in phase 2 project
+                          comment.clear();
+                        },
+                        child: const Text(
+                          'Post',
+                          style: TextStyle(
+                            color: Colors.deepOrange,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Divider(
+                    thickness: 0.8,
                   ),
                   ListView.builder(
                     shrinkWrap: true,
@@ -292,39 +331,7 @@ class _PostDetailsState extends State<PostDetails> {
             ),
           ),
         ),
-        // bottomNavigationBar: BottomNavigationBar(
-        //   items: <BottomNavigationBarItem> [
-        //     CommentBox(
-        //       userImage:
-        //       'assets/images/circleAvatar.png',
-        //       child: commentChild(filedata),
-        //       labelText: 'Write a comment...',
-        //       withBorder: false,
-        //       errorText: 'Comment cannot be blank',
-        //       sendButtonMethod: () {
-        //         if (formKey.currentState.validate()) {
-        //           setState(() {
-        //             var value = {
-        //               'name': 'New User',
-        //               'pic':
-        //               'https://lh3.googleusercontent.com/a-/AOh14GjRHcaendrf6gU5fPIVd8GIl1OgblrMMvGUoCBj4g=s400',
-        //               'message': comment.text
-        //             };
-        //             filedata.insert(0, value);
-        //           });
-        //           comment.clear();
-        //           FocusScope.of(context).unfocus();
-        //         }
-        //       },
-        //       formKey: formKey,
-        //       commentController: comment,
-        //       backgroundColor: Colors.black,
-        //       textColor: Colors.white,
-        //       sendWidget: const Icon(Icons.send_sharp, size: 30, color: Colors.white),
-        //     ),
-        //   ],
-        //),
-    ),
+      ),
     );
   }
 }
