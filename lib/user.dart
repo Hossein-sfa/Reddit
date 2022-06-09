@@ -1,4 +1,5 @@
 import 'post.dart';
+import 'community.dart';
 
 class User {
   static late String _name;
@@ -12,6 +13,8 @@ class User {
   static late List<String> _followers;
   static late List<String> _following;
   List<Post> tasksList = [];
+  static List<Community> communities = [Community('first fav community'), Community('second fav community'), Community('third fav community'), Community('fourth fav community'), Community('fifth fav community'), Community('sixth fav community'), Community('seventh fav community')];
+  static List<Community> favCommunities = [Community('first community'), Community('second community'), Community('third community'), Community('fourth community'), Community('fifth community'), Community('sixth community'), Community('seventh community'), Community('eighth community'), Community('ninth community'), Community('tenth community')];
 
   static bool isSaved(post) {
     if (savedPosts.contains(post)) {
