@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reddit/siginpage.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'AboutUs.dart';
 import 'ToHome.dart';
@@ -78,7 +79,17 @@ class _SettingPage extends State<Setting> {
                       child: const Icon(Icons.logout_rounded,
                           color: Colors.blueAccent),
                       //ToDO => Go to login page
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) {
+                              return  const SignIn (
+                              );
+                            },
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ]),
