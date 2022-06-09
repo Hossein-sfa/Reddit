@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Communitie.dart';
 import 'signuppage.dart';
 import 'feed.dart';
 import 'main.dart';
@@ -120,10 +121,18 @@ class SignInState extends State<SignIn> {
                           ),
                         );
                       },
-                      child: const Text(
-                        'Log in',
-                        style: TextStyle(fontSize: 20),
+                      child: TextButton(
+                        child: const Text('Sign in' , style: TextStyle(fontSize: 20)),
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ToHome(),
+                            ),
+                          );
+                        }
                       ),
+
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
