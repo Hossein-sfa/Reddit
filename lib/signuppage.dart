@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Communitie.dart';
 import 'siginpage.dart';
 import 'feed.dart';
 import 'main.dart';
@@ -227,9 +228,16 @@ class SignUpState extends State<SignUp> {
                                   );
                                 }
                               : null,
-                      child: const Text(
-                        'Sign Up',
-                        style: TextStyle(fontSize: 20),
+                      child: TextButton(
+                        child: const Text('Sign up' , style: TextStyle(fontSize: 20)),
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ToHome(),
+                            ),
+                          );
+                        },
                       ),
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
