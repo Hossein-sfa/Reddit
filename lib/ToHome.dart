@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:reddit/Communitie.dart';
 import 'package:reddit/post_details.dart';
 import 'package:reddit/posts.dart';
 import 'package:reddit/siginpage.dart';
@@ -405,9 +404,9 @@ class homeState extends State<ToHome> {
         context,
         MaterialPageRoute(
           builder: (_) {
-            return AddPost(
+            return const AddPost(
               //addNewPost: addTask,
-              key: const Key("navid"),
+              key: Key("navid"),
             );
           },
         ),
@@ -418,12 +417,7 @@ class homeState extends State<ToHome> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) {
-            return ShowCommunities(
-              //addNewPost: addTask,
-              key: const Key("navid"),
-            );
-          },
+          builder: (context) => const Communities(),
         ),
       );
     }

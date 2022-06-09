@@ -223,7 +223,7 @@ class SignUpState extends State<SignUp> {
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const Feed(),
+                                      builder: (context) => const ToHome(),
                                     ),
                                   );
                                 }
@@ -234,7 +234,7 @@ class SignUpState extends State<SignUp> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ToHome(),
+                              builder: (context) => const SignUp(),
                             ),
                           );
                         },
