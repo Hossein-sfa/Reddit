@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:reddit/ToHome.dart';
 import 'package:reddit/user%20detail.dart';
 import 'package:reddit/userSetting.dart';
 import 'Post.dart';
@@ -8,13 +9,13 @@ import 'Setting.dart';
 import 'addCommunitie.dart';
 import 'addPost.dart';
 
-class ToHome extends StatefulWidget {
-  const ToHome({Key? key}) : super(key: key);
+class ShowCommunities extends StatefulWidget {
+  const ShowCommunities({Key? key}) : super(key: key);
   @override
-  State<ToHome> createState() => homeState();
+  State<ShowCommunities> createState() => homeState();
 }
 
-class homeState extends State<ToHome> {
+class homeState extends State<ShowCommunities> {
   List<Post> tasksList = [];  //this is a temp list!!
 
   void addTask(Post post) {
@@ -229,6 +230,20 @@ class homeState extends State<ToHome> {
             return AddPost(
               //addNewPost: addTask,
               key: const Key("navid"),
+            );
+          },
+        ),
+      );
+    }
+    if (_selectedIndex == 1) {
+      // ToDo => if + selected means add post so push add post page
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) {
+            return ToHome(
+              //addNewPost: addTask,
+              key: const Key("reddit"),
             );
           },
         ),
