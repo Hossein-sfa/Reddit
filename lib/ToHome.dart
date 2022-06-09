@@ -144,6 +144,7 @@ class homeState extends State<ToHome> {
         ),
       ),
       appBar: AppBar(
+
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0X73000000),
         title: const SizedBox(
