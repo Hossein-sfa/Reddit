@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:reddit/ToHome.dart';
 import 'package:reddit/user%20detail.dart';
 import 'package:reddit/userSetting.dart';
 import 'Post.dart';
@@ -229,6 +230,20 @@ class homeState extends State<ShowCommunities> {
             return AddPost(
               //addNewPost: addTask,
               key: const Key("navid"),
+            );
+          },
+        ),
+      );
+    }
+    if (_selectedIndex == 1) {
+      // ToDo => if + selected means add post so push add post page
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) {
+            return ToHome(
+              //addNewPost: addTask,
+              key: const Key("reddit"),
             );
           },
         ),

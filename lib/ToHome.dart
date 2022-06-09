@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:reddit/Communitie.dart';
 import 'package:reddit/post_details.dart';
 import 'package:reddit/posts.dart';
 import 'package:reddit/siginpage.dart';
@@ -350,7 +350,9 @@ class homeState extends State<ToHome> {
                         const Spacer(),
                         IconButton(
                           icon: const Icon(Icons.share),
-                          onPressed: () {},
+                          onPressed: () {
+                            //ToDo => share post
+                          },
                         ),
                         const SizedBox(width: 10),
                         IconButton(
@@ -369,6 +371,7 @@ class homeState extends State<ToHome> {
                                     .remove(UserPosts.posts[index]);
                               }
                             });
+                            //ToDo => send saved post to server in phase 2 project (Show this posts in saved page posts from setting pages)!
                           },
                         ),
                       ],
@@ -403,6 +406,20 @@ class homeState extends State<ToHome> {
         MaterialPageRoute(
           builder: (_) {
             return AddPost(
+              //addNewPost: addTask,
+              key: const Key("navid"),
+            );
+          },
+        ),
+      );
+    }
+    if (_selectedIndex == 1) {
+      // ToDo => if communities selected means push community page
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) {
+            return ShowCommunities(
               //addNewPost: addTask,
               key: const Key("navid"),
             );
