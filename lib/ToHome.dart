@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:reddit/siginpage.dart';
 import 'package:reddit/user%20detail.dart';
 import 'package:reddit/userSetting.dart';
 import 'Post.dart';
@@ -128,6 +129,15 @@ class homeState extends State<ToHome> {
               trailing: const Icon(Icons.power_settings_new , color: Colors.red),
               onTap: () {
                 //ToDo => Go to login page and delete user data from mobile and send data to server
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) {
+                      return  const SignIn (
+                      );
+                    },
+                  ),
+                );
               },
             ),
           ],
