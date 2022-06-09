@@ -8,13 +8,13 @@ import 'Setting.dart';
 import 'addCommunitie.dart';
 import 'addPost.dart';
 
-class ToHome extends StatefulWidget {
-  const ToHome({Key? key}) : super(key: key);
+class ShowCommunities extends StatefulWidget {
+  const ShowCommunities({Key? key}) : super(key: key);
   @override
-  State<ToHome> createState() => homeState();
+  State<ShowCommunities> createState() => homeState();
 }
 
-class homeState extends State<ToHome> {
+class homeState extends State<ShowCommunities> {
   List<Post> tasksList = [];  //this is a temp list!!
 
   void addTask(Post post) {
