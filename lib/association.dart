@@ -1,9 +1,12 @@
+import 'post.dart';
+
 class association {
   late String associationName;
   late String description;
   late String associationMakerName;
   DateTime startDate = DateTime.now();
-  late int memberCount;
+  late int memberCount =817389;
+  List<Post> posts = [];
 
   association(
       this.associationName, this.description, this.associationMakerName);

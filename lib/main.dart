@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'communitydetails.dart';
+import 'communities.dart';
 import 'siginpage.dart';
 
 void main() => runApp(const MyApp());
@@ -62,7 +62,7 @@ class MyHomePageState extends State<MyHomePage> {
     return const Scaffold(
       // body: SignIn(),
       body:
-        CommunityDetails(),
+      Communities(),
     );
   }
 }

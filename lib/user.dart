@@ -1,5 +1,5 @@
 import 'post.dart';
-import 'community.dart';
+import 'association.dart';
 
 class User {
   static late String _name;
@@ -13,8 +13,8 @@ class User {
   static late List<String> _followers;
   static late List<String> _following;
   List<Post> tasksList = [];
-  static List<Community> communities = [Community('first fav community'), Community('second fav community'), Community('third fav community'), Community('fourth fav community'), Community('fifth fav community'), Community('sixth fav community'), Community('seventh fav community')];
-  static List<Community> favCommunities = [Community('first community'), Community('second community'), Community('third community'), Community('fourth community'), Community('fifth community'), Community('sixth community'), Community('seventh community'), Community('eighth community'), Community('ninth community'), Community('tenth community')];
+  static List<association> communities = [association('first fav community', '', 'hossein'), association('second fav community', '', 'hossein'), association('third fav community', '', 'hossein'), association('fourth fav community', '', 'hossein'), association('fifth fav community', '', 'hossein'), association('sixth fav community', '', 'hossein'), association('seventh fav community', '', 'hossein')];
+  static List<association> favCommunities = [association('first community', '', 'hossein'), association('second community', '', 'hossein'), association('third community', '', 'hossein'), association('fourth community', '', 'hossein'), association('fifth community', '', 'hossein'), association('sixth community', '', 'hossein'), association('seventh community', '', 'hossein'), association('eighth community', 'fgggdsgdgdsfgsgsdg', 'hossein'), association('ninth community', '', 'hossein'), association('tenth community', '', 'hossein')];
 
   static bool isSaved(post) {
     if (savedPosts.contains(post)) {
