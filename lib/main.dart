@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'communitydetails.dart';
 import 'siginpage.dart';
 
 void main() => runApp(const MyApp());
@@ -59,7 +60,9 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: SignIn(),
+      // body: SignIn(),
+      body:
+        CommunityDetails(),
     );
   }
 }
