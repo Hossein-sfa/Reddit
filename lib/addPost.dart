@@ -83,7 +83,7 @@ class _AddPostState extends State<AddPost> {
                 String title = titleC.text;
                 String desc = body.text;
                 DateTime datetime = time;
-                Post post = Post(title, desc, datetime, 'hossein', 'SBU');
+                Post post = Post(title, desc, datetime, 'hossein', 'SBU', []);
                 UserPosts.addPost(post);
                 titleC.clear();
                 body.clear();

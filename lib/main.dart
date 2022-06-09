@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:reddit/posts.dart';
-import 'feed.dart';
 import 'siginpage.dart';
 
 void main() => runApp(const MyApp());
-
-// if user has signed in the main page directs to feed page
-var signedIn = true;
 
 // class for switching between dark and light theme
 class Theme {
@@ -64,8 +59,7 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      // body: signedIn ? const Feed() : const SignIn(),
-      body: Feed(),
+      body: SignIn(),
     );
   }
 }
