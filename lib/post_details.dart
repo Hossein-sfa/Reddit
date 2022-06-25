@@ -3,23 +3,46 @@ import 'package:shamsi_date/shamsi_date.dart';
 import 'main.dart';
 import 'post.dart';
 import 'user.dart';
+import 'comment.dart';
 
 class PostDetails extends StatefulWidget {
   const PostDetails({Key? key, required this.post}) : super(key: key);
-
   final Post post;
-
   @override
-  State<PostDetails> createState() => _PostDetailsState();
+  State<PostDetails> createState() => PostDetailsState();
 }
 
-class _PostDetailsState extends State<PostDetails> {
+class PostDetailsState extends State<PostDetails> {
   final TextEditingController comment = TextEditingController();
+  bool commentChecker = false;
+  List<Comment>? comments;
+
+  @override
+  void initState() {
+    super.initState();
+    comments = widget.post.getSortedComments();
+    comment.addListener(() {
+      setState(() {
+        if (comment.text.isNotEmpty) {
+          commentChecker = true;
+        } else {
+          commentChecker = false;
+        }
+      });
+    });
+  }
+
+  // set State comments when user adds comment
+  refreshComments() {
+    setState(() {
+      comments = widget.post.getSortedComments();
+    });
+    return comments;
+  }
 
   // format date for reading humans in shamsi
-  jalaliFormat(Date date) {
-    return '${date.formatter.yyyy}/${date.formatter.mm}/${date.formatter.dd}';
-  }
+  jalaliFormat(Date date) =>
+      '${date.formatter.yyyy}/${date.formatter.mm}/${date.formatter.dd}';
 
   @override
   Widget build(BuildContext context) {
@@ -178,10 +201,14 @@ class _PostDetailsState extends State<PostDetails> {
                         ),
                       ),
                       trailing: TextButton(
-                        onPressed: () {
-                          // ToDo: adding comment in phase 2 project
-                          comment.clear();
-                        },
+                        onPressed: commentChecker
+                            ? () {
+                                // ToDo : sending username and password to server in phase to project
+                                comment.clear();
+                                widget.post.addComment(Comment(comment.text, DateTime.now()));
+                                refreshComments();
+                              }
+                            : null,
                         child: const Text(
                           'Post',
                           style: TextStyle(

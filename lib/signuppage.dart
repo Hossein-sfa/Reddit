@@ -220,6 +220,8 @@ class SignUpState extends State<SignUp> {
                     ),
                     const SizedBox(height: 10),
                     ElevatedButton(
+                      child:
+                          const Text('Sign Up', style: TextStyle(fontSize: 20)),
                       onPressed:
                           emailChecker && userNameChecker && passwordChecker
                               ? () {
@@ -232,18 +234,6 @@ class SignUpState extends State<SignUp> {
                                   );
                                 }
                               : null,
-                      child: TextButton(
-                        child: const Text('Sign up',
-                            style: TextStyle(fontSize: 20)),
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SignUp(),
-                            ),
-                          );
-                        },
-                      ),
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),

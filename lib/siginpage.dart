@@ -140,6 +140,8 @@ class SignInState extends State<SignIn> {
                     ),
                     const SizedBox(height: 10),
                     ElevatedButton(
+                      child:
+                          const Text('Sign In', style: TextStyle(fontSize: 20)),
                       onPressed: userNameChecker && passwordChecker
                           ? () {
                               // ToDo : sending username and password to server in phase to project
@@ -151,17 +153,6 @@ class SignInState extends State<SignIn> {
                               );
                             }
                           : null,
-                      child: TextButton(
-                          child: const Text('Sign in',
-                              style: TextStyle(fontSize: 20)),
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ToHome(),
-                              ),
-                            );
-                          }),
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),

@@ -3,9 +3,9 @@ import 'comment.dart';
 
 class UserPosts {
   static List<Comment> c = [
-    Comment(173, 87, 'comment test\nhello nyr good google', DateTime.now()),
-    Comment(12273, 87, 'comment test\nhello nyr good google', DateTime.now()),
-    Comment(-173, 87, 'comment test\nhello nyr good google', DateTime.now())
+    Comment('comment test\nhello nyr good google', DateTime.now()),
+    Comment('comment test\nhello nyr good google', DateTime.now()),
+    Comment('comment test\nhello nyr good google', DateTime.now())
   ];
   static List<Post> posts = [
     Post(
