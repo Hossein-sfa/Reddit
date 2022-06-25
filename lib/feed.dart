@@ -15,6 +15,7 @@ class FeedState extends State<Feed> {
     return Material(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.deepOrangeAccent,
           title: const Text(
             "Reddit",
             style: TextStyle(fontSize: 20),

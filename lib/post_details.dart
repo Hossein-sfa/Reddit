@@ -205,7 +205,8 @@ class PostDetailsState extends State<PostDetails> {
                             ? () {
                                 // ToDo : sending username and password to server in phase to project
                                 comment.clear();
-                                widget.post.addComment(Comment(comment.text, DateTime.now()));
+                                widget.post.addComment(
+                                    Comment(comment.text, DateTime.now()));
                                 refreshComments();
                               }
                             : null,

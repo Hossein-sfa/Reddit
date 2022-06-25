@@ -4,7 +4,7 @@ import 'siginpage.dart';
 void main() => runApp(const MyApp());
 
 // class for switching between dark and light theme
-class Theme {
+class Themes {
   static ThemeData light = ThemeData(
     scaffoldBackgroundColor: Colors.white,
     primaryColor: Colors.deepOrange,
@@ -41,8 +41,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Reddit',
-      theme: Theme.light,
-      darkTheme: Theme.dark,
+      theme: Themes.light,
+      darkTheme: Themes.dark,
       home: const MyHomePage(),
     );
   }
