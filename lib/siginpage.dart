@@ -3,11 +3,6 @@ import 'ToHome.dart';
 import 'signuppage.dart';
 import 'main.dart';
 
-userNameExist(String userName) {
-  // Todo : Check if userName exist in database Phase 2 project
-  return true;
-}
-
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
   @override
@@ -68,11 +63,6 @@ class SignInState extends State<SignIn> {
                         controller: userName,
                         keyboardType: TextInputType.text,
                         textAlign: TextAlign.center,
-                        onChanged: (text) {
-                          userNameErrorMessage = isValidUserName(userName.text)
-                              ? null
-                              : "This username Doesn't exists";
-                        },
                         decoration: InputDecoration(
                           filled: true,
                           labelText: 'UserName: ',

@@ -55,6 +55,8 @@ class SignUpState extends State<SignUp> {
       setState(() {
         if (isValidEmail(email.text)) {
           emailChecker = true;
+        } else {
+          emailChecker = false;
         }
       });
     });
@@ -62,6 +64,8 @@ class SignUpState extends State<SignUp> {
       setState(() {
         if (isValidUserName(userName.text)) {
           userNameChecker = true;
+        } else {
+          userNameChecker = false;
         }
       });
     });
@@ -69,6 +73,8 @@ class SignUpState extends State<SignUp> {
       setState(() {
         if (isValidPassword(password.text)) {
           passwordChecker = true;
+        } else {
+          passwordChecker = false;
         }
       });
     });
