@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'ToHome.dart';
 import 'siginpage.dart';
-import 'feed.dart';
 import 'main.dart';
 
 // validate that password contains 8 chars and  at least one number and  a small and a capital character
@@ -28,7 +27,6 @@ isValidUserName(String userName) {
     // ToDo : check that username is not already have an account in phase 2 project
     return true;
   }
-
   return false;
 }
 
@@ -229,7 +227,8 @@ class SignUpState extends State<SignUp> {
                                 }
                               : null,
                       child: TextButton(
-                        child: const Text('Sign up' , style: TextStyle(fontSize: 20)),
+                        child: const Text('Sign up',
+                            style: TextStyle(fontSize: 20)),
                         onPressed: () {
                           Navigator.pushReplacement(
                             context,
