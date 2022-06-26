@@ -5,7 +5,7 @@ class Comment {
   DateTime time;
   List replies = [];
 
-  Comment(this.likes, this.replyNum, this.description, this.time);
+  Comment(this.description, this.time);
 
   setLike() {
     if (isDisLiked) {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'ToHome.dart';
 import 'signuppage.dart';
-import 'feed.dart';
 import 'main.dart';
 
 class SignIn extends StatefulWidget {
@@ -13,7 +12,31 @@ class SignIn extends StatefulWidget {
 class SignInState extends State<SignIn> {
   TextEditingController userName = TextEditingController();
   TextEditingController password = TextEditingController();
-  bool obscure = true;
+  bool obscure = true, userNameChecker = false, passwordChecker = false;
+  String? userNameErrorMessage, passwordErrorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    userName.addListener(() {
+      setState(() {
+        if (userName.text != "") {
+          userNameChecker = true;
+        } else {
+          userNameChecker = false;
+        }
+      });
+    });
+    password.addListener(() {
+      setState(() {
+        if (password.text != '' && password.text.length >= 8) {
+          passwordChecker = true;
+        } else {
+          passwordChecker = false;
+        }
+      });
+    });
+  }
 
   // deleting the text controller when widget is disposed (finalize method)
   @override
@@ -65,6 +88,11 @@ class SignInState extends State<SignIn> {
                         obscureText: obscure,
                         keyboardType: TextInputType.text,
                         textAlign: TextAlign.center,
+                        onChanged: (text) {
+                          passwordErrorMessage = isValidPassword(password.text)
+                              ? null
+                              : 'This password is not strong enough.\nIt should have at least one lowercase, uppercase letter and a number.\nand it should be more than 8 characters.';
+                        },
                         decoration: InputDecoration(
                           filled: true,
                           labelText: 'Password: ',
@@ -112,27 +140,19 @@ class SignInState extends State<SignIn> {
                     ),
                     const SizedBox(height: 10),
                     ElevatedButton(
-                      onPressed: () {
-                        // TODO: sending userName and password to server in phase 2 project
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Feed(),
-                          ),
-                        );
-                      },
-                      child: TextButton(
-                        child: const Text('Sign in' , style: TextStyle(fontSize: 20)),
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ToHome(),
-                            ),
-                          );
-                        }
-                      ),
-
+                      child:
+                          const Text('Sign In', style: TextStyle(fontSize: 20)),
+                      onPressed: userNameChecker && passwordChecker
+                          ? () {
+                              // ToDo : sending username and password to server in phase to project
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ToHome(),
+                                ),
+                              );
+                            }
+                          : null,
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),

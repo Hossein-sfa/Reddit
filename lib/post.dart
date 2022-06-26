@@ -71,6 +71,11 @@ class Post {
     return comments;
   }
 
+  addComment(comment) {
+    comments.add(comment);
+    commentNum++;
+  }
+
   set setTitle(String str) {
     title = str;
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'ToHome.dart';
 import 'siginpage.dart';
-import 'feed.dart';
 import 'main.dart';
 
 // validate that password contains 8 chars and  at least one number and  a small and a capital character
@@ -28,7 +27,6 @@ isValidUserName(String userName) {
     // ToDo : check that username is not already have an account in phase 2 project
     return true;
   }
-
   return false;
 }
 
@@ -57,6 +55,8 @@ class SignUpState extends State<SignUp> {
       setState(() {
         if (isValidEmail(email.text)) {
           emailChecker = true;
+        } else {
+          emailChecker = false;
         }
       });
     });
@@ -64,6 +64,8 @@ class SignUpState extends State<SignUp> {
       setState(() {
         if (isValidUserName(userName.text)) {
           userNameChecker = true;
+        } else {
+          userNameChecker = false;
         }
       });
     });
@@ -71,6 +73,8 @@ class SignUpState extends State<SignUp> {
       setState(() {
         if (isValidPassword(password.text)) {
           passwordChecker = true;
+        } else {
+          passwordChecker = false;
         }
       });
     });
@@ -216,6 +220,8 @@ class SignUpState extends State<SignUp> {
                     ),
                     const SizedBox(height: 10),
                     ElevatedButton(
+                      child:
+                          const Text('Sign Up', style: TextStyle(fontSize: 20)),
                       onPressed:
                           emailChecker && userNameChecker && passwordChecker
                               ? () {
@@ -223,22 +229,11 @@ class SignUpState extends State<SignUp> {
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const Feed(),
+                                      builder: (context) => const ToHome(),
                                     ),
                                   );
                                 }
                               : null,
-                      child: TextButton(
-                        child: const Text('Sign up' , style: TextStyle(fontSize: 20)),
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ToHome(),
-                            ),
-                          );
-                        },
-                      ),
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
