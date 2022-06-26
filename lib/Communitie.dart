@@ -1,220 +1,649 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:reddit/ToHome.dart';
+import 'package:reddit/siginpage.dart';
 import 'package:reddit/user%20detail.dart';
 import 'package:reddit/userSetting.dart';
-import 'Post.dart';
 import 'SearchPage.dart';
 import 'Setting.dart';
+import 'ToHome.dart';
 import 'addCommunitie.dart';
 import 'addPost.dart';
 
-class ShowCommunities extends StatefulWidget {
-  const ShowCommunities({Key? key}) : super(key: key);
+class CommunitiesDetailPage extends StatefulWidget {
+  const CommunitiesDetailPage({Key? key}) : super(key: key);
+
   @override
-  State<ShowCommunities> createState() => homeState();
+  State<CommunitiesDetailPage> createState() => _CommunitiesDetailPage();
 }
 
-class homeState extends State<ShowCommunities> {
-  List<Post> tasksList = [];  //this is a temp list!!
-
-  void addTask(Post post) {
-    setState(() {
-      tasksList.add(post); //ToDo => shamsi date & each post of per associations
-      // sort posts by time
-    });
-  }
-
-  void deleteTask(Post post) {
-    setState(() {
-      //ToDo => For delete post
-      tasksList.remove(Post);
-    });
-  }
-
+class _CommunitiesDetailPage extends State<CommunitiesDetailPage> {
   int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        backgroundColor: const Color(0xB3FFFFFF), // gray
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: ListView(
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.black45,
-                image: DecorationImage(
-                  image: AssetImage('assets/images/profiledesign.jfif'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              padding: EdgeInsets.all(20),
-              child: Text(
-                'Menu',
-                style: (TextStyle(fontSize: 20, color: Colors.deepOrangeAccent)),
-                textAlign: TextAlign.left,
-              ),
+    Size screenSize = MediaQuery.of(context).size;
+    return SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.white38,
+          drawer: Drawer(
+            backgroundColor: const Color(0xB3FFFFFF), // gray
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
             ),
-            CircleAvatar(
-              radius: 30,
-              foregroundImage: const AssetImage('assets/images/circleAvatar.png'),
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) {
-                        return const userDetail();
-                      },
+            child: ListView(
+              children: <Widget>[
+                const DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.black45,
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/profiledesign.jfif'),
+                      fit: BoxFit.cover,
                     ),
-                  );
-                },
-              ),
-            ),
-            ListTile(
-              title: const Text("Change user profile"),
-              trailing: const Icon(Icons.change_circle , color: Colors.blueAccent),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) {
-                      return const UserSetting(key: Key('userSetting'));
-                    },
                   ),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text("Most Viewed Community"),
-              trailing: const Icon(Icons.launch),
-              onTap: () {},
-            ),
-            ListTile(
-              title: const Text("Add Community"),
-              trailing: const Icon(Icons.add , color: Colors.green),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) {
-                      return CreatProfile(key: UniqueKey());
-                    },
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                    'Menu',
+                    style:
+                    (TextStyle(fontSize: 20, color: Colors.deepOrangeAccent)),
+                    textAlign: TextAlign.left,
                   ),
-                );
-              },
-            ),
-            ListTile(
-
-              title: const Text("Settings"),
-              trailing: const Icon(Icons.settings , color: Colors.brown),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) {
-                      return Setting(key: UniqueKey());
-                    },
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text("Logout"),
-              trailing: const Icon(Icons.power_settings_new , color: Colors.red),
-              onTap: () {
-                //ToDo => Go to login page and delete user data from mobile and send data to server
-              },
-            ),
-          ],
-        ),
-      ),
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: const Color(0X73000000),
-        title: const SizedBox(
-            width: double.infinity,
-            height: 40,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text("Reddit"),
-            )),
-        actions: [
-          // Go to Search Page
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) {
-                      return const SearchPage(
-                        key: Key("Search page"),
+                ),
+                CircleAvatar(
+                  radius: 30,
+                  foregroundImage:
+                  const AssetImage('assets/images/circleAvatar.png'),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) {
+                            return const userDetail();
+                          },
+                        ),
                       );
                     },
                   ),
-                );
-              },
-              icon: const Icon(Icons.search_rounded)),
-          Align(
-              alignment: Alignment.centerRight,
-              child: IconButton(
+                ),
+                ListTile(
+                  title: const Text("Change user profile"),
+                  trailing:
+                  const Icon(Icons.change_circle, color: Colors.blueAccent),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) {
+                          return const UserSetting(key: Key('userSetting'));
+                        },
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: const Text("Most Viewed Community"),
+                  trailing: const Icon(Icons.launch),
+                  onTap: () {},
+                ),
+                ListTile(
+                  title: const Text("Add Community"),
+                  trailing: const Icon(Icons.add, color: Colors.green),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) {
+                          return CreatProfile(key: UniqueKey());
+                        },
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: const Text("Settings"),
+                  trailing: const Icon(Icons.settings, color: Colors.brown),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) {
+                          return Setting(key: UniqueKey());
+                        },
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: const Text("Logout"),
+                  trailing: const Icon(Icons.power_settings_new, color: Colors.red),
+                  onTap: () {
+                    //ToDo => Go to login page and delete user data from mobile and send data to server
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) {
+                          return const SignIn();
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            backgroundColor: const Color(0X73000000),
+            title: const SizedBox(
+                width: double.infinity,
+                height: 40,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text("Reddit"),
+                )),
+            actions: [
+              // Go to Search Page
+              IconButton(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (_) {
-                          return const Setting(
-                            key: Key("About us"),
+                          return const SearchPage(
+                            key: Key("Search page"),
                           );
                         },
                       ),
                     );
                   },
-                  icon: const Icon(Icons.settings)))
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black54,
-        selectedFontSize: 18,
-        selectedIconTheme:
-        const IconThemeData(color: Colors.orangeAccent, size: 22),
-        selectedItemColor: Colors.orangeAccent,
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+                  icon: const Icon(Icons.search_rounded)),
+              Align(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) {
+                              return const Setting(
+                                key: Key("About us"),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.settings)))
+            ],
+          ),
+          bottomNavigationBar: BottomNavigationBar(
             backgroundColor: Colors.black54,
-            icon: Icon(Icons.home),
-            label: "Home",
+            selectedFontSize: 18,
+            selectedIconTheme:
+            IconThemeData(color: Colors.orangeAccent, size: 22),
+            selectedItemColor: Colors.orangeAccent,
+            selectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                backgroundColor: Colors.black54,
+                icon: Icon(Icons.home),
+                label: "Home",
+              ),
+              BottomNavigationBarItem(
+                backgroundColor: Colors.black45,
+                icon: Icon(Icons.group_rounded),
+                label: "Association",
+              ),
+              BottomNavigationBarItem(
+                backgroundColor: Colors.black45,
+                icon: Icon(Icons.add),
+                label: "Add",
+              ),
+              BottomNavigationBarItem(
+                backgroundColor: Colors.black45,
+                icon: Icon(Icons.chat_bubble),
+                label: "Chats",
+              ),
+              BottomNavigationBarItem(
+                backgroundColor: Colors.black45,
+                icon: Icon(Icons.inbox),
+                label: "Inbox",
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
           ),
-          BottomNavigationBarItem(
-            backgroundColor: Colors.black45,
-            icon: Icon(Icons.group_rounded),
-            label: "Association",
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: CarouselSlider(
+                      items: [
+                        Container(
+                          //padding: const EdgeInsets.all(40),
+                          width: double.infinity,
+                          //  height: double.infinity,
+                          decoration: const BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.all(Radius.circular(20))),
+                          child: Stack(
+                            children: [
+                              SizedBox(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: ClipRRect(
+                                  borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                                  child: Image.asset(
+                                    "assets/images/sociaty.jpg",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Row(
+                                          children: const [
+                                            Icon(Icons.circle,
+                                                color: Colors.white, size: 17),
+                                            Text(
+                                              " Society",
+                                              style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                            )
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          //padding: const EdgeInsets.all(40),
+                          width: double.infinity,
+                          //  height: double.infinity,
+                          decoration: const BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.all(Radius.circular(20))),
+                          child: Stack(
+                            children: [
+                              SizedBox(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: ClipRRect(
+                                  borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                                  child: Image.asset(
+                                    "assets/images/technology.jpg",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Row(
+                                          children: const [
+                                            Icon(Icons.circle,
+                                                color: Colors.white, size: 17),
+                                            Text(
+                                              " Technology",
+                                              style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          //padding: const EdgeInsets.all(40),
+                          width: double.infinity,
+                          //  height: double.infinity,
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(20))),
+                          child: Stack(
+                            children: [
+                              SizedBox(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: ClipRRect(
+                                  borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      boxShadow:  [
+                                        BoxShadow(
+                                            blurRadius: 22,
+                                            spreadRadius: 10,
+                                            offset: Offset(0, 7),
+                                            color: Colors.grey),
+                                      ],
+                                    ),
+                                    child: Image.asset(
+                                      "assets/images/nature.jpg",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Row(
+                                          children: const [
+                                            Icon(Icons.circle,
+                                                color: Colors.white, size: 17),
+                                            Text(
+                                              " Nature & Animals",
+                                              style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: double.infinity,
+                          //  height: double.infinity,
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(20))),
+                          child: Stack(
+                            children: [
+                              SizedBox(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: ClipRRect(
+                                  borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                                  child: Image.asset(
+                                    "assets/images/science_main.jpg",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Row(
+                                          children: const [
+                                            Icon(Icons.circle,
+                                                color: Colors.black, size: 17),
+                                            Text(
+                                              " Science",
+                                              style: TextStyle(
+                                                  fontSize: 19,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          //padding: const EdgeInsets.all(40),
+                          width: double.infinity,
+                          //  height: double.infinity,
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(20))),
+                          child: Stack(
+                            children: [
+                              SizedBox(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: ClipRRect(
+                                  borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                                  child: Image.asset(
+                                    "assets/images/Sp.jpg",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Row(
+                                          children: const [
+                                            Icon(Icons.circle,
+                                                color: Colors.white, size: 17),
+                                            Text(
+                                              " Sports",
+                                              style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          //padding: const EdgeInsets.all(40),
+                          width: double.infinity,
+                          //  height: double.infinity,
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(20))),
+                          child: Stack(
+                            children: [
+                              SizedBox(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: ClipRRect(
+                                  borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                                  child: Image.asset(
+                                    "assets/images/movie.jpg",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Row(
+                                          children: const [
+                                            Icon(Icons.circle,
+                                                color: Colors.white, size: 17),
+                                            Text(
+                                              " Movies",
+                                              style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                      options: CarouselOptions(
+                        height: 400,
+                        aspectRatio: 16 / 9,
+                        viewportFraction: 0.8,
+                        initialPage: 0,
+                        enableInfiniteScroll: true,
+                        reverse: false,
+                        autoPlay: true,
+                        autoPlayInterval: const Duration(seconds: 3),
+                        autoPlayAnimationDuration:
+                        const Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeCenterPage: true,
+                        scrollDirection: Axis.horizontal,
+                      )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "All",
+                        style: TextStyle(color: Colors.white60),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            _listTitlePressed();
+                          },
+                          icon: const Icon(Icons.arrow_forward_ios_rounded,
+                              size: 15, color: Colors.white60)),
+                    ],
+                  ),
+                ),
+                ListView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  // prevent to scroll it
+                  shrinkWrap: true,
+                  // we can scroll it just in list area
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
+                      //Border:  BorderRadius.all(Radius.circular(15)),
+                      decoration: const BoxDecoration(
+                        color: Colors.white12,
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                      ),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 80,
+                            height: 80,
+                            child: ClipRRect(
+                              borderRadius:
+                              const BorderRadius.all(Radius.circular(15)),
+                              child: Image.asset(
+                                "assets/images/cover.jpg",
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: const [
+                                    Icon(Icons.person_outline_rounded,
+                                        color: Colors.white60, size: 17),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(
+                                      " r/ nasa",
+                                      style: TextStyle(
+                                          color: Colors.white60,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+
+                                const Text("Title",
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 13,
+                                    )),
+                                const  SizedBox(
+                                  height: 10,
+                                ),
+                                const Text(
+                                  "adad adwdwdd wdaedf frsfaea ffasa edada dsadjhdj jjjdjjsjdoad nsdajndjkdj sadsad dsad ",
+                                  overflow: TextOverflow.ellipsis,
+                                  //ToDo =  > implement it with short text of each communities
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 12),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
-          BottomNavigationBarItem(
-            backgroundColor: Colors.black45,
-            icon: Icon(Icons.add),
-            label: "Add",
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Colors.black45,
-            icon: Icon(Icons.chat_bubble),
-            label: "Chats",
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Colors.black45,
-            icon: Icon(Icons.inbox),
-            label: "Inbox",
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
-    );
+        ));
   }
 
   void _onItemTapped(int index) {
@@ -227,27 +656,32 @@ class homeState extends State<ShowCommunities> {
         context,
         MaterialPageRoute(
           builder: (_) {
-            return AddPost(
+            return const AddPost(
               //addNewPost: addTask,
-              key: const Key("navid"),
+              key: Key("navid"),
             );
           },
         ),
       );
     }
-    if (_selectedIndex == 1) {
-      // ToDo => if + selected means add post so push add post page
+    if (_selectedIndex == 0) {
+      // ToDo => if communities selected means push community page
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (_) {
-            return ToHome(
+            return const ToHome(
               //addNewPost: addTask,
-              key: const Key("reddit"),
+              key: Key("navid"),
             );
           },
         ),
       );
     }
+  }
+
+  void _listTitlePressed() {
+    //ToDo => open a list title of a subject of communities!
+    //ToDo => select a title from page click!
   }
 }
