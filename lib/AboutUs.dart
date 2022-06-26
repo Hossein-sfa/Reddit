@@ -300,7 +300,7 @@ class UserProfilePage extends StatelessWidget {
                   const SizedBox(height: 8.0),
                   _buildButtons(),
                 ],
-              ),
+              )
             ),
           ),
         ],
