@@ -3,20 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:reddit/siginpage.dart';
 import 'package:reddit/user%20detail.dart';
 import 'package:reddit/userSetting.dart';
+import 'CommunitiesCategory.dart';
 import 'SearchPage.dart';
 import 'Setting.dart';
 import 'ToHome.dart';
 import 'addCommunitie.dart';
 import 'addPost.dart';
 
-class CommunitiesMainPage extends StatefulWidget {
-  const CommunitiesMainPage({Key? key}) : super(key: key);
+class CommunitiesDetailPage extends StatefulWidget {
+  const CommunitiesDetailPage({Key? key}) : super(key: key);
 
   @override
-  State<CommunitiesMainPage> createState() => _CommunitiesMainPage();
+  State<CommunitiesDetailPage> createState() => _CommunitiesDetailPage();
 }
 
-class _CommunitiesMainPage extends State<CommunitiesMainPage> {
+class _CommunitiesDetailPage extends State<CommunitiesDetailPage> {
   int _selectedIndex = 1;
 
   @override
@@ -179,7 +180,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
             backgroundColor: Colors.black54,
             selectedFontSize: 18,
             selectedIconTheme:
-            IconThemeData(color: Colors.orangeAccent, size: 22),
+            const IconThemeData(color: Colors.orangeAccent, size: 22),
             selectedItemColor: Colors.orangeAccent,
             selectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
             items: const <BottomNavigationBarItem>[
@@ -219,313 +220,457 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                   padding: const EdgeInsets.only(top: 30),
                   child: CarouselSlider(
                       items: [
-                        Container(
-                          //padding: const EdgeInsets.all(40),
-                          width: double.infinity,
-                          //  height: double.infinity,
-                          decoration: const BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          child: Stack(
-                            children: [
-                              SizedBox(
-                                width: double.infinity,
-                                height: double.infinity,
-                                child: ClipRRect(
-                                  borderRadius:
-                                  const BorderRadius.all(Radius.circular(20)),
-                                  child: Image.asset(
-                                    "assets/images/sociaty.jpg",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                        InkWell(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, animation,
+                                    secondaryAnimation) =>
+                                    ShowCommunitiesCategory(1),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  const begin = Offset(0.0, 1.0);
+                                  const end = Offset.zero;
+                                  const curve = Curves.ease;
+                                  var tween = Tween(begin: begin, end: end)
+                                      .chain(CurveTween(curve: curve));
+                                  return SlideTransition(
+                                    position: animation.drive(tween),
+                                    child: child,
+                                  );
+                                },
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Row(
-                                          children: const [
-                                            Icon(Icons.circle,
-                                                color: Colors.white, size: 17),
-                                            Text(
-                                              " Society",
-                                              style: TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white),
-                                            )
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          //padding: const EdgeInsets.all(40),
-                          width: double.infinity,
-                          //  height: double.infinity,
-                          decoration: const BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          child: Stack(
-                            children: [
-                              SizedBox(
-                                width: double.infinity,
-                                height: double.infinity,
-                                child: ClipRRect(
-                                  borderRadius:
-                                  const BorderRadius.all(Radius.circular(20)),
-                                  child: Image.asset(
-                                    "assets/images/technology.jpg",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Row(
-                                          children: const [
-                                            Icon(Icons.circle,
-                                                color: Colors.white, size: 17),
-                                            Text(
-                                              " Technology",
-                                              style: TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          //padding: const EdgeInsets.all(40),
-                          width: double.infinity,
-                          //  height: double.infinity,
-                          decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          child: Stack(
-                            children: [
-                              SizedBox(
-                                width: double.infinity,
-                                height: double.infinity,
-                                child: ClipRRect(
-                                  borderRadius:
-                                  const BorderRadius.all(Radius.circular(20)),
-                                  child: Container(
-                                    decoration: const BoxDecoration(
-                                      boxShadow:  [
-                                        BoxShadow(
-                                            blurRadius: 22,
-                                            spreadRadius: 10,
-                                            offset: Offset(0, 7),
-                                            color: Colors.grey),
-                                      ],
-                                    ),
+                            );
+                          },
+                          child: Container(
+                            //padding: const EdgeInsets.all(40),
+                            width: double.infinity,
+                            //  height: double.infinity,
+                            decoration: const BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            child: Stack(
+                              children: [
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  child: ClipRRect(
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(20)),
                                     child: Image.asset(
-                                      "assets/images/nature.jpg",
+                                      "assets/images/sociaty.jpg",
                                       fit: BoxFit.cover,
                                     ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Row(
-                                          children: const [
-                                            Icon(Icons.circle,
-                                                color: Colors.white, size: 17),
-                                            Text(
-                                              " Nature & Animals",
-                                              style: TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: double.infinity,
-                          //  height: double.infinity,
-                          decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          child: Stack(
-                            children: [
-                              SizedBox(
-                                width: double.infinity,
-                                height: double.infinity,
-                                child: ClipRRect(
-                                  borderRadius:
-                                  const BorderRadius.all(Radius.circular(20)),
-                                  child: Image.asset(
-                                    "assets/images/science_main.jpg",
-                                    fit: BoxFit.cover,
+                                Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Row(
+                                            children: const [
+                                              Icon(Icons.circle,
+                                                  color: Colors.white, size: 17),
+                                              Text(
+                                                " Society & Life",
+                                                style: TextStyle(
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white),
+                                              )
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Row(
-                                          children: const [
-                                            Icon(Icons.circle,
-                                                color: Colors.black, size: 17),
-                                            Text(
-                                              " Science",
-                                              style: TextStyle(
-                                                  fontSize: 19,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                        Container(
-                          //padding: const EdgeInsets.all(40),
-                          width: double.infinity,
-                          //  height: double.infinity,
-                          decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          child: Stack(
-                            children: [
-                              SizedBox(
-                                width: double.infinity,
-                                height: double.infinity,
-                                child: ClipRRect(
-                                  borderRadius:
-                                  const BorderRadius.all(Radius.circular(20)),
-                                  child: Image.asset(
-                                    "assets/images/Sp.jpg",
-                                    fit: BoxFit.cover,
+                        InkWell(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, animation,
+                                    secondaryAnimation) =>
+                                    ShowCommunitiesCategory(2),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  const begin = Offset(0.0, 1.0);
+                                  const end = Offset.zero;
+                                  const curve = Curves.ease;
+                                  var tween = Tween(begin: begin, end: end)
+                                      .chain(CurveTween(curve: curve));
+                                  return SlideTransition(
+                                    position: animation.drive(tween),
+                                    child: child,
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          child: Container(
+                            //padding: const EdgeInsets.all(40),
+                            width: double.infinity,
+                            //  height: double.infinity,
+                            decoration: const BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            child: Stack(
+                              children: [
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  child: ClipRRect(
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(20)),
+                                    child: Image.asset(
+                                      "assets/images/technology.jpg",
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Row(
-                                          children: const [
-                                            Icon(Icons.circle,
-                                                color: Colors.white, size: 17),
-                                            Text(
-                                              " Sports",
-                                              style: TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Row(
+                                            children: const [
+                                              Icon(Icons.circle,
+                                                  color: Colors.white, size: 17),
+                                              Text(
+                                                " Technology",
+                                                style: TextStyle(
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                        Container(
-                          //padding: const EdgeInsets.all(40),
-                          width: double.infinity,
-                          //  height: double.infinity,
-                          decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          child: Stack(
-                            children: [
-                              SizedBox(
-                                width: double.infinity,
-                                height: double.infinity,
-                                child: ClipRRect(
-                                  borderRadius:
-                                  const BorderRadius.all(Radius.circular(20)),
-                                  child: Image.asset(
-                                    "assets/images/movie.jpg",
-                                    fit: BoxFit.cover,
+                        InkWell(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, animation,
+                                    secondaryAnimation) =>
+                                    ShowCommunitiesCategory(3),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  const begin = Offset(0.0, 1.0);
+                                  const end = Offset.zero;
+                                  const curve = Curves.ease;
+                                  var tween = Tween(begin: begin, end: end)
+                                      .chain(CurveTween(curve: curve));
+                                  return SlideTransition(
+                                    position: animation.drive(tween),
+                                    child: child,
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          child: Container(
+                            //padding: const EdgeInsets.all(40),
+                            width: double.infinity,
+                            //  height: double.infinity,
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            child: Stack(
+                              children: [
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  child: ClipRRect(
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(20)),
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                        boxShadow:  [
+                                          BoxShadow(
+                                              blurRadius: 22,
+                                              spreadRadius: 10,
+                                              offset: Offset(0, 7),
+                                              color: Colors.grey),
+                                        ],
+                                      ),
+                                      child: Image.asset(
+                                        "assets/images/nature.jpg",
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Row(
-                                          children: const [
-                                            Icon(Icons.circle,
-                                                color: Colors.white, size: 17),
-                                            Text(
-                                              " Movies",
-                                              style: TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Row(
+                                            children: const [
+                                              Icon(Icons.circle,
+                                                  color: Colors.white, size: 17),
+                                              Text(
+                                                " Nature & Animals",
+                                                style: TextStyle(
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, animation,
+                                    secondaryAnimation) =>
+                                    ShowCommunitiesCategory(4),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  const begin = Offset(0.0, 1.0);
+                                  const end = Offset.zero;
+                                  const curve = Curves.ease;
+                                  var tween = Tween(begin: begin, end: end)
+                                      .chain(CurveTween(curve: curve));
+                                  return SlideTransition(
+                                    position: animation.drive(tween),
+                                    child: child,
+                                  );
+                                },
                               ),
-                            ],
+                            );
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            //  height: double.infinity,
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            child: Stack(
+                              children: [
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  child: ClipRRect(
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(20)),
+                                    child: Image.asset(
+                                      "assets/images/science_main.jpg",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Row(
+                                            children: const [
+                                              Icon(Icons.circle,
+                                                  color: Colors.black, size: 17),
+                                              Text(
+                                                " Science",
+                                                style: TextStyle(
+                                                    fontSize: 19,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, animation,
+                                    secondaryAnimation) =>
+                                    ShowCommunitiesCategory(5),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  const begin = Offset(0.0, 1.0);
+                                  const end = Offset.zero;
+                                  const curve = Curves.ease;
+                                  var tween = Tween(begin: begin, end: end)
+                                      .chain(CurveTween(curve: curve));
+                                  return SlideTransition(
+                                    position: animation.drive(tween),
+                                    child: child,
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          child: Container(
+                            //padding: const EdgeInsets.all(40),
+                            width: double.infinity,
+                            //  height: double.infinity,
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            child: Stack(
+                              children: [
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  child: ClipRRect(
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(20)),
+                                    child: Image.asset(
+                                      "assets/images/Sp.jpg",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Row(
+                                            children: const [
+                                              Icon(Icons.circle,
+                                                  color: Colors.white, size: 17),
+                                              Text(
+                                                " Sports",
+                                                style: TextStyle(
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, animation,
+                                    secondaryAnimation) =>
+                                    ShowCommunitiesCategory(6),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  const begin = Offset(0.0, 1.0);
+                                  const end = Offset.zero;
+                                  const curve = Curves.ease;
+                                  var tween = Tween(begin: begin, end: end)
+                                      .chain(CurveTween(curve: curve));
+                                  return SlideTransition(
+                                    position: animation.drive(tween),
+                                    child: child,
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          child: Container(
+                            //padding: const EdgeInsets.all(40),
+                            width: double.infinity,
+                            //  height: double.infinity,
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            child: Stack(
+                              children: [
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  child: ClipRRect(
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(20)),
+                                    child: Image.asset(
+                                      "assets/images/movie.jpg",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Row(
+                                            children: const [
+                                              Icon(Icons.circle,
+                                                  color: Colors.white, size: 17),
+                                              Text(
+                                                " Entertainments",
+                                                style: TextStyle(
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
