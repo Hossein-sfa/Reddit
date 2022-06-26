@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
-import 'post_details.dart';
-import 'posts.dart';
-import 'siginpage.dart';
+import 'package:reddit/post_details.dart';
+import 'package:reddit/posts.dart';
+import 'package:reddit/siginpage.dart';
 import 'package:reddit/user%20detail.dart';
-import 'user.dart';
-import 'userSetting.dart';
+import 'package:reddit/user.dart';
+import 'package:reddit/userSetting.dart';
+import 'MainCommunitie.dart';
 import 'Post.dart';
 import 'SearchPage.dart';
 import 'Setting.dart';
 import 'addCommunitie.dart';
 import 'addPost.dart';
-import 'main.dart';
 
 class ToHome extends StatefulWidget {
   const ToHome({Key? key}) : super(key: key);
+
   @override
   State<ToHome> createState() => HomeState();
 }
 
 class HomeState extends State<ToHome> {
-  List<Post> tasksList = []; //this is a temp list!!
+  List<Post> tasksList = [];  //this is a temp list!!
 
   void addTask(Post post) {
     setState(() {
@@ -27,14 +28,6 @@ class HomeState extends State<ToHome> {
       // sort posts by time
     });
   }
-
-  // void deleteTask(Post post) {
-  //   setState(() {
-  //     //ToDo => For delete post
-  //     tasksList.remove(Post);
-  //   });
-  // }
-
   int _selectedIndex = 0;
 
   @override
@@ -47,26 +40,24 @@ class HomeState extends State<ToHome> {
         ),
         child: ListView(
           children: <Widget>[
-            DrawerHeader(
-              decoration: const BoxDecoration(
+            const DrawerHeader(
+              decoration: BoxDecoration(
                 color: Colors.black45,
                 image: DecorationImage(
                   image: AssetImage('assets/images/profiledesign.jfif'),
                   fit: BoxFit.cover,
                 ),
               ),
-              padding: const EdgeInsets.all(20),
+              padding: EdgeInsets.all(20),
               child: Text(
                 'Menu',
-                style:
-                    (TextStyle(fontSize: 20, color: Themes.dark.primaryColor)),
+                style: (TextStyle(fontSize: 20, color: Colors.deepOrangeAccent)),
                 textAlign: TextAlign.left,
               ),
             ),
             CircleAvatar(
               radius: 30,
-              foregroundImage:
-                  const AssetImage('assets/images/circleAvatar.png'),
+              foregroundImage: const AssetImage('assets/images/circleAvatar.png'),
               child: InkWell(
                 onTap: () {
                   Navigator.push(
@@ -82,8 +73,7 @@ class HomeState extends State<ToHome> {
             ),
             ListTile(
               title: const Text("Change user profile"),
-              trailing:
-                  const Icon(Icons.change_circle, color: Colors.blueAccent),
+              trailing: const Icon(Icons.change_circle , color: Colors.blueAccent),
               onTap: () {
                 Navigator.push(
                   context,
@@ -102,7 +92,7 @@ class HomeState extends State<ToHome> {
             ),
             ListTile(
               title: const Text("Add Community"),
-              trailing: const Icon(Icons.add, color: Colors.green),
+              trailing: const Icon(Icons.add , color: Colors.green),
               onTap: () {
                 Navigator.push(
                   context,
@@ -115,8 +105,9 @@ class HomeState extends State<ToHome> {
               },
             ),
             ListTile(
+
               title: const Text("Settings"),
-              trailing: const Icon(Icons.settings, color: Colors.brown),
+              trailing: const Icon(Icons.settings , color: Colors.brown),
               onTap: () {
                 Navigator.push(
                   context,
@@ -130,14 +121,15 @@ class HomeState extends State<ToHome> {
             ),
             ListTile(
               title: const Text("Logout"),
-              trailing: const Icon(Icons.power_settings_new, color: Colors.red),
+              trailing: const Icon(Icons.power_settings_new , color: Colors.red),
               onTap: () {
                 //ToDo => Go to login page and delete user data from mobile and send data to server
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (_) {
-                      return const SignIn();
+                      return  const SignIn (
+                      );
                     },
                   ),
                 );
@@ -147,58 +139,55 @@ class HomeState extends State<ToHome> {
         ),
       ),
       appBar: AppBar(
+
         automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xFFE53F3F),
+        backgroundColor: const Color(0X73000000),
         title: const SizedBox(
-          width: double.infinity,
-          height: 40,
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text("Reddit"),
-          ),
-        ),
+            width: double.infinity,
+            height: 40,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text("Reddit"),
+            )),
         actions: [
           // Go to Search Page
           IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) {
-                    return const SearchPage(
-                      key: Key("Search page"),
-                    );
-                  },
-                ),
-              );
-            },
-            icon: const Icon(Icons.search_rounded),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: IconButton(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (_) {
-                      return const Setting(
-                        key: Key("About us"),
+                      return const SearchPage(
+                        key: Key("Search page"),
                       );
                     },
                   ),
                 );
               },
-              icon: const Icon(Icons.settings),
-            ),
-          ),
+              icon: const Icon(Icons.search_rounded)),
+          Align(
+              alignment: Alignment.centerRight,
+              child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) {
+                          return const Setting(
+                            key: Key("About us"),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.settings)))
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black54,
         selectedFontSize: 18,
         selectedIconTheme:
-            const IconThemeData(color: Colors.orangeAccent, size: 22),
+        const IconThemeData(color: Colors.orangeAccent, size: 22),
         selectedItemColor: Colors.orangeAccent,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
         items: const <BottomNavigationBarItem>[
@@ -249,7 +238,7 @@ class HomeState extends State<ToHome> {
                       children: [
                         const CircleAvatar(
                           backgroundImage:
-                              AssetImage('assets/images/circleAvatar.png'),
+                          AssetImage('assets/images/circleAvatar.png'),
                         ),
                         const SizedBox(width: 10),
                         Column(
@@ -328,7 +317,8 @@ class HomeState extends State<ToHome> {
                           onPressed: () {
                             // Todo : send liking and disliking to server in phase 2 project
                             setState(() {
-                              if (UserPosts.posts[index].isDisLiked == false) {
+                              if (UserPosts.posts[index].isDisLiked ==
+                                  false) {
                                 UserPosts.posts[index].setDisLike();
                               } else {
                                 UserPosts.posts[index].setVoteLess();
@@ -369,7 +359,8 @@ class HomeState extends State<ToHome> {
                               if (!User.isSaved(UserPosts.posts[index])) {
                                 User.savedPosts.add(UserPosts.posts[index]);
                               } else {
-                                User.savedPosts.remove(UserPosts.posts[index]);
+                                User.savedPosts
+                                    .remove(UserPosts.posts[index]);
                               }
                             });
                             //ToDo => send saved post to server in phase 2 project (Show this posts in saved page posts from setting pages)!
@@ -398,12 +389,9 @@ class HomeState extends State<ToHome> {
 
   void _onItemTapped(int index) {
     setState(() {
-      if (index != 2) {
-        _selectedIndex = index;
-      }
+      _selectedIndex = index;
     });
-    if (index == 2) {
-      // ToDo => if + selected means add post so push add post page
+    if (_selectedIndex == 2) {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -417,11 +405,15 @@ class HomeState extends State<ToHome> {
       );
     }
     if (_selectedIndex == 1) {
-      // ToDo => if communities selected means push community page
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const Communities(),
+          builder: (_) {
+            return const CommunitiesMainPage(
+              //addNewPost: addTask,
+              key: Key("navid"),
+            );
+          },
         ),
       );
     }
