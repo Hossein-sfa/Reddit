@@ -10,14 +10,14 @@ import 'ToHome.dart';
 import 'addCommunitie.dart';
 import 'addPost.dart';
 
-class CommunitiesDetailPage extends StatefulWidget {
-  const CommunitiesDetailPage({Key? key}) : super(key: key);
+class CommunitiesMainPage extends StatefulWidget {
+  const CommunitiesMainPage({Key? key}) : super(key: key);
 
   @override
-  State<CommunitiesDetailPage> createState() => _CommunitiesDetailPage();
+  State<CommunitiesMainPage> createState() => _CommunitiesMainPage();
 }
 
-class _CommunitiesDetailPage extends State<CommunitiesDetailPage> {
+class _CommunitiesMainPage extends State<CommunitiesMainPage> {
   int _selectedIndex = 1;
 
   @override
