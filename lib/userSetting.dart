@@ -44,68 +44,73 @@ class _CreatProfileState extends State<UserSetting> {
               icon: const Icon(Icons.home_filled))
         ],
       ),
-      body: Form(
-        key: _globalkey,
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-          children: <Widget>[
-            imageProfile(),
-            const SizedBox(
-              height: 20,
-            ),
-            nameTextField(),
-            const SizedBox(
-              height: 20,
-            ),
-            caseTextField(),
-            const SizedBox(
-              height: 20,
-            ),
-            titleTextField(),
-            const SizedBox(
-              height: 20,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            InkWell(
-              onTap: () async {
-                setState(() {
-                  circular = true;
-                });
-                if (_globalkey.currentState!.validate()) {
-                  Map<String, String> data = {
-                    "name": _fullname.text,
-                    "Username": _username.text,
-                    "Email": _email.text,
-                    "about": _bio.text,
-                  };
-                }
-              },
-              child: Center(
-                child: Container(
-                  width: 200,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.teal,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: circular
-                        ? const CircularProgressIndicator()
-                        : const Text(
-                      "Save",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+      body: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration:  const BoxDecoration(
+            image: DecorationImage(image: AssetImage("assets/images/bkg2.jpg"),fit: BoxFit.cover)),
+        child: Form(
+          key: _globalkey,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            children: <Widget>[
+              imageProfile(),
+              const SizedBox(
+                height: 20,
+              ),
+              nameTextField(),
+              const SizedBox(
+                height: 20,
+              ),
+              caseTextField(),
+              const SizedBox(
+                height: 20,
+              ),
+              titleTextField(),
+              const SizedBox(
+                height: 20,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              InkWell(
+                onTap: () async {
+                  setState(() {
+                    circular = true;
+                  });
+                  if (_globalkey.currentState!.validate()) {
+                    Map<String, String> data = {
+                      "name": _fullname.text,
+                      "Username": _username.text,
+                      "Email": _email.text,
+                      "about": _bio.text,
+                    };
+                  }
+                },
+                child: Center(
+                  child: Container(
+                    width: 200,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.teal,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: circular
+                          ? const CircularProgressIndicator()
+                          : const Text(
+                        "Save",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
