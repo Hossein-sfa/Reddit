@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'communities.dart';
 import 'siginpage.dart';
 
 void main() => runApp(const MyApp());
 
 // class for switching between dark and light theme
-class Themes {
+class Theme {
   static ThemeData light = ThemeData(
     scaffoldBackgroundColor: Colors.white,
     primaryColor: Colors.deepOrange,
@@ -27,9 +28,14 @@ class Themes {
 // contains app bar for different pages
 class AppBars {
   static var reddit = AppBar(
+    backgroundColor: Colors.black,
     title: const Text(
-      "Reddit",
-      style: TextStyle(fontSize: 25),
+      "  Reddit",
+      textAlign: TextAlign.center,
+      //textDirection: TextDirection.ltr,
+      style: TextStyle(fontSize: 25 , color: Colors.redAccent , shadows: [Shadow(
+          blurRadius: 10.0 , color: Colors.white38 , offset: Offset(5.0, 5.0)
+      )]),
     ),
   );
 }
@@ -41,8 +47,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Reddit',
-      theme: Themes.light,
-      darkTheme: Themes.dark,
+      theme: Theme.light,
+      darkTheme: Theme.dark,
       home: const MyHomePage(),
     );
   }
@@ -59,7 +65,9 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: SignIn(),
+      // body: SignIn(),
+      body:
+      SignIn(),
     );
   }
 }

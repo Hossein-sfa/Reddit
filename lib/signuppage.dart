@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'ToHome.dart';
 import 'siginpage.dart';
+import 'feed.dart';
 import 'main.dart';
 
 // validate that password contains 8 chars and  at least one number and  a small and a capital character
@@ -16,7 +17,7 @@ isValidPassword(String pass) {
 isValidEmail(String email) {
   if (email.isNotEmpty) {
     return RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email);
   }
   return false;
@@ -27,11 +28,13 @@ isValidUserName(String userName) {
     // ToDo : check that username is not already have an account in phase 2 project
     return true;
   }
+
   return false;
 }
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
+
   @override
   State<SignUp> createState() => SignUpState();
 }
@@ -55,8 +58,6 @@ class SignUpState extends State<SignUp> {
       setState(() {
         if (isValidEmail(email.text)) {
           emailChecker = true;
-        } else {
-          emailChecker = false;
         }
       });
     });
@@ -64,8 +65,6 @@ class SignUpState extends State<SignUp> {
       setState(() {
         if (isValidUserName(userName.text)) {
           userNameChecker = true;
-        } else {
-          userNameChecker = false;
         }
       });
     });
@@ -73,8 +72,6 @@ class SignUpState extends State<SignUp> {
       setState(() {
         if (isValidPassword(password.text)) {
           passwordChecker = true;
-        } else {
-          passwordChecker = false;
         }
       });
     });
@@ -94,160 +91,193 @@ class SignUpState extends State<SignUp> {
     return Material(
       child: Scaffold(
         appBar: AppBars.reddit,
-        body: SafeArea(
-          child: Center(
-            child: Wrap(
-              children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      child: TextField(
-                        controller: email,
-                        keyboardType: TextInputType.text,
-                        textAlign: TextAlign.center,
-                        onChanged: (text) {
-                          emailErrorMessage = isValidEmail(email.text)
-                              ? null
-                              : 'This email is not valid';
-                        },
-                        decoration: InputDecoration(
-                          filled: true,
-                          errorText: emailErrorMessage,
-                          labelText: 'Email: ',
-                          labelStyle: const TextStyle(color: Colors.redAccent),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(100),
-                            borderSide:
-                                const BorderSide(color: Color(0xfffdfdfd)),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(100),
-                            borderSide:
-                                const BorderSide(color: Color(0xfffc4040)),
-                          ),
-                        ),
-                      ),
+        body: Container(
+          constraints: const BoxConstraints.expand(),
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/bkg4.jpg"),
+                  fit: BoxFit.cover)),
+          child: SafeArea(
+            child: Center(
+              child: Wrap(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white38,
+                      borderRadius: BorderRadius.all(Radius.circular(18)),
                     ),
-                    const SizedBox(height: 15),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      child: TextField(
-                        controller: userName,
-                        keyboardType: TextInputType.text,
-                        textAlign: TextAlign.center,
-                        onChanged: (text) {
-                          userNameErrorMessage = isValidUserName(userName.text)
-                              ? null
-                              : 'This username is already chosen';
-                        },
-                        decoration: InputDecoration(
-                          filled: true,
-                          errorText: userNameErrorMessage,
-                          labelText: 'UserName: ',
-                          labelStyle: const TextStyle(color: Colors.redAccent),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(100),
-                            borderSide:
-                                const BorderSide(color: Color(0xfffdfdfd)),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(100),
-                            borderSide:
-                                const BorderSide(color: Color(0xfffc4040)),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      child: TextFormField(
-                        controller: password,
-                        obscureText: obscure,
-                        keyboardType: TextInputType.text,
-                        textAlign: TextAlign.center,
-                        onChanged: (text) {
-                          passwordErrorMessage = isValidPassword(password.text)
-                              ? null
-                              : 'This password is not strong enough.\nIt should have at least one lowercase, uppercase letter and a number.\nand it should be more than 8 characters.';
-                        },
-                        decoration: InputDecoration(
-                          filled: true,
-                          errorText: passwordErrorMessage,
-                          labelText: 'Password: ',
-                          suffixIcon: IconButton(
-                            icon: Icon(obscure
-                                ? Icons.visibility
-                                : Icons.visibility_off),
-                            onPressed: () {
-                              setState(() {
-                                obscure = !obscure;
-                              });
-                            },
-                          ),
-                          labelStyle: const TextStyle(color: Colors.redAccent),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(100),
-                            borderSide:
-                                const BorderSide(color: Color(0xfffdfdfd)),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(100),
-                            borderSide:
-                                const BorderSide(color: Color(0xfffc4040)),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
+                    width: 370,
+                    height: 450,
+                    child: Column(
                       children: [
-                        const SizedBox(width: 25),
-                        const Text("Have an account? : "),
-                        TextButton(
-                          child: const Text('Sign in'),
-                          onPressed: () {
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, top: 18),
+                          child: TextField(
+                            controller: email,
+                            keyboardType: TextInputType.text,
+                            textAlign: TextAlign.center,
+                            onChanged: (text) {
+                              emailErrorMessage = isValidEmail(email.text)
+                                  ? null
+                                  : 'This email is not valid';
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              errorText: emailErrorMessage,
+                              labelText: 'Email: ',
+                              labelStyle:
+                              const TextStyle(color: Colors.redAccent),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                                borderSide:
+                                const BorderSide(color: Color(0xfffdfdfd)),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                                borderSide:
+                                const BorderSide(color: Color(0xfffc4040)),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          child: TextField(
+                            controller: userName,
+                            keyboardType: TextInputType.text,
+                            textAlign: TextAlign.center,
+                            onChanged: (text) {
+                              userNameErrorMessage =
+                              isValidUserName(userName.text)
+                                  ? null
+                                  : 'This username is already chosen';
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              errorText: userNameErrorMessage,
+                              labelText: 'UserName: ',
+                              labelStyle:
+                              const TextStyle(color: Colors.redAccent),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                                borderSide:
+                                const BorderSide(color: Color(0xfffdfdfd)),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                                borderSide:
+                                const BorderSide(color: Color(0xfffc4040)),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          child: TextFormField(
+                            controller: password,
+                            obscureText: obscure,
+                            keyboardType: TextInputType.text,
+                            textAlign: TextAlign.center,
+                            onChanged: (text) {
+                              passwordErrorMessage = isValidPassword(
+                                  password.text)
+                                  ? null
+                                  : 'This password is not strong enough.\nIt should have at least one lowercase, uppercase letter and a number.\nand it should be more than 8 characters.';
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              errorText: passwordErrorMessage,
+                              labelText: 'Password: ',
+                              suffixIcon: IconButton(
+                                icon: Icon(obscure
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                                onPressed: () {
+                                  setState(() {
+                                    obscure = !obscure;
+                                  });
+                                },
+                              ),
+                              labelStyle:
+                              const TextStyle(color: Colors.redAccent),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                                borderSide:
+                                const BorderSide(color: Color(0xfffdfdfd)),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                                borderSide:
+                                const BorderSide(color: Color(0xfffc4040)),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            const SizedBox(width: 25),
+                            const Text("Have an account? : "),
+                            TextButton(
+                              child: const Text('Sign in',
+                                  style: TextStyle(color: Colors.deepPurple)),
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const SignIn(),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        ElevatedButton(
+                          onPressed:
+                          emailChecker && userNameChecker && passwordChecker
+                              ? () {
+                            // ToDo : sending username and password to server in phase to project
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const SignIn(),
+                                builder: (context) => const ToHome(),
                               ),
                             );
-                          },
+                          }
+                              : null,
+                          child: TextButton(
+                            child: const Text('Sign up',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.deepPurple)),
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ToHome(),
+                                ),
+                              );
+                            },
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            primary: const Color(0xffffb34f),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 40,
+                              vertical: 10,
+                            ),
+                          ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
-                    ElevatedButton(
-                      child:
-                          const Text('Sign Up', style: TextStyle(fontSize: 20)),
-                      onPressed:
-                          emailChecker && userNameChecker && passwordChecker
-                              ? () {
-                                  // ToDo : sending username and password to server in phase to project
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const ToHome(),
-                                    ),
-                                  );
-                                }
-                              : null,
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        primary: const Color(0xffffb34f),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 120,
-                          vertical: 25,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
