@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'ToHome.dart';
 import 'signuppage.dart';
@@ -13,7 +14,7 @@ class SignInState extends State<SignIn> {
   TextEditingController userName = TextEditingController();
   TextEditingController password = TextEditingController();
   bool obscure = true, userNameChecker = false, passwordChecker = false;
-  String? userNameErrorMessage, passwordErrorMessage;
+  String? userNameErrorMessage, passwordErrorMessage, showMessage;
 
   @override
   void initState() {
@@ -46,6 +47,17 @@ class SignInState extends State<SignIn> {
     super.dispose();
   }
 
+  Future<String> logIn() async {
+    await Socket.connect("172.20.10.2", 8080).then((serverSocket) {
+      serverSocket.write('signin $userName.text $password.text');
+      serverSocket.flush();
+      serverSocket.listen((socket) {
+        showMessage = String.fromCharCodes(socket).trim();
+      });
+    });
+    return showMessage!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -53,7 +65,10 @@ class SignInState extends State<SignIn> {
         appBar: AppBars.reddit,
         body: Container(
           constraints: const BoxConstraints.expand(),
-          decoration:  const BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/1.jpg"),fit: BoxFit.cover)),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/1.jpg"), fit: BoxFit.cover),
+          ),
           child: SafeArea(
             child: Center(
               child: Wrap(
@@ -61,13 +76,15 @@ class SignInState extends State<SignIn> {
                   Container(
                     decoration: const BoxDecoration(
                       color: Colors.white38,
-                      borderRadius: BorderRadius.all(Radius.circular(18)),),
+                      borderRadius: BorderRadius.all(Radius.circular(18)),
+                    ),
                     width: 365,
                     height: 320,
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 15, right: 15 , top: 20 , bottom: 5),
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, top: 20, bottom: 5),
                           child: TextField(
                             controller: userName,
                             keyboardType: TextInputType.text,
@@ -75,30 +92,33 @@ class SignInState extends State<SignIn> {
                             decoration: InputDecoration(
                               filled: true,
                               labelText: 'UserName: ',
-                              labelStyle: const TextStyle(color: Colors.red , fontWeight: FontWeight.bold),
+                              labelStyle: const TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                const BorderSide(color: Color(0xfffdfdfd)),
+                                    const BorderSide(color: Color(0xfffdfdfd)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                const BorderSide(color: Color(0xfffc4040)),
+                                    const BorderSide(color: Color(0xfffc4040)),
                               ),
                             ),
                           ),
                         ),
                         const SizedBox(height: 15),
                         Padding(
-                          padding: const EdgeInsets.only(left: 15, right: 15 ),
+                          padding: const EdgeInsets.only(left: 15, right: 15),
                           child: TextFormField(
                             controller: password,
                             obscureText: obscure,
                             keyboardType: TextInputType.text,
                             textAlign: TextAlign.center,
                             onChanged: (text) {
-                              passwordErrorMessage = isValidPassword(password.text)
+                              passwordErrorMessage = isValidPassword(
+                                      password.text)
                                   ? null
                                   : 'This password is not strong enough.\nIt should have at least one lowercase, uppercase letter and a number.\nand it should be more than 8 characters.';
                             },
@@ -115,16 +135,18 @@ class SignInState extends State<SignIn> {
                                   });
                                 },
                               ),
-                              labelStyle: const TextStyle(color: Colors.red , fontWeight: FontWeight.bold),
+                              labelStyle: const TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                const BorderSide(color: Color(0xfffdfdfd)),
+                                    const BorderSide(color: Color(0xfffdfdfd)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                const BorderSide(color: Color(0xfffc4040)),
+                                    const BorderSide(color: Color(0xfffc4040)),
                               ),
                             ),
                           ),
@@ -135,7 +157,9 @@ class SignInState extends State<SignIn> {
                             const SizedBox(width: 25),
                             const Text("Don't have an account?  "),
                             TextButton(
-                              child: const Text('Sign up' , ),
+                              child: const Text(
+                                'Sign up',
+                              ),
                               onPressed: () {
                                 Navigator.pushReplacement(
                                   context,
@@ -151,18 +175,24 @@ class SignInState extends State<SignIn> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: ElevatedButton(
-                            child:
-                            const Text('Sign In', style: TextStyle(fontSize: 20)),
+                            child: const Text('Sign In',
+                                style: TextStyle(fontSize: 20)),
                             onPressed: userNameChecker && passwordChecker
-                                ? () {
-                              // ToDo : sending username and password to server in phase to project
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const ToHome(),
-                                ),
-                              );
-                            }
+                                ? () async {
+                                    String result = await logIn();
+                                    print('this is result: $result');
+                                    if (result == 'done') {
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const ToHome(),
+                                        ),
+                                      );
+                                    } else {
+                                      // ToDo : show error message that user name or password is incorrect
+                                      showMessage = 'User name or password is incorrect';
+                                    }
+                                  }
                                 : null,
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(

@@ -1,7 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'ToHome.dart';
 import 'siginpage.dart';
-import 'feed.dart';
 import 'main.dart';
 
 // validate that password contains 8 chars and  at least one number and  a small and a capital character
@@ -17,7 +18,7 @@ isValidPassword(String pass) {
 isValidEmail(String email) {
   if (email.isNotEmpty) {
     return RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email);
   }
   return false;
@@ -48,7 +49,10 @@ class SignUpState extends State<SignUp> {
       emailChecker = false,
       userNameChecker = false,
       passwordChecker = false;
-  String? emailErrorMessage, userNameErrorMessage, passwordErrorMessage;
+  String? emailErrorMessage,
+      userNameErrorMessage,
+      passwordErrorMessage,
+      showMessage;
 
   // disabling button when password is not valid and username and pass and email are not empty and email is correct
   @override
@@ -84,6 +88,17 @@ class SignUpState extends State<SignUp> {
     userName.dispose();
     password.dispose();
     super.dispose();
+  }
+
+  Future<String> signUp() async {
+    await Socket.connect("172.20.10.2", 8080).then((serverSocket) {
+      serverSocket.write('signup $email.text $userName.text $password.text');
+      serverSocket.flush();
+      serverSocket.listen((socket) {
+        showMessage = String.fromCharCodes(socket).trim();
+      });
+    });
+    return showMessage!;
   }
 
   @override
@@ -127,16 +142,16 @@ class SignUpState extends State<SignUp> {
                               errorText: emailErrorMessage,
                               labelText: 'Email: ',
                               labelStyle:
-                              const TextStyle(color: Colors.redAccent),
+                                  const TextStyle(color: Colors.redAccent),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                const BorderSide(color: Color(0xfffdfdfd)),
+                                    const BorderSide(color: Color(0xfffdfdfd)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                const BorderSide(color: Color(0xfffc4040)),
+                                    const BorderSide(color: Color(0xfffc4040)),
                               ),
                             ),
                           ),
@@ -150,25 +165,25 @@ class SignUpState extends State<SignUp> {
                             textAlign: TextAlign.center,
                             onChanged: (text) {
                               userNameErrorMessage =
-                              isValidUserName(userName.text)
-                                  ? null
-                                  : 'This username is already chosen';
+                                  isValidUserName(userName.text)
+                                      ? null
+                                      : 'This username is already chosen';
                             },
                             decoration: InputDecoration(
                               filled: true,
                               errorText: userNameErrorMessage,
                               labelText: 'UserName: ',
                               labelStyle:
-                              const TextStyle(color: Colors.redAccent),
+                                  const TextStyle(color: Colors.redAccent),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                const BorderSide(color: Color(0xfffdfdfd)),
+                                    const BorderSide(color: Color(0xfffdfdfd)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                const BorderSide(color: Color(0xfffc4040)),
+                                    const BorderSide(color: Color(0xfffc4040)),
                               ),
                             ),
                           ),
@@ -183,7 +198,7 @@ class SignUpState extends State<SignUp> {
                             textAlign: TextAlign.center,
                             onChanged: (text) {
                               passwordErrorMessage = isValidPassword(
-                                  password.text)
+                                      password.text)
                                   ? null
                                   : 'This password is not strong enough.\nIt should have at least one lowercase, uppercase letter and a number.\nand it should be more than 8 characters.';
                             },
@@ -202,16 +217,16 @@ class SignUpState extends State<SignUp> {
                                 },
                               ),
                               labelStyle:
-                              const TextStyle(color: Colors.redAccent),
+                                  const TextStyle(color: Colors.redAccent),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                const BorderSide(color: Color(0xfffdfdfd)),
+                                    const BorderSide(color: Color(0xfffdfdfd)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                const BorderSide(color: Color(0xfffc4040)),
+                                    const BorderSide(color: Color(0xfffc4040)),
                               ),
                             ),
                           ),
@@ -237,17 +252,24 @@ class SignUpState extends State<SignUp> {
                         ),
                         const SizedBox(height: 10),
                         ElevatedButton(
-                          onPressed:
-                          emailChecker && userNameChecker && passwordChecker
-                              ? () {
-                            // ToDo : sending username and password to server in phase to project
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ToHome(),
-                              ),
-                            );
-                          }
+                          onPressed: emailChecker &&
+                                  userNameChecker &&
+                                  passwordChecker
+                              ? () async {
+                                  String result = await signUp();
+                                  print('this is result: $result');
+                                  if (result == 'done') {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const ToHome(),
+                                      ),
+                                    );
+                                  } else {
+                                    // ToDo : show error message that user name is duplicate
+                                    showMessage = 'User name is duplicate';
+                                  }
+                                }
                               : null,
                           child: TextButton(
                             child: const Text('Sign up',

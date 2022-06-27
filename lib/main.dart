@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'communities.dart';
 import 'siginpage.dart';
 
 void main() => runApp(const MyApp());
@@ -33,9 +32,16 @@ class AppBars {
       "  Reddit",
       textAlign: TextAlign.center,
       //textDirection: TextDirection.ltr,
-      style: TextStyle(fontSize: 25 , color: Colors.redAccent , shadows: [Shadow(
-          blurRadius: 10.0 , color: Colors.white38 , offset: Offset(5.0, 5.0)
-      )]),
+      style: TextStyle(
+        fontSize: 25,
+        color: Colors.redAccent,
+        shadows: [
+          Shadow(
+              blurRadius: 10.0,
+              color: Colors.white38,
+              offset: Offset(5.0, 5.0)),
+        ],
+      ),
     ),
   );
 }
@@ -56,7 +62,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
-
   @override
   State<MyHomePage> createState() => MyHomePageState();
 }
@@ -65,9 +70,7 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      // body: SignIn(),
-      body:
-      SignIn(),
+      body: SignIn(),
     );
   }
 }
