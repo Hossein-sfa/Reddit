@@ -39,4 +39,10 @@ class UserPosts {
     posts.add(post);
     posts.sort((b, a) => a.time.compareTo(b.time));
   }
+
+  // method that sort posts based on time
+  List<Post> getSortedPosts() {
+    posts.sort((b, a) => a.time.compareTo(b.time));
+    return posts;
+  }
 }
