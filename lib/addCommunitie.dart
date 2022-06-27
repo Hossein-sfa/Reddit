@@ -45,90 +45,95 @@ class _CreatProfileState extends State<CreatProfile> {
               icon: const Icon(Icons.home_filled))
         ],
       ),
-      body: Form(
-        key: _globalkey,
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-          children: <Widget>[
-            imageProfile(),
-            const SizedBox(
-              height: 20,
-            ),
-            nameTextField(),
-            const SizedBox(
-              height: 20,
-            ),
-            caseTextField(),
-            const SizedBox(
-              height: 20,
-            ),
-            titleTextField(),
-            const SizedBox(
-              height: 20,
-            ),
-            aboutTextField(),
-            const SizedBox(
-              height: 20,
-            ),
-            InkWell(
-              onTap: () async {
-                setState(() {
-                  circular = true;
-                });
-                if (_globalkey.currentState!.validate()) {
-                  Map<String, String> data = {
-                    "name": _name.text,
-                    "Case": _Case.text,
-                    "titleline": _title.text,
-                    "about": _about.text,
-                  };
-                  /*
-                  var response = await networkHandler.post("/profile/add", data);
-                  if (response.statusCode == 200 ||
-                      response.statusCode == 201) {
-                    if (_imageFile.path != null) {
-                      var imageResponse = await networkHandler.patchImage(
-                          "/profile/add/image", _imageFile.path);
-                      if (imageResponse.statusCode == 200) {
+      body: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration:  const BoxDecoration(
+            image: DecorationImage(image: AssetImage("assets/images/bkg2.jpg"),fit: BoxFit.cover)),
+        child: Form(
+          key: _globalkey,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            children: <Widget>[
+              imageProfile(),
+              const SizedBox(
+                height: 20,
+              ),
+              nameTextField(),
+              const SizedBox(
+                height: 20,
+              ),
+              caseTextField(),
+              const SizedBox(
+                height: 20,
+              ),
+              titleTextField(),
+              const SizedBox(
+                height: 20,
+              ),
+              aboutTextField(),
+              const SizedBox(
+                height: 20,
+              ),
+              InkWell(
+                onTap: () async {
+                  setState(() {
+                    circular = true;
+                  });
+                  if (_globalkey.currentState!.validate()) {
+                    Map<String, String> data = {
+                      "name": _name.text,
+                      "Case": _Case.text,
+                      "titleline": _title.text,
+                      "about": _about.text,
+                    };
+                    /*
+                    var response = await networkHandler.post("/profile/add", data);
+                    if (response.statusCode == 200 ||
+                        response.statusCode == 201) {
+                      if (_imageFile.path != null) {
+                        var imageResponse = await networkHandler.patchImage(
+                            "/profile/add/image", _imageFile.path);
+                        if (imageResponse.statusCode == 200) {
+                          setState(() {
+                            circular = false;
+                          });
+                         // Navigator.of(context).pushAndRemoveUntil();
+                        }
+                      } else {
                         setState(() {
                           circular = false;
                         });
                        // Navigator.of(context).pushAndRemoveUntil();
                       }
-                    } else {
-                      setState(() {
-                        circular = false;
-                      });
-                     // Navigator.of(context).pushAndRemoveUntil();
                     }
+               */
                   }
-             */
-                }
-              },
-              child: Center(
-                child: Container(
-                  width: 200,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.teal,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: circular
-                        ? const CircularProgressIndicator()
-                        : const Text(
-                      "Submit",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                },
+                child: Center(
+                  child: Container(
+                    width: 200,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.teal,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: circular
+                          ? const CircularProgressIndicator()
+                          : const Text(
+                        "Submit",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

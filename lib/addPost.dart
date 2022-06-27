@@ -72,6 +72,7 @@ class _AddPostState extends State<AddPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         actions: [
           IconButton(
             icon: const Icon(
@@ -92,7 +93,7 @@ class _AddPostState extends State<AddPost> {
                 MotionToast.error(
                   title: const Text("Error"),
                   description:
-                      const Text("Please insert your interesting images!"),
+                  const Text("Please insert your interesting images!"),
                 ).show(context);
               } else if (_selectedIndex == 0) {
                 MotionToast.error(
@@ -104,7 +105,7 @@ class _AddPostState extends State<AddPost> {
                 MotionToast.error(
                   title: const Text("Error"),
                   description:
-                      const Text("Please insert your interesting videos!"),
+                  const Text("Please insert your interesting videos!"),
                 ).show(context);
               } else if (_selectedIndex == 3) {
                 MotionToast.error(
@@ -126,43 +127,43 @@ class _AddPostState extends State<AddPost> {
           ),
         ],
         title: const Text("Add Post"),
-        backgroundColor: Colors.black45,
+        backgroundColor: Colors.black54,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black45,
+        backgroundColor: Colors.black54,
         selectedFontSize: 18,
         selectedIconTheme:
-            const IconThemeData(color: Colors.deepOrangeAccent, size: 22),
+        const IconThemeData(color: Colors.deepOrangeAccent, size: 22),
         selectedItemColor: Colors.deepOrangeAccent,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            backgroundColor: Colors.black45,
+            backgroundColor: Colors.black54,
             icon: Icon(Icons.text_fields),
             label: 'Text',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Colors.black45,
+            backgroundColor: Colors.black54,
             icon: Icon(Icons.image),
             label: 'Image',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Colors.black45,
+            backgroundColor: Colors.black54,
             icon: Icon(Icons.video_collection),
             label: 'Video',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Colors.black45,
+            backgroundColor: Colors.black54,
             icon: Icon(Icons.add_link),
             label: 'Links',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Colors.black45,
+            backgroundColor: Colors.black54,
             icon: Icon(Icons.keyboard_voice),
             label: 'Voice',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Colors.black45,
+            backgroundColor: Colors.black54,
             icon: Icon(Icons.poll),
             label: 'Poll',
           ),
@@ -173,36 +174,39 @@ class _AddPostState extends State<AddPost> {
       ),
       body: (_selectedIndex == 0)
           ? Container(
-              color: Colors.black26,
-              padding: const EdgeInsets.all(40),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 70,
-                    child: TextField(
-                      decoration: const InputDecoration(
-                          hintText: "An interesting title"),
-                      controller: titleC,
-                      keyboardType: TextInputType.text,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 150,
-                    child: TextField(
-                      decoration: const InputDecoration(hintText: "Text Body"),
-                      controller: body,
-                      keyboardType: TextInputType.multiline,
-                      minLines: 10,
-                      maxLines: null,
-                    ),
-                  ),
-                ],
+        constraints: const BoxConstraints.expand(),
+        decoration:  const BoxDecoration(
+            image: DecorationImage(image: AssetImage("assets/images/bkg2.jpg"),fit: BoxFit.cover)),
+        //  color: Colors.black26,
+        padding: const EdgeInsets.all(40),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 70,
+              child: TextField(
+                decoration: const InputDecoration(
+                    hintText: "An interesting title"),
+                controller: titleC,
+                keyboardType: TextInputType.text,
               ),
-            )
-          : IndexedStack(
-              index: _selectedIndex,
-              children: _pages,
             ),
+            SizedBox(
+              height: 150,
+              child: TextField(
+                decoration: const InputDecoration(hintText: "Text Body"),
+                controller: body,
+                keyboardType: TextInputType.multiline,
+                minLines: 10,
+                maxLines: null,
+              ),
+            ),
+          ],
+        ),
+      )
+          : IndexedStack(
+        index: _selectedIndex,
+        children: _pages,
+      ),
     );
   }
 
