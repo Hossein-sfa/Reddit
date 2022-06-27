@@ -152,7 +152,7 @@ class PostDetailsState extends State<PostDetails> {
                         icon: const Icon(Icons.mode_comment_outlined),
                         onPressed: () {},
                       ),
-                      Text(widget.post.commentNum.toString()),
+                      Text(widget.post.comments.length.toString()),
                       const Spacer(),
                       IconButton(
                         icon: const Icon(Icons.share),
