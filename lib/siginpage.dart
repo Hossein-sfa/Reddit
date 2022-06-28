@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'ToHome.dart';
@@ -50,11 +49,10 @@ class SignInState extends State<SignIn> {
 
   Future<String> logIn() async {
     await Socket.connect("192.168.1.7", 8080).then((serverSocket) {
-      serverSocket.encoding = utf8;
       serverSocket.write('signin ${userName.text} ${password.text}\u0000');
       serverSocket.flush();
-      serverSocket.listen((socket) {
-        showMessage = String.fromCharCodes(socket).trim();
+      serverSocket.listen((response) {
+        showMessage = String.fromCharCodes(response);
       });
     });
     return showMessage!;
@@ -192,7 +190,8 @@ class SignInState extends State<SignIn> {
                                       );
                                     } else {
                                       // ToDo : show error message that user name or password is incorrect
-                                      showMessage = 'User name or password is incorrect';
+                                      showMessage =
+                                          'User name or password is incorrect';
                                     }
                                   }
                                 : null,
