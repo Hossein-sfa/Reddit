@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 import java.time.LocalDateTime;
 
-public class DataBase {
+class DataBase {
     HashMap<String, Controller> dataBase = new HashMap<>();
     static DataBase db;
 

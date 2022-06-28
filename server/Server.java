@@ -3,7 +3,7 @@ import java.net.*;
 import java.util.*;
 import java.time.LocalDateTime;
 
-public class Server {
+class Server {
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(8080);
         Vector<User> users = DataBase.usersLoader();
