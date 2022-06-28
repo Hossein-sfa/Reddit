@@ -51,7 +51,7 @@ class SignInState extends State<SignIn> {
   Future<String> logIn() async {
     await Socket.connect("192.168.1.7", 8080).then((serverSocket) {
       serverSocket.encoding = utf8;
-      serverSocket.write('signin ${userName.text} ${password.text}.');
+      serverSocket.write('signin ${userName.text} ${password.text}\u0000');
       serverSocket.flush();
       serverSocket.listen((socket) {
         showMessage = String.fromCharCodes(socket).trim();

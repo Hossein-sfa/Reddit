@@ -1,5 +1,7 @@
 import java.io.*;
 import java.util.HashMap;
+import java.util.Scanner;
+import java.util.Vector;
 
 public class DataBase {
     HashMap<String, Controller> dataBase = new HashMap<>();
@@ -10,6 +12,58 @@ public class DataBase {
             db = new DataBase();
         }
         return db;
+    }
+
+    // load users from file
+    static public Vector<User> usersLoader() throws IOException {
+        Vector<User> users = new Vector<>();
+        BufferedReader reader = new BufferedReader(new FileReader("DataBase/users.txt"));
+        String line = reader.readLine();
+        while (line != null) {
+            String[] elements = line.split("~");
+            users.add(new User(elements[0], elements[1], elements[2]));
+            line = reader.readLine();
+        }
+        reader.close();
+        return users;
+    }
+
+    // load controllers from file
+    static public Vector<Post> postsLoader () throws IOException {
+        Vector<Post> posts = new Vector<>();
+        BufferedReader reader = new BufferedReader(new FileReader("DataBase/users.txt"));
+        String line = reader.readLine();
+        while (line != null) {
+            String[] elements = line.split("~");
+            posts.add(new Post(elements[0], elements[1], elements[2], elements[3], Integer.parseInt(elements[4]), Integer.parseInt(elements[5])));
+            line = reader.readLine();
+        }
+        reader.close();
+        return posts;
+    }
+
+    // save new user to file
+    static public void addUser(User user) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("DataBase/users.txt", true));
+        writer.append(user.email).append("~").append(user.userName).append("~").append(user.password).append("\n");
+        writer.close();
+    }
+
+    // saving changes user pass or email or userName
+    static public void changeInfo(String oldLine, String newLine) throws IOException {
+        Scanner scanner = new Scanner(new File("DataBase/users.txt"));
+        StringBuilder buffer = new StringBuilder();
+        while (scanner.hasNextLine())
+            buffer.append(scanner.nextLine()).append(System.lineSeparator());
+        String fileContents = buffer.toString();
+        System.out.println("Contents of the file: "+fileContents);
+        scanner.close();
+        fileContents = fileContents.replaceAll(oldLine, newLine);
+        FileWriter writer = new FileWriter("DataBase/users.txt");
+        System.out.println("new data: " + fileContents);
+        writer.append(fileContents);
+        writer.flush();
+        writer.close();
     }
 
     void addDataBase (String str, Controller c) {
@@ -26,7 +80,7 @@ class Controller {
     FileWriter fw;
     RandomAccessFile raf;
 
-    public Controller(String str) throws IOException {
+    public Controller(String str) {
         file = new File (str);
         try {
             raf = new RandomAccessFile(file, "rw");
@@ -64,9 +118,5 @@ class Controller {
             }
         }
         return "invalid";
-    }
-
-    void removeId(String userName) {
-
     }
 }

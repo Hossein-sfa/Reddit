@@ -1,18 +1,16 @@
 import java.io.*;
 import java.net.*;
-import java.util.Vector;
+import java.util.*;
+import java.time.LocalTime;
 
 class Server {
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(8080);
-        Vector<User> users = new Vector<>();
-        users.add(new User("hossein", "hossaf82@gmail.com", "12345678"));
-        users.add(new User("navid", "navid@yahoo.com", "@qweER1234!"));
+        Vector<User> users = DataBase.usersLoader();
+        //Vector<Post> posts = DataBase.postsLoader();
         while(true) {
             System.out.println("Waiting for client...");
             new ClientHandler(serverSocket.accept(), users).start();
-            Socket socket = serverSocket.accept();
-            new ClientHandler(socket, users).start();
         }
     }
 }
@@ -24,6 +22,29 @@ class User {
         this.userName = userName;
         this.email = email;
         this.password = password;
+    }
+}
+
+class Comment {
+    int likes = 0;
+    String description, userName;
+    Date time;
+    Vector <Comment> replies = new Vector<>();
+}
+
+class Post {
+    String title, description, userName, community;
+    int likes, commentNum;
+    Vector <Comment> comments = new Vector<>();
+    LocalTime time;
+
+    public Post(String title, String description, String userName, String community, int likes, int commentNum) {
+        this.title = title;
+        this.description = description;
+        this.userName = userName;
+        this.community = community;
+        this.likes = likes;
+        this.commentNum = commentNum;
     }
 }
 
@@ -40,18 +61,20 @@ class ClientHandler extends Thread {
         System.out.println("user created");
     }
 
+    // convert sever message to string
     public String listener() throws IOException {
         StringBuilder sb = new StringBuilder();
-        while (dis.read() != '.') {
-            sb.append((char) dis.read());
+        int b = dis.read();
+        while (b != 0) {
+            sb.append((char) b);
+            b = dis.read();
         }
-        return dis.readUTF();
-        System.out.println(dis.readUTF());
         return sb.toString();
     }
 
     public void writer(String write) throws IOException {
         dos.writeUTF(write);
+        dos.flush();
         System.out.println("write: " + write);
     }
 
@@ -60,7 +83,8 @@ class ClientHandler extends Thread {
         super.run();
         String command;
         try {
-
+            //command = listener();
+            command = dis.readUTF();
             System.out.println("command: " + command);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -70,67 +94,80 @@ class ClientHandler extends Thread {
             System.out.println(s);
         }
         System.out.println();
-
-        if (split[0].equals("signin")) {
-            boolean signedIn = false;
-            for (User user : users) {
-                if (user.userName.equals(split[1])) {
-                    if (user.password.equals(split[2])) {
-                        try {
-                            System.out.println("signed in");
-                            writer("done");
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+        switch (split[0]) {
+            case "signin":
+                boolean signedIn = false;
+                for (User user : users) {
+                    if (user.userName.equals(split[1])) {
+                        if (user.password.equals(split[2])) {
+                            try {
+                                System.out.println("signed in");
+                                writer("1");
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            signedIn = true;
                         }
-                        signedIn = true;
-                    }
 
+                    }
                 }
-            }
-            if (!signedIn) {
-                try {
-                    System.out.println("not signed in");
-                    writer("invalid");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        } else if (split[0].equals("signup")) {
-            boolean duplicate = false;
-            String userName = split[1];
-            for (User user : users) {
-                if (user.userName.equals(userName)) {
+                if (!signedIn) {
                     try {
-                        writer("invalid");
-                        duplicate = true;
-                        break;
+                        System.out.println("not signed in");
+                        writer("0");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }
-            }
-            if (!duplicate) {
-                User user = new User(split[1], split[2], split[3]);
-                users.add(user);
+                break;
+            case "signup":
+                boolean duplicate = false;
+                String userName = split[2];
+                for (User user : users) {
+                    if (user.userName.equals(userName)) {
+                        try {
+                            writer("0");
+                            duplicate = true;
+                            break;
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+                if (!duplicate) {
+                    User user = new User(split[1], split[2], split[3]);
+                    users.add(user);
+                    try {
+                        DataBase.addUser(user);
+                        writer("1");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                break;
+            case "addpost":
+                // ToDo: add post to database
+                break;
+            case "changeinfo":
+                // changeinfo~email~userName~password~newEmail~newUserName~newPassword
+                String oldInfo = split[1] + "~" + split[2] + "~" + split[3];
+                String newInfo = split[4] + "~" + split[5] + "~" + split[6];
+                User oldUser = new User(split[1], split[2], split[3]);
+                User newUser = new User(split[4], split[5], split[6]);
+                for (User user : users) {
+                    if (user.userName.equals(oldUser.userName)) {
+                        users.remove(user);
+                        users.add(newUser);
+                        break;
+                    }
+                }
                 try {
-                    writer("done");
+                    DataBase.changeInfo(oldInfo, newInfo);
+                    writer("1");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-            }
+                break;
         }
     }
 }
-//                OutputStream os = socket.getOutputStream();
-//                InputStream is = socket.getInputStream();
-//                DataOutputStream dos = new DataOutputStream(os);
-//                DataInputStream dis = new DataInputStream(is);
-//                dos.writeUTF("Hello from server");
-//                dos.flush();
-//                System.out.println(dis.readUTF());
-//                dis.readInt();
-//                dos.writeInt(10);
-//                ObjectOutputStream oos = new ObjectOutputStream(os);
-//                ObjectInputStream ois = new ObjectInputStream(is);
-//                oos.writeObject(t);
-//                oos.flush();
