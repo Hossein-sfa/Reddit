@@ -55,12 +55,12 @@ class ClientHandler extends Thread {
         super.run();
         String command;
         try {
-            command = listener();
+
             System.out.println("command: " + command);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        String[] split = command.split(" ");
+        String[] split = command.split("~");
         for (String s : split) {
             System.out.println(s);
         }
