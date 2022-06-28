@@ -13,7 +13,6 @@ class Server {
             new ClientHandler(serverSocket.accept(), users).start();
             Socket socket = serverSocket.accept();
             new ClientHandler(socket, users).start();
-            System.out.println("sb connected");
         }
     }
 }
@@ -42,7 +41,12 @@ class ClientHandler extends Thread {
     }
 
     public String listener() throws IOException {
-        return dis.readUTF();
+        StringBuilder sb = new StringBuilder();
+        while (dis.read() != '.') {
+            sb.append((char) dis.read());
+        }
+        System.out.println(dis.readUTF());
+        return sb.toString();
     }
 
     public void writer(String write) throws IOException {
@@ -56,6 +60,7 @@ class ClientHandler extends Thread {
         String command;
         try {
             command = listener();
+            System.out.println("tamam");
             System.out.println("command: " + command);
         } catch (IOException e) {
             throw new RuntimeException(e);
