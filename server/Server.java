@@ -3,20 +3,11 @@ import java.net.*;
 import java.util.*;
 import java.time.LocalDateTime;
 
-class Server {
+public class Server {
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(8080);
         Vector<User> users = DataBase.usersLoader();
         Vector<Post> posts = DataBase.postsLoader();
-        for (Post post : posts) {
-            System.out.println(post.title);
-            System.out.println(post.description);
-            System.out.println(post.userName);
-            System.out.println(post.community);
-            System.out.println(post.likes);
-            System.out.println(post.commentNum);
-            System.out.println(post.time.toString());
-        }
         while (true) {
             System.out.println("Waiting for client...");
             new ClientHandler(serverSocket.accept(), users, posts).start();
@@ -28,8 +19,8 @@ class User {
     String email, userName, password;
 
     public User(String email, String userName, String password) {
-        this.userName = userName;
         this.email = email;
+        this.userName = userName;
         this.password = password;
     }
 }
@@ -106,7 +97,6 @@ class ClientHandler extends Thread {
         for (String s : split) {
             System.out.println(s);
         }
-        System.out.println();
         switch (split[0]) {
             case "signin" -> {
                 boolean signedIn = false;
