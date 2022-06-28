@@ -1,16 +1,14 @@
 import java.io.*;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Vector;
+import java.util.*;
+import java.time.LocalDateTime;
 
 public class DataBase {
     HashMap<String, Controller> dataBase = new HashMap<>();
     static DataBase db;
 
     static public DataBase getDb() {
-        if (db == null) {
+        if (db == null)
             db = new DataBase();
-        }
         return db;
     }
 
@@ -28,14 +26,16 @@ public class DataBase {
         return users;
     }
 
-    // load controllers from file
+    // load posts from file
     static public Vector<Post> postsLoader () throws IOException {
         Vector<Post> posts = new Vector<>();
-        BufferedReader reader = new BufferedReader(new FileReader("DataBase/users.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader("DataBase/posts.txt"));
         String line = reader.readLine();
         while (line != null) {
+            // title~description~user~community~like~commentNum~year~month~day~hour~minute
             String[] elements = line.split("~");
-            posts.add(new Post(elements[0], elements[1], elements[2], elements[3], Integer.parseInt(elements[4]), Integer.parseInt(elements[5])));
+            LocalDateTime time = LocalDateTime.of(Integer.parseInt(elements[6]), Integer.parseInt(elements[7]), Integer.parseInt(elements[8]), Integer.parseInt(elements[9]), Integer.parseInt(elements[10]));
+            posts.add(new Post(elements[0], elements[1], elements[2], elements[3], Integer.parseInt(elements[4]), Integer.parseInt(elements[5]), time));
             line = reader.readLine();
         }
         reader.close();
@@ -46,6 +46,13 @@ public class DataBase {
     static public void addUser(User user) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter("DataBase/users.txt", true));
         writer.append(user.email).append("~").append(user.userName).append("~").append(user.password).append("\n");
+        writer.close();
+    }
+
+    // save new post to file
+    static public void addPost(Post post) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("DataBase/posts.txt", true));
+        writer.append(post.title).append("~").append(post.description).append("~").append(post.userName).append("~").append(post.community).append("~").append(String.valueOf(post.likes)).append("~").append(String.valueOf(post.commentNum)).append("~").append(String.valueOf(post.time.getYear())).append("~").append(String.valueOf(post.time.getMonthValue())).append("~").append(String.valueOf(post.time.getDayOfMonth())).append("~").append(String.valueOf(post.time.getHour())).append("~").append(String.valueOf(post.time.getMinute())).append("\n");
         writer.close();
     }
 

@@ -1,16 +1,25 @@
 import java.io.*;
 import java.net.*;
 import java.util.*;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 class Server {
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(8080);
         Vector<User> users = DataBase.usersLoader();
-        //Vector<Post> posts = DataBase.postsLoader();
-        while(true) {
+        Vector<Post> posts = DataBase.postsLoader();
+        for (Post post : posts) {
+            System.out.println(post.title);
+            System.out.println(post.description);
+            System.out.println(post.userName);
+            System.out.println(post.community);
+            System.out.println(post.likes);
+            System.out.println(post.commentNum);
+            System.out.println(post.time.toString());
+        }
+        while (true) {
             System.out.println("Waiting for client...");
-            new ClientHandler(serverSocket.accept(), users).start();
+            new ClientHandler(serverSocket.accept(), users, posts).start();
         }
     }
 }
@@ -29,22 +38,23 @@ class Comment {
     int likes = 0;
     String description, userName;
     Date time;
-    Vector <Comment> replies = new Vector<>();
+    Vector<Comment> replies = new Vector<>();
 }
 
 class Post {
     String title, description, userName, community;
     int likes, commentNum;
-    Vector <Comment> comments = new Vector<>();
-    LocalTime time;
+    Vector<Comment> comments = new Vector<>();
+    LocalDateTime time;
 
-    public Post(String title, String description, String userName, String community, int likes, int commentNum) {
+    public Post(String title, String description, String userName, String community, int likes, int commentNum, LocalDateTime time) {
         this.title = title;
         this.description = description;
         this.userName = userName;
         this.community = community;
         this.likes = likes;
         this.commentNum = commentNum;
+        this.time = time;
     }
 }
 
@@ -53,9 +63,12 @@ class ClientHandler extends Thread {
     DataOutputStream dos;
     DataInputStream dis;
     Vector<User> users;
-    public ClientHandler(Socket socket, Vector<User> users) throws IOException {
+    Vector<Post> posts;
+
+    public ClientHandler(Socket socket, Vector<User> users, Vector<Post> posts) throws IOException {
         this.socket = socket;
         this.users = users;
+        this.posts = posts;
         dos = new DataOutputStream(socket.getOutputStream());
         dis = new DataInputStream(socket.getInputStream());
         System.out.println("user created");
@@ -95,7 +108,7 @@ class ClientHandler extends Thread {
         }
         System.out.println();
         switch (split[0]) {
-            case "signin":
+            case "signin" -> {
                 boolean signedIn = false;
                 for (User user : users) {
                     if (user.userName.equals(split[1])) {
@@ -119,8 +132,8 @@ class ClientHandler extends Thread {
                         throw new RuntimeException(e);
                     }
                 }
-                break;
-            case "signup":
+            }
+            case "signup" -> {
                 boolean duplicate = false;
                 String userName = split[2];
                 for (User user : users) {
@@ -144,11 +157,20 @@ class ClientHandler extends Thread {
                         throw new RuntimeException(e);
                     }
                 }
-                break;
-            case "addpost":
-                // ToDo: add post to database
-                break;
-            case "changeinfo":
+            }
+            case "addpost" -> {
+                // title~description~user~community~like~commentNum~year~month~day~hour~minute
+                LocalDateTime time = LocalDateTime.of(Integer.parseInt(split[7]), Integer.parseInt(split[8]), Integer.parseInt(split[9]), Integer.parseInt(split[10]), Integer.parseInt(split[11]));
+                Post newPost = new Post(split[1], split[2], split[3], split[4], Integer.parseInt(split[5]), Integer.parseInt(split[6]), time);
+                posts.add(newPost);
+                try {
+                    DataBase.addPost(newPost);
+                    writer("1");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            case "changeinfo" -> {
                 // changeinfo~email~userName~password~newEmail~newUserName~newPassword
                 String oldInfo = split[1] + "~" + split[2] + "~" + split[3];
                 String newInfo = split[4] + "~" + split[5] + "~" + split[6];
@@ -167,7 +189,7 @@ class ClientHandler extends Thread {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                break;
+            }
         }
     }
 }
