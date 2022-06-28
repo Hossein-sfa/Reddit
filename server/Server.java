@@ -45,6 +45,7 @@ class ClientHandler extends Thread {
         while (dis.read() != '.') {
             sb.append((char) dis.read());
         }
+        return dis.readUTF();
         System.out.println(dis.readUTF());
         return sb.toString();
     }
@@ -59,13 +60,12 @@ class ClientHandler extends Thread {
         super.run();
         String command;
         try {
-            command = listener();
-            System.out.println("tamam");
+
             System.out.println("command: " + command);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        String[] split = command.split(" ");
+        String[] split = command.split("~");
         for (String s : split) {
             System.out.println(s);
         }
@@ -80,7 +80,7 @@ class ClientHandler extends Thread {
                             System.out.println("signed in");
                             writer("done");
                         } catch (IOException e) {
-                        throw new RuntimeException(e);
+                            throw new RuntimeException(e);
                         }
                         signedIn = true;
                     }
