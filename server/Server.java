@@ -192,6 +192,7 @@ class ClientHandler extends Thread {
                 }
             }
             case "addComunities" ->{
+                //addComunities~Name~case~title~about~image~time~headUser~userList~postList
                 HashMap<String, String> data ;
                 addCommunities addCommunities;
                 data = new HashMap<>(Map.of("name" , split[1] , "case" , split[2] ,
