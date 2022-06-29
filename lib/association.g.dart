@@ -7,9 +7,9 @@ part of 'association.dart';
 // **************************************************************************
 
 association _$associationFromJson(Map<String, dynamic> json) => association(
-      json['Name'] as String,
+      json['name'] as String,
       json['Case'] as String,
-      json['Title'] as String,
+      json['title'] as String,
       json['about'] as String,
       json['image'] as String,
       DateTime.parse(json['startDate'] as String),
@@ -19,9 +19,9 @@ association _$associationFromJson(Map<String, dynamic> json) => association(
 
 Map<String, dynamic> _$associationToJson(association instance) =>
     <String, dynamic>{
-      'Name': instance.Name,
+      'name': instance.name,
       'Case': instance.Case,
-      'Title': instance.Title,
+      'title': instance.title,
       'about': instance.about,
       'image': instance.image,
       'startDate': instance.startDate.toIso8601String(),

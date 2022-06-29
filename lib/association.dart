@@ -39,7 +39,7 @@ class association {
   }
 
   void setAssociationName(String name) {
-    Name = name;
+    name = name;
   }
 
   int getMemberCount() {
@@ -51,7 +51,7 @@ class association {
   }
 
   String getAssociationName() {
-    return Name;
+    return name;
   }
 
   String getAssociationMakerName() {
