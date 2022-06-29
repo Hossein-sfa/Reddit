@@ -43,15 +43,16 @@ class _CreatProfileState extends State<CreatProfile> {
 
   // Future<> ImagePicker
   Future<String> addAssociation() async {
+    String showMessage = "" ;
     String sendmsg = assoc().json;
     await Socket.connect("\u0000", 8080).then((serverSocket) {
       serverSocket.write('addComunities~$sendmsg');
       serverSocket.flush();
       serverSocket.listen((response) {
-     //   showMessage = String.fromCharCodes(response);
+        showMessage = String.fromCharCodes(response);
       });
     });
-    return "";
+    return showMessage;
   }
 
   @override
@@ -138,7 +139,16 @@ class _CreatProfileState extends State<CreatProfile> {
                       }
                     }
                */
-                    addAssociation();
+
+                    String result = await addAssociation();
+                    if (result != ""){
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ToHome(),
+                        ),
+                      );
+                    }
                   }
                 },
                 child: Center(
