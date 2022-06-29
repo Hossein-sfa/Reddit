@@ -1,14 +1,26 @@
-import 'comment.dart';
+import 'dart:convert';
 
+import 'comment.dart';
+import 'package:json_annotation/json_annotation.dart';
+part  'post.g.dart';
+
+@JsonSerializable()
 class Post {
   String title, description, userName, community;
-  int likes = 0;
-  List<Comment> comments;
+  int likes = 0, commentNum = 0;
+  //List<Comment> comments = [];
   DateTime time;
   bool isLiked = false, isDisLiked = false;
 
   Post(this.title, this.description, this.time, this.userName,
-      this.community, this.comments);
+      this.community ) ; // this.comments);
+
+  Map<String, dynamic> toJson() => _$PostToJson(this);
+  String json = jsonEncode(Post);
+
+  String getJson(){
+    return json ;
+  }
 
   setLike() {
     if (isDisLiked) {
@@ -43,6 +55,10 @@ class Post {
     isDisLiked = true;
   }
 
+  set setDateTime(DateTime date) {
+    time = date;
+  }
+
   // Method that calculate how much time is passed since the post was created
   String passedTime(DateTime date) {
     if (date.difference(time).inSeconds < 60) {
@@ -62,12 +78,21 @@ class Post {
     }
   }
 
-  List<Comment> getSortedComments() {
-    comments.sort((b, a) => a.likes.compareTo(b.likes));
-    return comments;
+  //List<Comment> getSortedComments() {
+    //comments.sort((b, a) => a.likes.compareTo(b.likes));
+  //  return comments;
+ // }
+
+  addComment(comment) {
+  //  comments.add(comment);
+    commentNum++;
   }
 
-  addComment(Comment comment) {
-    comments.add(comment);
+  set setTitle(String str) {
+    title = str;
+  }
+
+  set setDescription(String value) {
+    description = value;
   }
 }
