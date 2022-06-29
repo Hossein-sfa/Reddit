@@ -11,6 +11,7 @@ class Comment {
   List replies = [];
 
   Comment(this.userName, this.description, this.time);
+  factory Comment.fromJson(Map<String, dynamic> json) => _$CommentFromJson(json);
   Map<String, dynamic> toJson() => _$CommentToJson(this);
   String json = jsonEncode(Comment);
 
