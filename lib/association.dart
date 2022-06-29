@@ -1,6 +1,9 @@
 import 'package:reddit/user.dart';
-
 import 'post.dart';
+import 'package:json_annotation/json_annotation.dart';
+part  'association.g.dart';
+
+@JsonSerializable()
 class association {
   late String Name;
   late String Case;
@@ -10,8 +13,8 @@ class association {
   DateTime startDate = DateTime.now();
   late String associationMakerName;
   late int memberCount = 1;
-  List<User> users = [];
-  List<Post> posts = [];
+  //late var users = new List[5];
+  //late var posts;
 
   association(
       this.Name,
@@ -22,9 +25,11 @@ class association {
       this.startDate,
       this.associationMakerName,
       this.memberCount,
-      this.users,
-      this.posts);
+      //this.users,
+      //this.posts
+     );
 
+  Map<String, dynamic> toJson() => _$associationToJson(this);
   void setMemberCount() {
     memberCount++;
   }
