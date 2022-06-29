@@ -1,7 +1,8 @@
 //import 'dart:io';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:reddit/association.dart';
 import 'ToHome.dart';
 
 class CreatProfile extends StatefulWidget {
@@ -18,10 +19,39 @@ class _CreatProfileState extends State<CreatProfile> {
   //late PickedFile _imageFile;
   final _globalkey = GlobalKey<FormState>();
   final TextEditingController _name = TextEditingController();
-  final TextEditingController _Case = TextEditingController();
+  late String _Case ;
   final TextEditingController _title = TextEditingController();
   final TextEditingController _about = TextEditingController();
   final ImagePicker _picker = ImagePicker();
+
+  association assoc(){
+    if (_Case == "Society & Life")
+      return association(_name.text, _Case, _title.text, _about.text , "assets/images/cover.jpg") ;// image must be changed
+    else if (_Case == "Technology")
+      return association(_name.text, _Case, _title.text, _about.text , "assets/images/code.jpg") ;
+    else if (_Case == "Nature & Animals")
+      return association(_name.text, _Case, _title.text, _about.text , "assets/images/lion.jpg") ;
+    else if (_Case == "Science")
+      return association(_name.text, _Case, _title.text, _about.text , "assets/images/Science.jpg") ;
+    else if (_Case == "Sports")
+      return association(_name.text, _Case, _title.text, _about.text , "assets/images/sport.png") ;
+    else if (_Case == "Entertainments")
+      return association(_name.text, _Case, _title.text, _about.text , "assets/images/movie.jpg") ;
+    return association(_name.text, _Case, _title.text, _about.text , "assets/images/cover.jpg") ;
+  }
+
+  // Future<> ImagePicker
+  Future<String> addAssociation() async {
+    String sendmsg = assoc().json;
+    await Socket.connect("\u0000", 8080).then((serverSocket) {
+      serverSocket.write('addComunities~$sendmsg');
+      serverSocket.flush();
+      serverSocket.listen((response) {
+     //   showMessage = String.fromCharCodes(response);
+      });
+    });
+    return "";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +112,8 @@ class _CreatProfileState extends State<CreatProfile> {
                   if (_globalkey.currentState!.validate()) {
                     Map<String, String> data = {
                       "name": _name.text,
-                      "Case": _Case.text,
-                      "titleline": _title.text,
+                      "Case": _Case,
+                      "title": _title.text,
                       "about": _about.text,
                     };
                     /*
@@ -107,6 +137,7 @@ class _CreatProfileState extends State<CreatProfile> {
                       }
                     }
                */
+                    addAssociation();
                   }
                 },
                 child: Center(
@@ -248,32 +279,52 @@ class _CreatProfileState extends State<CreatProfile> {
     );
   }
 
+  List<DropdownMenuItem<String>> get dropdownItems{
+    List<DropdownMenuItem<String>> menuItems = [
+      const DropdownMenuItem(child: Text("Society & Life"),value: "Society & Life"),
+      const DropdownMenuItem(child: Text("Technology"),value: "Technology"),
+      const DropdownMenuItem(child: Text("Nature & Animals"),value: "Nature & Animals"),
+      const DropdownMenuItem(child: Text("Science"),value: "Science"),
+      const DropdownMenuItem(child: Text("Sports"),value: "Sports"),
+      const DropdownMenuItem(child: Text("Entertainments"),value: "Entertainments"),
+
+    ];
+    return menuItems;
+  }
+  String? selectedValue = null;
+  final _dropdownFormKey = GlobalKey<FormState>();
+
   Widget caseTextField() {
-    return TextFormField(
-      controller: _Case,
-      validator: (value) {
-        if (value!.isEmpty) return "Case can't be empty";
-        return null;
-      },
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.teal,
-            )),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.orange,
-              width: 2,
-            )),
-        prefixIcon: Icon(
-          Icons.person,
-          color: Colors.green,
-        ),
-        labelText: "Case of Communication",
-        helperText: "Case can't be empty",
-        hintText: "Biography",
-      ),
-    );
+    return Form(
+        key: _dropdownFormKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            DropdownButtonFormField(
+                decoration: InputDecoration(
+                  labelText: "Categories",
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black38 ,width: 1),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: const BorderSide(width: 2),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  filled: true,
+                ),
+                validator: (value) => value == null ? "Select a category" : null,
+                //dropdownColor: Colors.greenAccent,
+                value: selectedValue,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedValue = newValue!;
+                  });
+                },
+                items: dropdownItems
+            ),
+          ],
+        ));
   }
 
   Widget titleTextField() {
