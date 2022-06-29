@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:reddit/user.dart';
 import 'post.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -11,10 +12,10 @@ class association {
   late String about;
   late String image;
   DateTime startDate = DateTime.now();
-  late String associationMakerName;
+  late String associationMakerName;  //String json user
   late int memberCount = 1;
-  //late var users = new List[5];
-  //late var posts;
+  late var users;
+  late var posts;
 
   association(
       this.name,
@@ -22,14 +23,17 @@ class association {
       this.title,
       this.about,
       this.image,
-      this.startDate,
-      this.associationMakerName,
-      this.memberCount,
+      //this.startDate,
+     // this.associationMakerName,
+      //this.memberCount,
       //this.users,
       //this.posts
      );
 
   Map<String, dynamic> toJson() => _$associationToJson(this);
+  String json = jsonEncode(association);
+
+
   void setMemberCount() {
     memberCount++;
   }
@@ -55,7 +59,7 @@ class association {
   }
 
   String getAssociationMakerName() {
-    return associationMakerName;
+    return associationMakerName;    //ToDo => change
   }
 
   DateTime getStartDate() {
