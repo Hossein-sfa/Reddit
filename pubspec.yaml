@@ -58,6 +58,8 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
   fluentui_system_icons: ^1.1.170
+  shared_preferences: ^2.0.15
+  provider: ^6.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -90,10 +92,6 @@ flutter:
     - assets/images/bkg2.jpg
     - assets/images/bkg4.jpg
 
-
-
-
-  #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
