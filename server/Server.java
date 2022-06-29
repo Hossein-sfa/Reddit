@@ -2,6 +2,8 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.time.LocalDateTime;
+import com.google.gson.Gson;
+//import com.google.gson.GsonBuilder;
 
 class Server {
     public static void main(String[] args) throws IOException {
@@ -57,13 +59,26 @@ class Post {
     }
 }
 
-class addCommunities {
-    private final HashMap<String, String> data;
-    public addCommunities(HashMap<String, String> data) {
-        this.data = data;
-    }
-    public HashMap<String, String> getData() {
-        return data;
+class addCommunities  {
+    String name;
+    String Case;
+    String title;
+    String about;
+    String image;
+    //DateTime startDate = DateTime.now();
+    String associationMakerName;  //String json user
+    int memberCount = 1;
+    //var users;
+    //var posts;
+
+    public addCommunities(String name, String aCase, String title, String about, String image, String associationMakerName, int memberCount) {
+        this.name = name;
+        Case = aCase;
+        this.title = title;
+        this.about = about;
+        this.image = image;
+        this.associationMakerName = associationMakerName;
+        this.memberCount = memberCount;
     }
 }
 
@@ -117,7 +132,7 @@ class ClientHandler extends Thread {
             System.out.println(s);
         }
         switch (split[0]) {
-            case "signin" -> {
+            case "signin" : {
                 boolean signedIn = false;
                 for (User user : users) {
                     if (user.userName.equals(split[1])) {
@@ -142,7 +157,7 @@ class ClientHandler extends Thread {
                     }
                 }
             }
-            case "signup" -> {
+            case "signup" : {
                 boolean duplicate = false;
                 String userName = split[2];
                 for (User user : users) {
@@ -167,7 +182,7 @@ class ClientHandler extends Thread {
                     }
                 }
             }
-            case "addpost" -> {
+            case "addpost" : {
                 // title~description~user~community~like~commentNum~year~month~day~hour~minute~username^likes^replies\...
                 LocalDateTime time = LocalDateTime.of(Integer.parseInt(split[7]), Integer.parseInt(split[8]), Integer.parseInt(split[9]), Integer.parseInt(split[10]), Integer.parseInt(split[11]));
                 String reply = split[11];
@@ -186,7 +201,7 @@ class ClientHandler extends Thread {
                     throw new RuntimeException(e);
                 }
             }
-            case "changeinfo" -> {
+            case "changeinfo" : {
                 // changeinfo~email~userName~password~newEmail~newUserName~newPassword
                 String oldInfo = split[1] + "~" + split[2] + "~" + split[3];
                 String newInfo = split[4] + "~" + split[5] + "~" + split[6];
@@ -206,14 +221,20 @@ class ClientHandler extends Thread {
                     throw new RuntimeException(e);
                 }
             }
-            case "addComunities" ->{
+            case "addComunities" : {
+                String json = split[1];
+                Gson gson = new Gson();
+                addCommunities addCommunities = gson.fromJson(json, addCommunities.class);
+            }
                 //addComunities~Name~case~title~about~image~time~headUser~userList~postList
+                /*
                 HashMap<String, String> data ;
                 addCommunities addCommunities;
                 data = new HashMap<>(Map.of("name" , split[1] , "case" , split[2] ,
                         "title" , split[3] , "about" , split[4] , "image" , split[5] ,
                         "time" , split[6] , "headUser" , split[7] , "userList" , split[8] , "postList" , split[9]));
                 addCommunities = new addCommunities(data);
+                */
                 try{
                     writer("done");
                 }
