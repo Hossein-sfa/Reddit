@@ -36,6 +36,16 @@ class User {
   ];
   static late List<String> _followers;
   static late List<String> _following;
+  static List<Post> likedPosts = [
+    Post("Test2", 'hello \n hi \n \n bye \n', DateTime(2022, 5, 15), 'Hossein',
+        'SBU', c2),
+    Post("Test3", 'hello \n hi \n \n bye \n', DateTime(2022, 5, 26), 'Hossein',
+        'SBU', c),
+    Post("Test4", 'hello \n hi \n \n bye \n', DateTime(2022, 5, 31, 15),
+        'Hossein', 'SBU', c1),
+    Post("Test5", 'hello \n hi \n \n bye \n', DateTime(2022, 5, 31, 16, 48),
+        'Hossein', 'SBU', c2),
+  ];
   List<Post> tasksList = [];
   //static List<association> communities = [association('first fav community', '', 'hossein'), association('second fav community', '', 'hossein'), association('third fav community', '', 'hossein'), association('fourth fav community', '', 'hossein'), association('fifth fav community', '', 'hossein'), association('sixth fav community', '', 'hossein'), association('seventh fav community', '', 'hossein')];
   //static List<association> favCommunities = [association('first community', '', 'hossein'), association('second community', '', 'hossein'), association('third community', '', 'hossein'), association('fourth community', '', 'hossein'), association('fifth community', '', 'hossein'), association('sixth community', '', 'hossein'), association('seventh community', '', 'hossein'), association('eighth community', 'fgggdsgdgdsfgsgsdg', 'hossein'), association('ninth community', '', 'hossein'), association('tenth community', '', 'hossein')];

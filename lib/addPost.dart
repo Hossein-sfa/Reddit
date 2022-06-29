@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:motion_toast/motion_toast.dart';
+import 'package:flutter/material.dart';
 import 'posts.dart';
 import 'post.dart';
 

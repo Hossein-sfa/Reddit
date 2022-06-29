@@ -168,9 +168,10 @@ class UserProfilePage extends StatelessWidget {
       margin: const EdgeInsets.only(top: 8.0),
     );
   }
-//  Widget _nameText(BuildContext context) {
 
-  //}
+  // Widget _nameText(BuildContext context) {
+  //
+  // }
 
   @override
   Widget build(BuildContext context) {

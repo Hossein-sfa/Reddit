@@ -98,7 +98,11 @@ class SignInState extends State<SignIn> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                              left: 15, right: 15, top: 20, bottom: 5),
+                            left: 15,
+                            right: 15,
+                            top: 20,
+                            bottom: 5,
+                          ),
                           child: TextField(
                             controller: userName,
                             keyboardType: TextInputType.text,
@@ -150,8 +154,9 @@ class SignInState extends State<SignIn> {
                                 },
                               ),
                               labelStyle: const TextStyle(
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold),
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                              ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
@@ -171,9 +176,7 @@ class SignInState extends State<SignIn> {
                             const SizedBox(width: 25),
                             const Text("Don't have an account?  "),
                             TextButton(
-                              child: const Text(
-                                'Sign up',
-                              ),
+                              child: const Text('Sign up'),
                               onPressed: () {
                                 Navigator.pushReplacement(
                                   context,
@@ -195,7 +198,7 @@ class SignInState extends State<SignIn> {
                             ),
                             onPressed: userNameChecker && passwordChecker
                                 ? () async {
-                              User.name = userName.text;
+                                    User.name = userName.text;
                                     // String result = await logIn();
                                     // print('this is result: $result');
                                     // if (result == '1') {

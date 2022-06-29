@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'association.dart';
+import 'posts.dart';
 import 'main.dart';
 import 'post.dart';
-import 'posts.dart';
 
 class CommunityDetails extends StatefulWidget {
   CommunityDetails({Key? key, required this.community}) : super(key: key);
@@ -62,9 +62,7 @@ class _PostDetailsState extends State<CommunityDetails> {
                       ),
                       const Spacer(),
                       ElevatedButton(
-                        child: const Text(
-                          'join',
-                        ),
+                        child: const Text('join'),
                         onPressed: () {},
                       ),
                     ],
@@ -144,9 +142,7 @@ class _PostDetailsState extends State<CommunityDetails> {
                   //     ),
                   //   ],
                   // ),
-                  const Divider(
-                    thickness: 0.8,
-                  ),
+                  const Divider(thickness: 0.8),
                   ListView.builder(
                     shrinkWrap: true,
                     itemCount: UserPosts.posts.length,
@@ -163,7 +159,8 @@ class _PostDetailsState extends State<CommunityDetails> {
                                   children: [
                                     const CircleAvatar(
                                       backgroundImage: AssetImage(
-                                          'assets/images/circleAvatar.png'),
+                                        'assets/images/circleAvatar.png',
+                                      ),
                                     ),
                                     const SizedBox(width: 10),
                                     Column(
@@ -174,15 +171,14 @@ class _PostDetailsState extends State<CommunityDetails> {
                                         const SizedBox(height: 4),
                                         Text(
                                           UserPosts.posts[index].userName,
-                                          style: const TextStyle(
-                                            fontSize: 15,
-                                          ),
+                                          style: const TextStyle(fontSize: 15),
                                         ),
                                       ],
                                     ),
                                     const Spacer(),
                                     Text(
-                                      UserPosts.posts[index].passedTime(DateTime.now()),
+                                      UserPosts.posts[index]
+                                          .passedTime(DateTime.now()),
                                       style: TextStyle(
                                         color: Colors.white.withOpacity(0.7),
                                         fontSize: 10,
@@ -195,7 +191,8 @@ class _PostDetailsState extends State<CommunityDetails> {
                                   UserPosts.posts[index].title,
                                   textAlign: TextAlign.start,
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                                 const SizedBox(height: 7),
                                 Text(UserPosts.posts[index].description),
@@ -204,58 +201,65 @@ class _PostDetailsState extends State<CommunityDetails> {
                                     IconButton(
                                       icon: Icon(
                                         Icons.thumb_up,
-                                        color:
-                                        UserPosts.posts[index].comments[index].isLiked
-                                                ? Colors.deepOrange
-                                                : null,
-                                      ),
-                                      onPressed: () {
-                                        // Todo : send liking and disliking to server in phase 2 project
-                                        setState(() {
-                                          if (UserPosts.posts[index].comments[index]
-                                                  .isLiked ==
-                                              false) {
-                                            UserPosts.posts[index].comments[index]
-                                                .setLike();
-                                          } else {
-                                            UserPosts.posts[index].comments[index]
-                                                .setVoteLess();
-                                          }
-                                        });
-                                      },
-                                    ),
-                                    Text(UserPosts.posts[index].comments[index].likes
-                                        .toString()),
-                                    const SizedBox(width: 10),
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.thumb_down,
-                                        color: UserPosts.posts[index].comments[index].isDisLiked
+                                        color: UserPosts.posts[index]
+                                                .comments[index].isLiked
                                             ? Colors.deepOrange
                                             : null,
                                       ),
                                       onPressed: () {
                                         // Todo : send liking and disliking to server in phase 2 project
                                         setState(() {
-                                          if (UserPosts.posts[index].comments[index]
-                                                  .isDisLiked ==
+                                          if (UserPosts.posts[index]
+                                                  .comments[index].isLiked ==
                                               false) {
-                                            UserPosts.posts[index].comments[index]
+                                            UserPosts
+                                                .posts[index].comments[index]
+                                                .setLike();
+                                          } else {
+                                            UserPosts
+                                                .posts[index].comments[index]
+                                                .setVoteLess();
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    Text(
+                                      UserPosts
+                                          .posts[index].comments[index].likes
+                                          .toString(),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    IconButton(
+                                      icon: Icon(
+                                        Icons.thumb_down,
+                                        color: UserPosts.posts[index]
+                                                .comments[index].isDisLiked
+                                            ? Colors.deepOrange
+                                            : null,
+                                      ),
+                                      onPressed: () {
+                                        // Todo : send liking and disliking to server in phase 2 project
+                                        setState(() {
+                                          if (UserPosts.posts[index]
+                                                  .comments[index].isDisLiked ==
+                                              false) {
+                                            UserPosts
+                                                .posts[index].comments[index]
                                                 .setDisLike();
                                           } else {
-                                            UserPosts.posts[index].comments[index]
+                                            UserPosts
+                                                .posts[index].comments[index]
                                                 .setVoteLess();
                                           }
                                         });
                                       },
                                     ),
                                     IconButton(
-                                      icon: const Icon(
-                                        Icons.reply,
-                                      ),
+                                      icon: const Icon(Icons.reply),
                                       onPressed: () {},
                                     ),
-                                    Text(UserPosts.posts[index].commentNum.toString()),
+                                    Text(UserPosts.posts[index].comments.length
+                                        .toString()),
                                     const Spacer(),
                                     IconButton(
                                       icon: const Icon(Icons.share),

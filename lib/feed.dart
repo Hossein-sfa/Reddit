@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'posts.dart';
 import 'post_details.dart';
+import 'posts.dart';
 import 'user.dart';
 
 class Feed extends StatefulWidget {

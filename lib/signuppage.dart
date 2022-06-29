@@ -1,9 +1,9 @@
-import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'ToHome.dart';
+import 'package:flutter/material.dart';
 import 'siginpage.dart';
+import 'ToHome.dart';
 import 'main.dart';
+import 'dart:io';
 
 // validate that password contains 8 chars and  at least one number and  a small and a capital character
 isValidPassword(String pass) {
@@ -26,7 +26,6 @@ isValidEmail(String email) {
 
 isValidUserName(String userName) {
   if (userName.isNotEmpty) {
-    // ToDo : check that username is not already have an account in phase 2 project
     return true;
   }
   return false;

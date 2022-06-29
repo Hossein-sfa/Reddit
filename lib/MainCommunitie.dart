@@ -1,18 +1,17 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'siginpage.dart';
-import 'user%20detail.dart';
-import 'userSetting.dart';
 import 'CommunitiesCategory.dart';
-import 'SearchPage.dart';
-import 'Setting.dart';
-import 'ToHome.dart';
+import 'user%20detail.dart';
 import 'addCommunitie.dart';
+import 'userSetting.dart';
+import 'SearchPage.dart';
+import 'siginpage.dart';
+import 'Setting.dart';
 import 'addPost.dart';
+import 'ToHome.dart';
 
 class CommunitiesMainPage extends StatefulWidget {
   const CommunitiesMainPage({Key? key}) : super(key: key);
-
   @override
   State<CommunitiesMainPage> createState() => _CommunitiesMainPage();
 }
@@ -24,201 +23,215 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return SafeArea(
-        child: Scaffold(
-      backgroundColor: Colors.white38,
-      drawer: Drawer(
-        backgroundColor: const Color(0xB3FFFFFF), // gray
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: ListView(
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.black45,
-                image: DecorationImage(
-                  image: AssetImage('assets/images/profiledesign.jfif'),
-                  fit: BoxFit.cover,
+      child: Scaffold(
+        backgroundColor: Colors.white38,
+        drawer: Drawer(
+          backgroundColor: const Color(0xB3FFFFFF), // gray
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: ListView(
+            children: <Widget>[
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.black45,
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/profiledesign.jfif'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  'Menu',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.deepOrangeAccent,
+                  ),
+                  textAlign: TextAlign.left,
                 ),
               ),
-              padding: EdgeInsets.all(20),
-              child: Text(
-                'Menu',
-                style:
-                    (TextStyle(fontSize: 20, color: Colors.deepOrangeAccent)),
-                textAlign: TextAlign.left,
+              CircleAvatar(
+                radius: 30,
+                foregroundImage: const AssetImage(
+                  'assets/images/circleAvatar.png',
+                ),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) {
+                          return const UserDetail();
+                        },
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-            CircleAvatar(
-              radius: 30,
-              foregroundImage:
-                  const AssetImage('assets/images/circleAvatar.png'),
-              child: InkWell(
+              ListTile(
+                title: const Text("Change user profile"),
+                trailing: const Icon(
+                  Icons.change_circle,
+                  color: Colors.blueAccent,
+                ),
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (_) {
-                        return const UserDetail();
+                        return const UserSetting(key: Key('userSetting'));
                       },
                     ),
                   );
                 },
               ),
-            ),
-            ListTile(
-              title: const Text("Change user profile"),
-              trailing:
-                  const Icon(Icons.change_circle, color: Colors.blueAccent),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) {
-                      return const UserSetting(key: Key('userSetting'));
-                    },
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text("Most Viewed Community"),
-              trailing: const Icon(Icons.launch),
-              onTap: () {},
-            ),
-            ListTile(
-              title: const Text("Add Community"),
-              trailing: const Icon(Icons.add, color: Colors.green),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) {
-                      return CreatProfile(key: UniqueKey());
-                    },
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text("Settings"),
-              trailing: const Icon(Icons.settings, color: Colors.brown),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) {
-                      return Setting(key: UniqueKey());
-                    },
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text("Logout"),
-              trailing: const Icon(Icons.power_settings_new, color: Colors.red),
-              onTap: () {
-                //ToDo => Go to login page and delete user data from mobile and send data to server
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) {
-                      return const SignIn();
-                    },
-                  ),
-                );
-              },
-            ),
-          ],
+              ListTile(
+                title: const Text("Most Viewed Community"),
+                trailing: const Icon(Icons.launch),
+                onTap: () {},
+              ),
+              ListTile(
+                title: const Text("Add Community"),
+                trailing: const Icon(
+                  Icons.add,
+                  color: Colors.green,
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) {
+                        return CreateProfile(key: UniqueKey());
+                      },
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                title: const Text("Settings"),
+                trailing: const Icon(Icons.settings, color: Colors.brown),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) {
+                        return Setting(key: UniqueKey());
+                      },
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                title: const Text("Logout"),
+                trailing: const Icon(
+                  Icons.power_settings_new,
+                  color: Colors.red,
+                ),
+                onTap: () {
+                  //ToDo => Go to login page and delete user data from mobile and send data to server
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) {
+                        return const SignIn();
+                      },
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
-      ),
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: const Color(0X73000000),
-        title: const SizedBox(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: const Color(0X73000000),
+          title: const SizedBox(
             width: double.infinity,
             height: 40,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text("Reddit"),
-            )),
-        actions: [
-          // Go to Search Page
-          IconButton(
+            ),
+          ),
+          actions: [
+            IconButton(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (_) {
-                      return const SearchPage(
-                        key: Key("Search page"),
-                      );
+                      return const SearchPage();
                     },
                   ),
                 );
               },
-              icon: const Icon(Icons.search_rounded)),
-          Align(
+              icon: const Icon(Icons.search_rounded),
+            ),
+            Align(
               alignment: Alignment.centerRight,
               child: IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) {
-                          return const Setting(
-                            key: Key("About us"),
-                          );
-                        },
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.settings)))
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black54,
-        selectedFontSize: 18,
-        selectedIconTheme:
-            const IconThemeData(color: Colors.orangeAccent, size: 22),
-        selectedItemColor: Colors.orangeAccent,
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            backgroundColor: Colors.black54,
-            icon: Icon(Icons.home),
-            label: "Home",
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) {
+                        return const Setting(
+                          key: Key("About us"),
+                        );
+                      },
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.settings),
+              ),
+            ),
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.black54,
+          selectedFontSize: 18,
+          selectedIconTheme: const IconThemeData(
+            color: Colors.orangeAccent,
+            size: 22,
           ),
-          BottomNavigationBarItem(
-            backgroundColor: Colors.black45,
-            icon: Icon(Icons.group_rounded),
-            label: "Association",
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Colors.black45,
-            icon: Icon(Icons.add),
-            label: "Add",
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Colors.black45,
-            icon: Icon(Icons.chat_bubble),
-            label: "Chats",
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Colors.black45,
-            icon: Icon(Icons.inbox),
-            label: "Inbox",
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: CarouselSlider(
+          selectedItemColor: Colors.orangeAccent,
+          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              backgroundColor: Colors.black54,
+              icon: Icon(Icons.home),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              backgroundColor: Colors.black45,
+              icon: Icon(Icons.group_rounded),
+              label: "Association",
+            ),
+            BottomNavigationBarItem(
+              backgroundColor: Colors.black45,
+              icon: Icon(Icons.add),
+              label: "Add",
+            ),
+            BottomNavigationBarItem(
+              backgroundColor: Colors.black45,
+              icon: Icon(Icons.chat_bubble),
+              label: "Chats",
+            ),
+            BottomNavigationBarItem(
+              backgroundColor: Colors.black45,
+              icon: Icon(Icons.inbox),
+              label: "Inbox",
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: CarouselSlider(
                   items: [
                     InkWell(
                       onTap: () {
@@ -248,17 +261,18 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                         width: double.infinity,
                         //  height: double.infinity,
                         decoration: const BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
                         child: Stack(
                           children: [
                             SizedBox(
                               width: double.infinity,
                               height: double.infinity,
                               child: ClipRRect(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(20)),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(20),
+                                ),
                                 child: Image.asset(
                                   "assets/images/sociaty.jpg",
                                   fit: BoxFit.cover,
@@ -276,20 +290,22 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                                     children: [
                                       Row(
                                         children: const [
-                                          Icon(Icons.circle,
-                                              color: Colors.white, size: 17),
+                                          Icon(
+                                            Icons.circle,
+                                            color: Colors.white,
+                                            size: 17,
+                                          ),
                                           Text(
                                             " Society & Life",
                                             style: TextStyle(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
-                                          )
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+                                          ),
                                         ],
                                       ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
+                                      const SizedBox(height: 10),
                                     ],
                                   ),
                                 ],
@@ -355,14 +371,18 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                                     children: [
                                       Row(
                                         children: const [
-                                          Icon(Icons.circle,
-                                              color: Colors.white, size: 17),
+                                          Icon(
+                                            Icons.circle,
+                                            color: Colors.white,
+                                            size: 17,
+                                          ),
                                           Text(
                                             " Technology",
                                             style: TextStyle(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
                                           )
                                         ],
                                       ),
@@ -441,14 +461,18 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                                     children: [
                                       Row(
                                         children: const [
-                                          Icon(Icons.circle,
-                                              color: Colors.white, size: 17),
+                                          Icon(
+                                            Icons.circle,
+                                            color: Colors.white,
+                                            size: 17,
+                                          ),
                                           Text(
                                             " Nature & Animals",
                                             style: TextStyle(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
                                           )
                                         ],
                                       ),
@@ -515,14 +539,18 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                                     children: [
                                       Row(
                                         children: const [
-                                          Icon(Icons.circle,
-                                              color: Colors.black, size: 17),
+                                          Icon(
+                                            Icons.circle,
+                                            color: Colors.black,
+                                            size: 17,
+                                          ),
                                           Text(
                                             " Science",
                                             style: TextStyle(
-                                                fontSize: 19,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black),
+                                              fontSize: 19,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
                                           )
                                         ],
                                       ),
@@ -563,8 +591,8 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                         width: double.infinity,
                         //  height: double.infinity,
                         decoration: const BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
                         child: Stack(
                           children: [
                             SizedBox(
@@ -590,14 +618,18 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                                     children: [
                                       Row(
                                         children: const [
-                                          Icon(Icons.circle,
-                                              color: Colors.white, size: 17),
+                                          Icon(
+                                            Icons.circle,
+                                            color: Colors.white,
+                                            size: 17,
+                                          ),
                                           Text(
                                             " Sports",
                                             style: TextStyle(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
                                           )
                                         ],
                                       ),
@@ -638,8 +670,8 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                         width: double.infinity,
                         //  height: double.infinity,
                         decoration: const BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
                         child: Stack(
                           children: [
                             SizedBox(
@@ -665,14 +697,18 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                                     children: [
                                       Row(
                                         children: const [
-                                          Icon(Icons.circle,
-                                              color: Colors.white, size: 17),
+                                          Icon(
+                                            Icons.circle,
+                                            color: Colors.white,
+                                            size: 17,
+                                          ),
                                           Text(
                                             " Entertainments",
                                             style: TextStyle(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
                                           )
                                         ],
                                       ),
@@ -700,106 +736,112 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                     autoPlayCurve: Curves.fastOutSlowIn,
                     enlargeCenterPage: true,
                     scrollDirection: Axis.horizontal,
-                  )),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "All",
-                    style: TextStyle(color: Colors.white60),
                   ),
-                  IconButton(
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "All",
+                      style: TextStyle(color: Colors.white60),
+                    ),
+                    IconButton(
                       onPressed: () {
                         _listTitlePressed();
                       },
-                      icon: const Icon(Icons.arrow_forward_ios_rounded,
-                          size: 15, color: Colors.white60)),
-                ],
+                      icon: const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 15,
+                        color: Colors.white60,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            ListView(
-              physics: const NeverScrollableScrollPhysics(),
-              // prevent to scroll it
-              shrinkWrap: true,
-              // we can scroll it just in list area
-              children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  //Border:  BorderRadius.all(Radius.circular(15)),
-                  decoration: const BoxDecoration(
-                    color: Colors.white12,
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 80,
-                        height: 80,
-                        child: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(15)),
-                          child: Image.asset(
-                            "assets/images/cover.jpg",
-                            fit: BoxFit.cover,
+              ListView(
+                physics: const NeverScrollableScrollPhysics(),
+                // prevent to scroll it
+                shrinkWrap: true,
+                // we can scroll it just in list area
+                children: [
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    //Border:  BorderRadius.all(Radius.circular(15)),
+                    decoration: const BoxDecoration(
+                      color: Colors.white12,
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 80,
+                          height: 80,
+                          child: ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(15)),
+                            child: Image.asset(
+                              "assets/images/cover.jpg",
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Column(
-                          children: [
-                            Row(
-                              children: const [
-                                Icon(Icons.person_outline_rounded,
-                                    color: Colors.white60, size: 17),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Text(
-                                  " r/ nasa",
-                                  style: TextStyle(
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Row(
+                                children: const [
+                                  Icon(Icons.person_outline_rounded,
+                                      color: Colors.white60, size: 17),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    " r/ nasa",
+                                    style: TextStyle(
                                       color: Colors.white60,
                                       fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                )
-                              ],
-                            ),
-                            const Text("Title",
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const Text(
+                                "Title",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 13,
-                                )),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            const Text(
-                              "adad adwdwdd wdaedf frsfaea ffasa edada dsadjhdj jjjdjjsjdoad nsdajndjkdj sadsad dsad ",
-                              overflow: TextOverflow.ellipsis,
-                              //ToDo =  > implement it with short text of each communities
-                              style: TextStyle(
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              const Text(
+                                "adad adwdwdd wdaedf frsfaea ffasa edada dsadjhdj jjjdjjsjdoad nsdajndjkdj sadsad dsad ",
+                                overflow: TextOverflow.ellipsis,
+                                //ToDo =  > implement it with short text of each communities
+                                style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.normal,
-                                  fontSize: 12),
-                            ),
-                          ],
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            )
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 
   void _onItemTapped(int index) {
@@ -812,10 +854,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
         context,
         MaterialPageRoute(
           builder: (_) {
-            return const AddPost(
-              //addNewPost: addTask,
-              key: Key("navid"),
-            );
+            return const AddPost();
           },
         ),
       );
@@ -826,10 +865,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
         context,
         MaterialPageRoute(
           builder: (_) {
-            return const ToHome(
-              //addNewPost: addTask,
-              key: Key("navid"),
-            );
+            return const ToHome( );
           },
         ),
       );
