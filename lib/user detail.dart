@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:reddit/userSetting.dart';
 import 'ToHome.dart';
 
-class userDetail extends StatelessWidget {
-  const userDetail ({Key? key}) : super(key: key);
+class UserDetail extends StatelessWidget {
+  const UserDetail({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -15,13 +15,13 @@ class userDetail extends StatelessWidget {
 }
 
 class UserProfilePage extends StatelessWidget {
-  final String _Username = "Navid82";                           // name of user !
-  final String _fullname = "Navid Raeiszadeh";    //ToDo implement it with server !
+  final String _userName = "Navid82";
+  final String _fullName = "Navid Raeiszadeh"; //ToDo implement it with server !
   final String _bio =
       "Bio: \n You must be the wish that you want to see in the world!";
-  final String followers = "10";    // user.followers.toString();
-  final String followings = "20";   // user.followings.toString();
-  final String posts = "0";            // user.posts.toString();
+  final String followers = "10"; // user.followers.toString();
+  final String followings = "20"; // user.followings.toString();
+  final String posts = "0"; // user.posts.toString();
 
   const UserProfilePage({Key? key}) : super(key: key);
 
@@ -40,7 +40,7 @@ class UserProfilePage extends StatelessWidget {
   Widget _buildProfileImage() {
     return Center(
       child: Container(
-        margin: const EdgeInsets.only(top: 45.0 , bottom: 10.0),
+        margin: const EdgeInsets.only(top: 45.0, bottom: 10.0),
         width: 140.0,
         height: 140.0,
         decoration: BoxDecoration(
@@ -65,16 +65,15 @@ class UserProfilePage extends StatelessWidget {
       fontSize: 22.0,
       fontWeight: FontWeight.w500,
     );
-
     return Text(
-      _Username,
+      _userName,
       style: nameTextStyle,
     );
   }
 
-  Widget _buildfullName(BuildContext context) {
+  Widget _buildFullName(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 20.0 , bottom: 10.0),
+      margin: const EdgeInsets.only(top: 20.0, bottom: 10.0),
       padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 17.0),
       decoration: BoxDecoration(
         color: Colors.white70,
@@ -85,7 +84,7 @@ class UserProfilePage extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Text(
-        _fullname,
+        _fullName,
         style: const TextStyle(
           fontFamily: 'Spectral',
           color: Colors.black,
@@ -103,7 +102,6 @@ class UserProfilePage extends StatelessWidget {
       fontSize: 15.0,
       fontWeight: FontWeight.w200,
     );
-
     TextStyle _statCountTextStyle = const TextStyle(
       color: Colors.black54,
       fontSize: 24.0,
@@ -129,7 +127,7 @@ class UserProfilePage extends StatelessWidget {
     return Container(
       height: 65.0,
       width: 450.0,
-      margin: const EdgeInsets.only(top: 20.0 , bottom: 30.0),
+      margin: const EdgeInsets.only(top: 20.0, bottom: 30.0),
       decoration: const BoxDecoration(
         color: Colors.white70,
       ),
@@ -155,8 +153,10 @@ class UserProfilePage extends StatelessWidget {
     return Container(
       //color: Colors.white70,
       padding: const EdgeInsets.all(10.0),
-      child: Text( "\"$_bio\"", style: bioTextStyle,),
-
+      child: Text(
+        "\"$_bio\"",
+        style: bioTextStyle,
+      ),
     );
   }
 
@@ -179,25 +179,37 @@ class UserProfilePage extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            icon: const Icon(Icons.change_circle , color: Colors.black,),
+            icon: const Icon(
+              Icons.change_circle,
+              color: Colors.black,
+            ),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => (const UserSetting(key: Key('userSetting'),))),
+                MaterialPageRoute(
+                  builder: (context) =>
+                      const UserSetting(key: Key('userSetting')),
+                ),
               );
             },
           ),
         ],
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back , color: Colors.black,),
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ToHome()),
+              MaterialPageRoute(builder: (context) => const ToHome()),
             );
           },
         ),
-        title: const Text("Profile" , style: TextStyle(color: Colors.black54),),
+        title: const Text(
+          "Profile",
+          style: TextStyle(color: Colors.black54),
+        ),
         centerTitle: true,
         backgroundColor: Colors.deepOrangeAccent,
       ),
@@ -212,7 +224,7 @@ class UserProfilePage extends StatelessWidget {
                   SizedBox(height: screenSize.height / 6),
                   _buildProfileImage(),
                   _buildUserName(),
-                  _buildfullName(context),
+                  _buildFullName(context),
                   _buildStatContainer(),
                   _buildBio(context),
                   // _nameText(context),

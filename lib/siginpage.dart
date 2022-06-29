@@ -1,8 +1,10 @@
-import 'dart:io';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'ToHome.dart';
 import 'signuppage.dart';
+import 'ToHome.dart';
+import 'user.dart';
 import 'main.dart';
+import 'dart:io';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -47,6 +49,7 @@ class SignInState extends State<SignIn> {
     super.dispose();
   }
 
+  // connects to server
   Future<String> logIn() async {
     await Socket.connect("172.20.10.2", 8080).then((serverSocket) {
       serverSocket.write('signin ${userName.text} ${password.text}\u0000');
@@ -60,8 +63,19 @@ class SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Material(
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              themeChange.darkTheme = !themeChange.darkTheme;
+            });
+          },
+          child: themeChange.darkTheme
+              ? const Icon(Icons.dark_mode)
+              : const Icon(Icons.sunny),
+        ),
         appBar: AppBars.reddit,
         body: Container(
           constraints: const BoxConstraints.expand(),
@@ -175,24 +189,33 @@ class SignInState extends State<SignIn> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: ElevatedButton(
-                            child: const Text('Sign In',
-                                style: TextStyle(fontSize: 20)),
+                            child: const Text(
+                              'Sign In',
+                              style: TextStyle(fontSize: 20),
+                            ),
                             onPressed: userNameChecker && passwordChecker
                                 ? () async {
-                                    String result = await logIn();
-                                    print('this is result: $result');
-                                    if (result == 'done') {
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => const ToHome(),
-                                        ),
-                                      );
-                                    } else {
-                                      // ToDo : show error message that user name or password is incorrect
-                                      showMessage =
-                                          'User name or password is incorrect';
-                                    }
+                              User.name = userName.text;
+                                    // String result = await logIn();
+                                    // print('this is result: $result');
+                                    // if (result == '1') {
+                                    //   Navigator.pushReplacement(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //       builder: (context) => const ToHome(),
+                                    //     ),
+                                    //   );
+                                    // } else {
+                                    //   // ToDo : show error message that user name or password is incorrect
+                                    //   showMessage =
+                                    //       'User name or password is incorrect';
+                                    // }
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const ToHome(),
+                                      ),
+                                    );
                                   }
                                 : null,
                             style: ElevatedButton.styleFrom(

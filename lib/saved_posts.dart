@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'posts.dart';
 import 'post_details.dart';
 import 'user.dart';
 
-class Feed extends StatefulWidget {
-  const Feed({Key? key}) : super(key: key);
+class SavedPosts extends StatefulWidget {
+  const SavedPosts({Key? key}) : super(key: key);
   @override
-  State<Feed> createState() => FeedState();
+  State<SavedPosts> createState() => SavedPostsState();
 }
 
-class FeedState extends State<Feed> {
+class SavedPostsState extends State<SavedPosts> {
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -17,18 +16,17 @@ class FeedState extends State<Feed> {
         appBar: AppBar(
           backgroundColor: Colors.deepOrangeAccent,
           title: const Text(
-            "Reddit",
+            "Saved Posts",
             style: TextStyle(fontSize: 20),
           ),
         ),
-        drawer: const Drawer(),
         body: SafeArea(
           child: ListView.separated(
             separatorBuilder: (context, index) {
               return const Divider();
             },
-            itemCount: UserPosts.posts.length,
-            itemBuilder: (BuildContext context, int index) {
+            itemCount: User.savedPosts.length,
+            itemBuilder: (context, index) {
               return ListTile(
                 title: SizedBox(
                   width: MediaQuery.of(context).size.width - 40,
@@ -39,8 +37,9 @@ class FeedState extends State<Feed> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           const CircleAvatar(
-                            backgroundImage:
-                                AssetImage('assets/images/circleAvatar.png'),
+                            backgroundImage: AssetImage(
+                              'assets/images/circleAvatar.png',
+                            ),
                           ),
                           const SizedBox(width: 10),
                           Column(
@@ -49,14 +48,15 @@ class FeedState extends State<Feed> {
                             children: [
                               const SizedBox(height: 4),
                               Text(
-                                UserPosts.posts[index].userName,
+                                User.savedPosts[index].userName,
                                 style: const TextStyle(
                                   fontSize: 15,
                                 ),
                               ),
                               Text(
-                                UserPosts.posts[index].community,
-                                style: const TextStyle(
+                                User.savedPosts[index].community,
+                                style: TextStyle(
+                                  color: Colors.black.withOpacity(0.7),
                                   fontSize: 13,
                                 ),
                               ),
@@ -64,9 +64,9 @@ class FeedState extends State<Feed> {
                           ),
                           const Spacer(),
                           Text(
-                            UserPosts.posts[index].passedTime(DateTime.now()),
+                            User.savedPosts[index].passedTime(DateTime.now()),
                             style: TextStyle(
-                              color: Colors.black.withOpacity(0.8),
+                              color: Colors.black.withOpacity(0.7),
                               fontSize: 10,
                             ),
                           ),
@@ -80,49 +80,49 @@ class FeedState extends State<Feed> {
                       ),
                       const SizedBox(height: 15),
                       Text(
-                        UserPosts.posts[index].title,
+                        User.savedPosts[index].title,
                         textAlign: TextAlign.start,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 7),
-                      Text(UserPosts.posts[index].description),
+                      Text(User.savedPosts[index].description),
                       Row(
                         children: [
                           IconButton(
                             icon: Icon(
                               Icons.thumb_up,
-                              color: UserPosts.posts[index].isLiked
+                              color: User.savedPosts[index].isLiked
                                   ? Colors.deepOrange
                                   : null,
                             ),
                             onPressed: () {
                               // Todo : send liking and disliking to server in phase 2 project
                               setState(() {
-                                if (UserPosts.posts[index].isLiked == false) {
-                                  UserPosts.posts[index].setLike();
+                                if (User.savedPosts[index].isLiked == false) {
+                                  User.savedPosts[index].setLike();
                                 } else {
-                                  UserPosts.posts[index].setVoteLess();
+                                  User.savedPosts[index].setVoteLess();
                                 }
                               });
                             },
                           ),
-                          Text(UserPosts.posts[index].likes.toString()),
+                          Text(User.savedPosts[index].likes.toString()),
                           const SizedBox(width: 10),
                           IconButton(
                             icon: Icon(
                               Icons.thumb_down,
-                              color: UserPosts.posts[index].isDisLiked
+                              color: User.savedPosts[index].isDisLiked
                                   ? Colors.deepOrange
                                   : null,
                             ),
                             onPressed: () {
                               // Todo : send liking and disliking to server in phase 2 project
                               setState(() {
-                                if (UserPosts.posts[index].isDisLiked ==
+                                if (User.savedPosts[index].isDisLiked ==
                                     false) {
-                                  UserPosts.posts[index].setDisLike();
+                                  User.savedPosts[index].setDisLike();
                                 } else {
-                                  UserPosts.posts[index].setVoteLess();
+                                  User.savedPosts[index].setVoteLess();
                                 }
                               });
                             },
@@ -134,12 +134,12 @@ class FeedState extends State<Feed> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      PostDetails(post: UserPosts.posts[index]),
+                                      PostDetails(post: User.savedPosts[index]),
                                 ),
                               );
                             },
                           ),
-                          Text(UserPosts.posts[index].comments.length.toString()),
+                          Text(User.savedPosts[index].comments.length.toString()),
                           const Spacer(),
                           IconButton(
                             icon: const Icon(Icons.share),
@@ -149,17 +149,17 @@ class FeedState extends State<Feed> {
                           IconButton(
                             icon: Icon(
                               Icons.bookmark_border,
-                              color: User.isSaved(UserPosts.posts[index])
+                              color: User.isSaved(User.savedPosts[index])
                                   ? Colors.deepOrange
                                   : null,
                             ),
                             onPressed: () {
                               setState(() {
-                                if (!User.isSaved(UserPosts.posts[index])) {
-                                  User.savedPosts.add(UserPosts.posts[index]);
+                                if (!User.isSaved(User.savedPosts[index])) {
+                                  User.savedPosts.add(User.savedPosts[index]);
                                 } else {
                                   User.savedPosts
-                                      .remove(UserPosts.posts[index]);
+                                      .remove(User.savedPosts[index]);
                                 }
                               });
                             },
@@ -173,8 +173,9 @@ class FeedState extends State<Feed> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          PostDetails(post: UserPosts.posts[index]),
+                      builder: (context) => PostDetails(
+                        post: User.savedPosts[index],
+                      ),
                     ),
                   );
                   setState(() {});

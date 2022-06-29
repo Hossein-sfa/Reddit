@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:shamsi_date/shamsi_date.dart';
-import 'main.dart';
+import 'package:flutter/material.dart';
+import 'comment.dart';
 import 'post.dart';
 import 'user.dart';
-import 'comment.dart';
 
 class PostDetails extends StatefulWidget {
   const PostDetails({Key? key, required this.post}) : super(key: key);
@@ -15,12 +14,14 @@ class PostDetails extends StatefulWidget {
 class PostDetailsState extends State<PostDetails> {
   final TextEditingController comment = TextEditingController();
   bool commentChecker = false;
-  List<Comment>? comments;
+  List<Comment> comments = [];
 
   @override
   void initState() {
     super.initState();
     comments = widget.post.getSortedComments();
+
+    // checks that comment is not empty
     comment.addListener(() {
       setState(() {
         if (comment.text.isNotEmpty) {
@@ -37,7 +38,6 @@ class PostDetailsState extends State<PostDetails> {
     setState(() {
       comments = widget.post.getSortedComments();
     });
-    return comments;
   }
 
   // format date for reading humans in shamsi
@@ -48,7 +48,9 @@ class PostDetailsState extends State<PostDetails> {
   Widget build(BuildContext context) {
     return Material(
       child: Scaffold(
-        appBar: AppBars.reddit,
+        appBar: AppBar(
+          title: const Text('Reddit'),
+        ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(left: 12, right: 12),
@@ -81,7 +83,7 @@ class PostDetailsState extends State<PostDetails> {
                           Text(
                             widget.post.community,
                             style: TextStyle(
-                              color: Colors.white.withOpacity(0.8),
+                              color: Colors.black.withOpacity(0.7),
                               fontSize: 13,
                             ),
                           ),
@@ -91,7 +93,7 @@ class PostDetailsState extends State<PostDetails> {
                       Text(
                         jalaliFormat(Jalali.fromDateTime(widget.post.time)),
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.7),
+                          color: Colors.black.withOpacity(0.7),
                           fontSize: 10,
                         ),
                       ),
@@ -126,6 +128,7 @@ class PostDetailsState extends State<PostDetails> {
                             } else {
                               widget.post.setVoteLess();
                             }
+                            comments = widget.post.getSortedComments();
                           });
                         },
                       ),
@@ -145,6 +148,7 @@ class PostDetailsState extends State<PostDetails> {
                             } else {
                               widget.post.setVoteLess();
                             }
+                            comments = widget.post.getSortedComments();
                           });
                         },
                       ),
@@ -178,9 +182,7 @@ class PostDetailsState extends State<PostDetails> {
                       ),
                     ],
                   ),
-                  const Divider(
-                    thickness: 0.8,
-                  ),
+                  const Divider(thickness: 0.8),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
                     child: ListTile(
@@ -194,9 +196,7 @@ class PostDetailsState extends State<PostDetails> {
                         maxLines: 3,
                         decoration: const InputDecoration(
                           labelText: 'Add a comment: ',
-                          labelStyle: TextStyle(
-                            color: Color(0xFFFFB34F),
-                          ),
+                          labelStyle: TextStyle(color: Color(0xFFFFB34F)),
                           border: InputBorder.none,
                         ),
                       ),
@@ -204,31 +204,38 @@ class PostDetailsState extends State<PostDetails> {
                         onPressed: commentChecker
                             ? () {
                                 // ToDo : sending username and password to server in phase to project
-                                comment.clear();
                                 widget.post.addComment(
-                                    Comment(comment.text, DateTime.now()));
+                                  Comment(
+                                    User.name,
+                                    comment.text,
+                                    DateTime.now(),
+                                  ),
+                                );
+                                comment.clear();
                                 refreshComments();
                               }
                             : null,
                         child: const Text(
                           'Post',
-                          style: TextStyle(
-                            color: Colors.deepOrange,
-                          ),
+                          style: TextStyle(color: Colors.deepOrange),
                         ),
                       ),
                     ),
                   ),
-                  const Divider(
-                    thickness: 0.8,
-                  ),
-                  ListView.builder(
+                  const Divider(thickness: 0.8),
+                  ListView.separated(
                     shrinkWrap: true,
-                    itemCount: widget.post.getSortedComments().length,
+                    separatorBuilder: (context, index) {
+                      return const Divider();
+                    },
+                    itemCount: comments.length,
                     itemBuilder: (context, index) {
+                      // ListView.builder(
+                      //   shrinkWrap: true,
+                      //   itemCount: comments.length,
+                      //   itemBuilder: (context, index) {
                       return ListTile(
                         title: SizedBox(
-                          //width: MediaQuery.of(context).size.width - 50,
                           child: Padding(
                             padding: const EdgeInsets.all(1),
                             child: Column(
@@ -239,7 +246,8 @@ class PostDetailsState extends State<PostDetails> {
                                   children: [
                                     const CircleAvatar(
                                       backgroundImage: AssetImage(
-                                          'assets/images/circleAvatar.png'),
+                                        'assets/images/circleAvatar.png',
+                                      ),
                                     ),
                                     const SizedBox(width: 10),
                                     Column(
@@ -249,7 +257,7 @@ class PostDetailsState extends State<PostDetails> {
                                       children: [
                                         const SizedBox(height: 4),
                                         Text(
-                                          widget.post.userName,
+                                          comments[index].userName,
                                           style: const TextStyle(
                                             fontSize: 15,
                                           ),
@@ -258,7 +266,7 @@ class PostDetailsState extends State<PostDetails> {
                                     ),
                                     const Spacer(),
                                     Text(
-                                      widget.post.passedTime(DateTime.now()),
+                                      comments[index].time.toString(),
                                       style: TextStyle(
                                         color: Colors.white.withOpacity(0.7),
                                         fontSize: 10,
@@ -267,58 +275,44 @@ class PostDetailsState extends State<PostDetails> {
                                   ],
                                 ),
                                 const SizedBox(height: 15),
-                                Text(
-                                  widget.post.title,
-                                  textAlign: TextAlign.start,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                ),
                                 const SizedBox(height: 7),
-                                Text(widget.post.description),
+                                Text(comments[index].description),
                                 Row(
                                   children: [
                                     IconButton(
                                       icon: Icon(
                                         Icons.thumb_up,
-                                        color:
-                                            widget.post.comments[index].isLiked
-                                                ? Colors.deepOrange
-                                                : null,
-                                      ),
-                                      onPressed: () {
-                                        // Todo : send liking and disliking to server in phase 2 project
-                                        setState(() {
-                                          if (widget.post.comments[index]
-                                                  .isLiked ==
-                                              false) {
-                                            widget.post.comments[index]
-                                                .setLike();
-                                          } else {
-                                            widget.post.comments[index]
-                                                .setVoteLess();
-                                          }
-                                        });
-                                      },
-                                    ),
-                                    Text(widget.post.comments[index].likes
-                                        .toString()),
-                                    const SizedBox(width: 10),
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.thumb_down,
-                                        color: widget
-                                                .post.comments[index].isDisLiked
+                                        color: comments[index].isLiked
                                             ? Colors.deepOrange
                                             : null,
                                       ),
                                       onPressed: () {
                                         // Todo : send liking and disliking to server in phase 2 project
                                         setState(() {
-                                          if (widget.post.comments[index]
-                                                  .isDisLiked ==
+                                          if (comments[index].isLiked ==
                                               false) {
-                                            widget.post.comments[index]
-                                                .setDisLike();
+                                            comments[index].setLike();
+                                          } else {
+                                            comments[index].setVoteLess();
+                                          }
+                                        });
+                                      },
+                                    ),
+                                    Text(comments[index].likes.toString()),
+                                    const SizedBox(width: 10),
+                                    IconButton(
+                                      icon: Icon(
+                                        Icons.thumb_down,
+                                        color: comments[index].isDisLiked
+                                            ? Colors.deepOrange
+                                            : null,
+                                      ),
+                                      onPressed: () {
+                                        // Todo : send liking and disliking to server in phase 2 project
+                                        setState(() {
+                                          if (comments[index].isDisLiked ==
+                                              false) {
+                                            comments[index].setDisLike();
                                           } else {
                                             widget.post.comments[index]
                                                 .setVoteLess();
@@ -327,12 +321,13 @@ class PostDetailsState extends State<PostDetails> {
                                       },
                                     ),
                                     IconButton(
-                                      icon: const Icon(
-                                        Icons.reply,
-                                      ),
+                                      icon: const Icon(Icons.reply),
                                       onPressed: () {},
                                     ),
-                                    Text(widget.post.commentNum.toString()),
+                                    Text(comments[index]
+                                        .replies
+                                        .length
+                                        .toString()),
                                     const Spacer(),
                                     IconButton(
                                       icon: const Icon(Icons.share),
@@ -340,9 +335,7 @@ class PostDetailsState extends State<PostDetails> {
                                     ),
                                     const SizedBox(width: 10),
                                     IconButton(
-                                      icon: const Icon(
-                                        Icons.more_horiz,
-                                      ),
+                                      icon: const Icon(Icons.more_horiz),
                                       onPressed: () {},
                                     ),
                                   ],

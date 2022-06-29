@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'ToHome.dart';
 import 'siginpage.dart';
 import 'main.dart';
@@ -29,13 +29,11 @@ isValidUserName(String userName) {
     // ToDo : check that username is not already have an account in phase 2 project
     return true;
   }
-
   return false;
 }
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
-
   @override
   State<SignUp> createState() => SignUpState();
 }
@@ -62,6 +60,8 @@ class SignUpState extends State<SignUp> {
       setState(() {
         if (isValidEmail(email.text)) {
           emailChecker = true;
+        } else {
+          emailChecker = false;
         }
       });
     });
@@ -69,6 +69,8 @@ class SignUpState extends State<SignUp> {
       setState(() {
         if (isValidUserName(userName.text)) {
           userNameChecker = true;
+        } else {
+          userNameChecker = false;
         }
       });
     });
@@ -76,6 +78,8 @@ class SignUpState extends State<SignUp> {
       setState(() {
         if (isValidPassword(password.text)) {
           passwordChecker = true;
+        } else {
+          passwordChecker = false;
         }
       });
     });
@@ -91,11 +95,11 @@ class SignUpState extends State<SignUp> {
   }
 
   Future<String> signUp() async {
-    await Socket.connect("localhost", 8080).then((serverSocket) {
+    await Socket.connect("\u0000", 8080).then((serverSocket) {
       serverSocket.write('signup $email.text $userName.text $password.text');
       serverSocket.flush();
-      serverSocket.listen((socket) {
-        showMessage = String.fromCharCodes(socket).trim();
+      serverSocket.listen((response) {
+        showMessage = String.fromCharCodes(response);
       });
     });
     return showMessage!;
@@ -103,15 +107,26 @@ class SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Material(
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              themeChange.darkTheme = !themeChange.darkTheme;
+            });
+          },
+          child: themeChange.darkTheme
+              ? const Icon(Icons.dark_mode)
+              : const Icon(Icons.sunny),
+        ),
         appBar: AppBars.reddit,
         body: Container(
           constraints: const BoxConstraints.expand(),
           decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/bkg4.jpg"),
-                  fit: BoxFit.cover)),
+            image: DecorationImage(
+                image: AssetImage("assets/images/bkg4.jpg"), fit: BoxFit.cover),
+          ),
           child: SafeArea(
             child: Center(
               child: Wrap(
@@ -127,7 +142,10 @@ class SignUpState extends State<SignUp> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                              left: 15, right: 15, top: 18),
+                            left: 15,
+                            right: 15,
+                            top: 18,
+                          ),
                           child: TextField(
                             controller: email,
                             keyboardType: TextInputType.text,
@@ -237,8 +255,10 @@ class SignUpState extends State<SignUp> {
                             const SizedBox(width: 25),
                             const Text("Have an account? : "),
                             TextButton(
-                              child: const Text('Sign in',
-                                  style: TextStyle(color: Colors.deepPurple)),
+                              child: const Text(
+                                'Sign in',
+                                style: TextStyle(color: Colors.deepPurple),
+                              ),
                               onPressed: () {
                                 Navigator.pushReplacement(
                                   context,
@@ -258,7 +278,7 @@ class SignUpState extends State<SignUp> {
                               ? () async {
                                   String result = await signUp();
                                   print('this is result: $result');
-                                  if (result == 'done') {
+                                  if (result == '1') {
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -271,18 +291,9 @@ class SignUpState extends State<SignUp> {
                                   }
                                 }
                               : null,
-                          child: TextButton(
-                            child: const Text('Sign up',
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.deepPurple)),
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const ToHome(),
-                                ),
-                              );
-                            },
+                          child: const Text(
+                            'Sign In',
+                            style: TextStyle(fontSize: 20),
                           ),
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(

@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:motion_toast/motion_toast.dart';
-import 'post.dart';
 import 'posts.dart';
+import 'post.dart';
 
 class AddPost extends StatefulWidget {
   const AddPost({Key? key}) : super(key: key);
   @override
-  State<AddPost> createState() => _AddPostState();
+  State<AddPost> createState() => AddPostState();
 }
 
-class _AddPostState extends State<AddPost> {
+class AddPostState extends State<AddPost> {
   late String title;
-
   late final TextEditingController titleC;
   late final TextEditingController body;
   late final DateTime time;
@@ -30,7 +29,6 @@ class _AddPostState extends State<AddPost> {
   void dispose() {
     titleC.dispose();
     body.dispose();
-    time.toString();
     super.dispose();
   }
 
@@ -93,7 +91,7 @@ class _AddPostState extends State<AddPost> {
                 MotionToast.error(
                   title: const Text("Error"),
                   description:
-                  const Text("Please insert your interesting images!"),
+                      const Text("Please insert your interesting images!"),
                 ).show(context);
               } else if (_selectedIndex == 0) {
                 MotionToast.error(
@@ -105,7 +103,7 @@ class _AddPostState extends State<AddPost> {
                 MotionToast.error(
                   title: const Text("Error"),
                   description:
-                  const Text("Please insert your interesting videos!"),
+                      const Text("Please insert your interesting videos!"),
                 ).show(context);
               } else if (_selectedIndex == 3) {
                 MotionToast.error(
@@ -133,7 +131,7 @@ class _AddPostState extends State<AddPost> {
         backgroundColor: Colors.black54,
         selectedFontSize: 18,
         selectedIconTheme:
-        const IconThemeData(color: Colors.deepOrangeAccent, size: 22),
+            const IconThemeData(color: Colors.deepOrangeAccent, size: 22),
         selectedItemColor: Colors.deepOrangeAccent,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
         items: const <BottomNavigationBarItem>[
@@ -169,44 +167,47 @@ class _AddPostState extends State<AddPost> {
           ),
         ],
         currentIndex: _selectedIndex,
-        //New
         onTap: _onItemTapped,
       ),
       body: (_selectedIndex == 0)
           ? Container(
-        constraints: const BoxConstraints.expand(),
-        decoration:  const BoxDecoration(
-            image: DecorationImage(image: AssetImage("assets/images/bkg2.jpg"),fit: BoxFit.cover)),
-        //  color: Colors.black26,
-        padding: const EdgeInsets.all(40),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 70,
-              child: TextField(
-                decoration: const InputDecoration(
-                    hintText: "An interesting title"),
-                controller: titleC,
-                keyboardType: TextInputType.text,
+              constraints: const BoxConstraints.expand(),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/bkg2.jpg"),
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 150,
-              child: TextField(
-                decoration: const InputDecoration(hintText: "Text Body"),
-                controller: body,
-                keyboardType: TextInputType.multiline,
-                minLines: 10,
-                maxLines: null,
+              //  color: Colors.black26,
+              padding: const EdgeInsets.all(40),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 70,
+                    child: TextField(
+                      decoration: const InputDecoration(
+                          hintText: "An interesting title"),
+                      controller: titleC,
+                      keyboardType: TextInputType.text,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 150,
+                    child: TextField(
+                      decoration: const InputDecoration(hintText: "Text Body"),
+                      controller: body,
+                      keyboardType: TextInputType.multiline,
+                      minLines: 10,
+                      maxLines: null,
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
-      )
+            )
           : IndexedStack(
-        index: _selectedIndex,
-        children: _pages,
-      ),
+              index: _selectedIndex,
+              children: _pages,
+            ),
     );
   }
 

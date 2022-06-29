@@ -2,8 +2,8 @@ import 'comment.dart';
 
 class Post {
   String title, description, userName, community;
-  int likes = 0, commentNum = 0;
-  List<Comment> comments = [];
+  int likes = 0;
+  List<Comment> comments;
   DateTime time;
   bool isLiked = false, isDisLiked = false;
 
@@ -43,10 +43,6 @@ class Post {
     isDisLiked = true;
   }
 
-  set setDateTime(DateTime date) {
-    time = date;
-  }
-
   // Method that calculate how much time is passed since the post was created
   String passedTime(DateTime date) {
     if (date.difference(time).inSeconds < 60) {
@@ -71,16 +67,7 @@ class Post {
     return comments;
   }
 
-  addComment(comment) {
+  addComment(Comment comment) {
     comments.add(comment);
-    commentNum++;
-  }
-
-  set setTitle(String str) {
-    title = str;
-  }
-
-  set setDescription(String value) {
-    description = value;
   }
 }
