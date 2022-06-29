@@ -42,6 +42,7 @@ dependencies:
   shamsi_date: ^1.0.1
   comment_box: ^0.0.17
   carousel_slider: ^4.1.1
+  json_serializable: ^6.2.0
 
 dev_dependencies:
   flutter_test:
