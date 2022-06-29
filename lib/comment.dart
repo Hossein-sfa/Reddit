@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+import 'dart:convert';
+part  'comment.g.dart';
+
+@JsonSerializable()
 class Comment {
   int likes = 0;
   String userName, description;
@@ -6,6 +11,8 @@ class Comment {
   List replies = [];
 
   Comment(this.userName, this.description, this.time);
+  Map<String, dynamic> toJson() => _$CommentToJson(this);
+  String json = jsonEncode(Comment);
 
   setLike() {
     if (isDisLiked) {
