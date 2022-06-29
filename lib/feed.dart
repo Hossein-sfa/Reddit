@@ -3,6 +3,7 @@ import 'post_details.dart';
 import 'posts.dart';
 import 'user.dart';
 
+/*
 class Feed extends StatefulWidget {
   const Feed({Key? key}) : super(key: key);
   @override
@@ -187,3 +188,4 @@ class FeedState extends State<Feed> {
     );
   }
 }
+*/
