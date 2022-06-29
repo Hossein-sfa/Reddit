@@ -1,26 +1,40 @@
-import 'post.dart';
+import 'package:reddit/user.dart';
 
+import 'post.dart';
 class association {
-  late String associationName;
-  late String description;
-  late String associationMakerName;
+  late String Name;
+  late String Case;
+  late String Title;
+  late String about;
+  late String image;
   DateTime startDate = DateTime.now();
-  late int memberCount =817389;
+  late String associationMakerName;
+  late int memberCount = 1;
+  List<User> users = [];
   List<Post> posts = [];
 
   association(
-      this.associationName, this.description, this.associationMakerName);
+      this.Name,
+      this.Case,
+      this.Title,
+      this.about,
+      this.image,
+      this.startDate,
+      this.associationMakerName,
+      this.memberCount,
+      this.users,
+      this.posts);
 
   void setMemberCount() {
     memberCount++;
   }
 
   void setDescription(String desc) {
-    description = desc;
+    about = desc;
   }
 
   void setAssociationName(String name) {
-    associationName = name;
+    Name = name;
   }
 
   int getMemberCount() {
@@ -28,11 +42,11 @@ class association {
   }
 
   String getDescription() {
-    return description;
+    return about;
   }
 
   String getAssociationName() {
-    return associationName;
+    return Name;
   }
 
   String getAssociationMakerName() {
