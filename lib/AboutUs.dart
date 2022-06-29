@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class ABUS extends StatelessWidget {
   const ABUS({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -257,9 +256,7 @@ class UserProfilePage extends StatelessWidget {
               onTap: () {}, //ToDo => go to home
               child: Container(
                 height: 40.0,
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                ),
+                decoration: BoxDecoration(border: Border.all()),
                 child: const Center(
                   child: Padding(
                     padding: EdgeInsets.all(10.0),
@@ -300,7 +297,7 @@ class UserProfilePage extends StatelessWidget {
                   const SizedBox(height: 8.0),
                   _buildButtons(),
                 ],
-              )
+              ),
             ),
           ),
         ],
@@ -309,19 +306,19 @@ class UserProfilePage extends StatelessWidget {
   }
 
   Widget buildSocialIcon(IconData icon, String name) => CircleAvatar(
-    key: name == "Hossein" ? const Key("Hossein") : const Key("Navid"),
-    radius: 25,
-    child: Material(
-      color: Colors.transparent,
-      clipBehavior: Clip.hardEdge,
-      shape: const CircleBorder(),
-      child: InkWell(
-        onTap: () {},
-        child: Icon(
-          icon,
-          size: 32,
+        key: name == "Hossein" ? const Key("Hossein") : const Key("Navid"),
+        radius: 25,
+        child: Material(
+          color: Colors.transparent,
+          clipBehavior: Clip.hardEdge,
+          shape: const CircleBorder(),
+          child: InkWell(
+            onTap: () {},
+            child: Icon(
+              icon,
+              size: 32,
+            ),
+          ),
         ),
-      ),
-    ),
-  );
+      );
 }

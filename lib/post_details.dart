@@ -230,120 +230,122 @@ class PostDetailsState extends State<PostDetails> {
                     },
                     itemCount: comments.length,
                     itemBuilder: (context, index) {
-                      // ListView.builder(
-                      //   shrinkWrap: true,
-                      //   itemCount: comments.length,
-                      //   itemBuilder: (context, index) {
-                      return ListTile(
-                        title: SizedBox(
-                          child: Padding(
-                            padding: const EdgeInsets.all(1),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: comments.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: SizedBox(
+                              child: Padding(
+                                padding: const EdgeInsets.all(1),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const CircleAvatar(
-                                      backgroundImage: AssetImage(
-                                        'assets/images/circleAvatar.png',
-                                      ),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Column(
+                                    Row(
                                       mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
                                       children: [
-                                        const SizedBox(height: 4),
+                                        const CircleAvatar(
+                                          backgroundImage: AssetImage(
+                                            'assets/images/circleAvatar.png',
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              comments[index].userName,
+                                              style: const TextStyle(
+                                                fontSize: 15,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const Spacer(),
                                         Text(
-                                          comments[index].userName,
-                                          style: const TextStyle(
-                                            fontSize: 15,
+                                          comments[index].time.toString(),
+                                          style: TextStyle(
+                                            color:
+                                                Colors.white.withOpacity(0.7),
+                                            fontSize: 10,
                                           ),
                                         ),
                                       ],
                                     ),
-                                    const Spacer(),
-                                    Text(
-                                      comments[index].time.toString(),
-                                      style: TextStyle(
-                                        color: Colors.white.withOpacity(0.7),
-                                        fontSize: 10,
-                                      ),
+                                    const SizedBox(height: 22),
+                                    Text(comments[index].description),
+                                    Row(
+                                      children: [
+                                        IconButton(
+                                          icon: Icon(
+                                            Icons.thumb_up,
+                                            color: comments[index].isLiked
+                                                ? Colors.deepOrange
+                                                : null,
+                                          ),
+                                          onPressed: () {
+                                            // Todo : send liking and disliking to server in phase 2 project
+                                            setState(() {
+                                              if (comments[index].isLiked ==
+                                                  false) {
+                                                comments[index].setLike();
+                                              } else {
+                                                comments[index].setVoteLess();
+                                              }
+                                            });
+                                          },
+                                        ),
+                                        Text(comments[index].likes.toString()),
+                                        const SizedBox(width: 10),
+                                        IconButton(
+                                          icon: Icon(
+                                            Icons.thumb_down,
+                                            color: comments[index].isDisLiked
+                                                ? Colors.deepOrange
+                                                : null,
+                                          ),
+                                          onPressed: () {
+                                            // Todo : send liking and disliking to server in phase 2 project
+                                            setState(() {
+                                              if (comments[index].isDisLiked ==
+                                                  false) {
+                                                comments[index].setDisLike();
+                                              } else {
+                                                widget.post.comments[index]
+                                                    .setVoteLess();
+                                              }
+                                            });
+                                          },
+                                        ),
+                                        IconButton(
+                                          icon: const Icon(Icons.reply),
+                                          onPressed: () {},
+                                        ),
+                                        Text(comments[index]
+                                            .replies
+                                            .length
+                                            .toString()),
+                                        const Spacer(),
+                                        IconButton(
+                                          icon: const Icon(Icons.share),
+                                          onPressed: () {},
+                                        ),
+                                        const SizedBox(width: 10),
+                                        IconButton(
+                                          icon: const Icon(Icons.more_horiz),
+                                          onPressed: () {},
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                                const SizedBox(height: 15),
-                                const SizedBox(height: 7),
-                                Text(comments[index].description),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.thumb_up,
-                                        color: comments[index].isLiked
-                                            ? Colors.deepOrange
-                                            : null,
-                                      ),
-                                      onPressed: () {
-                                        // Todo : send liking and disliking to server in phase 2 project
-                                        setState(() {
-                                          if (comments[index].isLiked ==
-                                              false) {
-                                            comments[index].setLike();
-                                          } else {
-                                            comments[index].setVoteLess();
-                                          }
-                                        });
-                                      },
-                                    ),
-                                    Text(comments[index].likes.toString()),
-                                    const SizedBox(width: 10),
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.thumb_down,
-                                        color: comments[index].isDisLiked
-                                            ? Colors.deepOrange
-                                            : null,
-                                      ),
-                                      onPressed: () {
-                                        // Todo : send liking and disliking to server in phase 2 project
-                                        setState(() {
-                                          if (comments[index].isDisLiked ==
-                                              false) {
-                                            comments[index].setDisLike();
-                                          } else {
-                                            widget.post.comments[index]
-                                                .setVoteLess();
-                                          }
-                                        });
-                                      },
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.reply),
-                                      onPressed: () {},
-                                    ),
-                                    Text(comments[index]
-                                        .replies
-                                        .length
-                                        .toString()),
-                                    const Spacer(),
-                                    IconButton(
-                                      icon: const Icon(Icons.share),
-                                      onPressed: () {},
-                                    ),
-                                    const SizedBox(width: 10),
-                                    IconButton(
-                                      icon: const Icon(Icons.more_horiz),
-                                      onPressed: () {},
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       );
                     },
                   ),

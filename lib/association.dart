@@ -1,7 +1,8 @@
-import 'dart:convert';
-import 'package:reddit/user.dart';
-import 'post.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'dart:convert';
+import 'user.dart';
+import 'post.dart';
+
 part  'association.g.dart';
 
 @JsonSerializable()

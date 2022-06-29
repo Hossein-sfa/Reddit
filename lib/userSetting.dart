@@ -5,10 +5,10 @@ import 'ToHome.dart';
 class UserSetting extends StatefulWidget {
   const UserSetting({required Key key}) : super(key: key);
   @override
-  _CreateProfileState createState() => _CreateProfileState();
+  CreateProfileState createState() => CreateProfileState();
 }
 
-class _CreateProfileState extends State<UserSetting> {
+class CreateProfileState extends State<UserSetting> {
   // final networkHandler = NetworkHandler();
   bool circular = false;
   //late PickedFile _imageFile;
@@ -165,9 +165,7 @@ class _CreateProfileState extends State<UserSetting> {
         children: <Widget>[
           const Text(
             "Choose Profile photo",
-            style: TextStyle(
-              fontSize: 20.0,
-            ),
+            style: TextStyle(fontSize: 20.0),
           ),
           const SizedBox(height: 20),
           Row(
@@ -195,9 +193,7 @@ class _CreateProfileState extends State<UserSetting> {
   }
 
   void takePhoto(ImageSource source) async {
-    final pickedFile = await _picker.getImage(
-      source: source,
-    );
+    final pickedFile = await _picker.getImage(source: source);
     setState(() {
       // _imageFile = pickedFile!;
     });

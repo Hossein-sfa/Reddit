@@ -16,7 +16,7 @@ class SettingPage extends State<Setting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0XFF616161), // gray design
+      backgroundColor: const Color(0XFF616161), // Gray design
       appBar: AppBar(
         backgroundColor: const Color(0X73000000),
         title: const Text(
@@ -43,7 +43,10 @@ class SettingPage extends State<Setting> {
       body: SettingsList(
         sections: [
           SettingsSection(
-            title: const Text('User', textAlign: TextAlign.left),
+            title: const Text(
+              'User',
+              textAlign: TextAlign.left,
+            ),
             tiles: [
               SettingsTile(
                 leading: Row(
@@ -127,7 +130,7 @@ class SettingPage extends State<Setting> {
                       context,
                       MaterialPageRoute(
                         builder: (_) {
-                          return const CreatProfile(
+                          return const CreateProfile(
                             key: Key("Add Communities"),
                           );
                         },
@@ -156,7 +159,6 @@ class SettingPage extends State<Setting> {
                 title: const Text('Saved Posts'),
                 leading: InkWell(
                   child: const Icon(Icons.save_alt_rounded),
-                  //ToDO => Go to login page
                   onTap: () {
                     Navigator.push(
                       context,

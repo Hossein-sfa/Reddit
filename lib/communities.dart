@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'user.dart';
 import 'communitydetails.dart';
+import 'user.dart';
 
 class Communities extends StatelessWidget {
   const Communities({Key? key}) : super(key: key);
@@ -62,8 +62,9 @@ class Communities extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return ListTile(
                     leading: const CircleAvatar(
-                      backgroundImage:
-                          AssetImage('assets/images/circleAvatar.png'),
+                      backgroundImage: AssetImage(
+                        'assets/images/circleAvatar.png',
+                      ),
                     ),
                     title: Text(User.favCommunities[index].associationName),
                     onTap: () {

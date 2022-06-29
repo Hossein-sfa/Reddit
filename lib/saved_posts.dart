@@ -139,7 +139,8 @@ class SavedPostsState extends State<SavedPosts> {
                               );
                             },
                           ),
-                          Text(User.savedPosts[index].comments.length.toString()),
+                          Text(User.savedPosts[index].comments.length
+                              .toString()),
                           const Spacer(),
                           IconButton(
                             icon: const Icon(Icons.share),
