@@ -101,7 +101,7 @@ class HomeState extends State<ToHome> {
                   context,
                   MaterialPageRoute(
                     builder: (_) {
-                      return CreateProfile(key: UniqueKey());
+                      return CreatProfile(key: UniqueKey());
                     },
                   ),
                 );

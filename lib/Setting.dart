@@ -130,7 +130,7 @@ class SettingPage extends State<Setting> {
                       context,
                       MaterialPageRoute(
                         builder: (_) {
-                          return const CreateProfile(
+                          return const CreatProfile(
                             key: Key("Add Communities"),
                           );
                         },
