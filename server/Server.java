@@ -57,6 +57,17 @@ class Post {
     }
 }
 
+class addCommunities {
+    private final HashMap<String, String> data;
+    public addCommunities(HashMap<String, String> data) {
+        this.data = data;
+    }
+    public HashMap<String, String> getData() {
+        return data;
+    }
+}
+
+
 class ClientHandler extends Thread {
     Socket socket;
     DataOutputStream dos;
@@ -193,6 +204,21 @@ class ClientHandler extends Thread {
                     writer("1");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
+                }
+            }
+            case "addComunities" ->{
+                //addComunities~Name~case~title~about~image~time~headUser~userList~postList
+                HashMap<String, String> data ;
+                addCommunities addCommunities;
+                data = new HashMap<>(Map.of("name" , split[1] , "case" , split[2] ,
+                        "title" , split[3] , "about" , split[4] , "image" , split[5] ,
+                        "time" , split[6] , "headUser" , split[7] , "userList" , split[8] , "postList" , split[9]));
+                addCommunities = new addCommunities(data);
+                try{
+                    writer("done");
+                }
+                catch (Exception e) {
+                    System.out.println("Exception Occured in adding Communities!!");
                 }
             }
         }
