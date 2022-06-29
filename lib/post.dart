@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 import 'comment.dart';
-//part 'post.g.dart';
+part 'post.g.dart';
 
 @JsonSerializable()
 class Post {
@@ -10,11 +10,10 @@ class Post {
   List<Comment> comments;
   DateTime time;
   bool isLiked = false, isDisLiked = false;
-
   Post(this.title, this.description, this.time, this.userName,
       this.community, this.comments);
 
-  //Map<String, dynamic> toJson() => _$PostToJson(this);
+  Map<String, dynamic> toJson() => _$PostToJson(this);
   String json = jsonEncode(Post);
 
   String getJson() {
