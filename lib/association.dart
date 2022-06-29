@@ -5,9 +5,9 @@ part  'association.g.dart';
 
 @JsonSerializable()
 class association {
-  late String Name;
+  late String name;
   late String Case;
-  late String Title;
+  late String title;
   late String about;
   late String image;
   DateTime startDate = DateTime.now();
@@ -17,9 +17,9 @@ class association {
   //late var posts;
 
   association(
-      this.Name,
+      this.name,
       this.Case,
-      this.Title,
+      this.title,
       this.about,
       this.image,
       this.startDate,
