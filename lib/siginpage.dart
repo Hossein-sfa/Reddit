@@ -48,7 +48,7 @@ class SignInState extends State<SignIn> {
   }
 
   Future<String> logIn() async {
-    await Socket.connect("192.168.1.7", 8080).then((serverSocket) {
+    await Socket.connect("172.20.10.2", 8080).then((serverSocket) {
       serverSocket.write('signin ${userName.text} ${password.text}\u0000');
       serverSocket.flush();
       serverSocket.listen((response) {

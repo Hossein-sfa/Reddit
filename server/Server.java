@@ -26,19 +26,26 @@ class User {
 }
 
 class Comment {
-    int likes = 0;
-    String description, userName;
-    Date time;
+    String userName, description;
+    int likes, replyNum;
+    LocalDateTime time = LocalDateTime.now();
     Vector<Comment> replies = new Vector<>();
+
+    Comment(String userName, String description, int likes, int replyNum) {
+        this.userName = userName;
+        this.description = description;
+        this.likes = likes;
+        this.replyNum = replyNum;
+    }
 }
 
 class Post {
     String title, description, userName, community;
     int likes, commentNum;
-    Vector<Comment> comments = new Vector<>();
+    Vector<Comment> comments;
     LocalDateTime time;
 
-    public Post(String title, String description, String userName, String community, int likes, int commentNum, LocalDateTime time) {
+    public Post(String title, String description, String userName, String community, int likes, int commentNum, LocalDateTime time, Vector<Comment> comments) {
         this.title = title;
         this.description = description;
         this.userName = userName;
@@ -46,6 +53,7 @@ class Post {
         this.likes = likes;
         this.commentNum = commentNum;
         this.time = time;
+        this.comments = comments;
     }
 }
 
@@ -149,9 +157,16 @@ class ClientHandler extends Thread {
                 }
             }
             case "addpost" -> {
-                // title~description~user~community~like~commentNum~year~month~day~hour~minute
+                // title~description~user~community~like~commentNum~year~month~day~hour~minute~username^likes^replies\...
                 LocalDateTime time = LocalDateTime.of(Integer.parseInt(split[7]), Integer.parseInt(split[8]), Integer.parseInt(split[9]), Integer.parseInt(split[10]), Integer.parseInt(split[11]));
-                Post newPost = new Post(split[1], split[2], split[3], split[4], Integer.parseInt(split[5]), Integer.parseInt(split[6]), time);
+                String reply = split[11];
+                String[] separatedReplies = reply.split("/");
+                Vector<Comment> comments = new Vector<>();
+                for (String s : separatedReplies) {
+                    String[] objects = s.split("^");
+                    comments.add(new Comment(objects[0], objects[1], Integer.parseInt(objects[2]), Integer.parseInt(objects[3])));
+                }
+                Post newPost = new Post(split[1], split[2], split[3], split[4], Integer.parseInt(split[5]), Integer.parseInt(split[6]), time, comments);
                 posts.add(newPost);
                 try {
                     DataBase.addPost(newPost);
