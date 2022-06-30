@@ -94,7 +94,7 @@ class SignUpState extends State<SignUp> {
   }
 
   Future<String> signUp() async {
-    await Socket.connect("\u0000", 8080).then((serverSocket) {
+    await Socket.connect("172.20.10.2", 8080).then((serverSocket) {
       serverSocket.write('signup $email.text $userName.text $password.text');
       serverSocket.flush();
       serverSocket.listen((response) {
