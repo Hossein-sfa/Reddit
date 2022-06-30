@@ -52,7 +52,7 @@ class SignInState extends State<SignIn> {
   // connects to server
   Future<String> logIn() async {
     await Socket.connect("172.20.10.2", 8080).then((serverSocket) {
-      serverSocket.write('signin ${userName.text} ${password.text}\u0000');
+      serverSocket.write('signin~${userName.text}~${password.text}\u0000');
       serverSocket.flush();
       serverSocket.listen((response) {
         showMessage = String.fromCharCodes(response);

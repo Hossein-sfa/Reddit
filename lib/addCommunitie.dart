@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:reddit/association.dart';
+import 'package:reddit/user.dart';
 import 'ToHome.dart';
 
 class CreatProfile extends StatefulWidget {
@@ -12,7 +13,6 @@ class CreatProfile extends StatefulWidget {
   _CreatProfileState createState() => _CreatProfileState();
 }
 
-
 class _CreatProfileState extends State<CreatProfile> {
   // final networkHandler = NetworkHandler();
   bool circular = false;
@@ -20,30 +20,39 @@ class _CreatProfileState extends State<CreatProfile> {
   //late PickedFile _imageFile;
   final _globalkey = GlobalKey<FormState>();
   final TextEditingController _name = TextEditingController();
-  late String _Case ;
+  late String _Case;
   final TextEditingController _title = TextEditingController();
   final TextEditingController _about = TextEditingController();
   final ImagePicker _picker = ImagePicker();
+  DateTime t = DateTime.now();
+  User user = new User();
 
-  association assoc(){
+  association assoc() {
     if (_Case == "Society & Life")
-      return association(_name.text, _Case, _title.text, _about.text , "assets/images/cover.jpg") ;// image must be changed
+      return association(_name.text, _Case, _title.text, _about.text,
+          "assets/images/cover.jpg", t, user); // image must be changed
     else if (_Case == "Technology")
-      return association(_name.text, _Case, _title.text, _about.text , "assets/images/code.jpg") ;
+      return association(_name.text, _Case, _title.text, _about.text,
+          "assets/images/code.jpg", t, user);
     else if (_Case == "Nature & Animals")
-      return association(_name.text, _Case, _title.text, _about.text , "assets/images/lion.jpg") ;
+      return association(_name.text, _Case, _title.text, _about.text,
+          "assets/images/lion.jpg", t, user);
     else if (_Case == "Science")
-      return association(_name.text, _Case, _title.text, _about.text , "assets/images/Science.jpg") ;
+      return association(_name.text, _Case, _title.text, _about.text,
+          "assets/images/Science.jpg", t, user);
     else if (_Case == "Sports")
-      return association(_name.text, _Case, _title.text, _about.text , "assets/images/sport.png") ;
+      return association(_name.text, _Case, _title.text, _about.text,
+          "assets/images/sport.png", t, user);
     else if (_Case == "Entertainments")
-      return association(_name.text, _Case, _title.text, _about.text , "assets/images/movie.jpg") ;
-    return association(_name.text, _Case, _title.text, _about.text , "assets/images/cover.jpg") ;
+      return association(_name.text, _Case, _title.text, _about.text,
+          "assets/images/movie.jpg", t, user);
+    return association(_name.text, _Case, _title.text, _about.text,
+        "assets/images/cover.jpg", t, user);
   }
 
   // Future<> ImagePicker
   Future<String> addAssociation() async {
-    String showMessage = "" ;
+    String showMessage = "";
     String sendmsg = assoc().json;
     await Socket.connect("\u0000", 8080).then((serverSocket) {
       serverSocket.write('addComunities~$sendmsg');
@@ -79,8 +88,10 @@ class _CreatProfileState extends State<CreatProfile> {
       ),
       body: Container(
         constraints: const BoxConstraints.expand(),
-        decoration:  const BoxDecoration(
-            image: DecorationImage(image: AssetImage("assets/images/bkg2.jpg"),fit: BoxFit.cover)),
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/bkg2.jpg"),
+                fit: BoxFit.cover)),
         child: Form(
           key: _globalkey,
           child: ListView(
@@ -141,7 +152,7 @@ class _CreatProfileState extends State<CreatProfile> {
                */
 
                     String result = await addAssociation();
-                    if (result != ""){
+                    if (result != "") {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -163,13 +174,13 @@ class _CreatProfileState extends State<CreatProfile> {
                       child: circular
                           ? const CircularProgressIndicator()
                           : const Text(
-                        "Submit",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                              "Submit",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                     ),
                   ),
                 ),
@@ -215,10 +226,7 @@ class _CreatProfileState extends State<CreatProfile> {
   Widget bottomSheet() {
     return Container(
       height: 100.0,
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
+      width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.symmetric(
         horizontal: 20,
         vertical: 20,
@@ -238,8 +246,11 @@ class _CreatProfileState extends State<CreatProfile> {
             IconButton(
               onPressed: () {
                 takePhoto(ImageSource.camera);
-              }, icon: Icon(Icons.camera,),),
-
+              },
+              icon: Icon(
+                Icons.camera,
+              ),
+            ),
             IconButton(
               onPressed: () {
                 takePhoto(ImageSource.gallery);
@@ -272,13 +283,13 @@ class _CreatProfileState extends State<CreatProfile> {
       decoration: const InputDecoration(
         border: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.teal,
-            )),
+          color: Colors.teal,
+        )),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.orange,
-              width: 2,
-            )),
+          color: Colors.orange,
+          width: 2,
+        )),
         prefixIcon: Icon(
           Icons.person,
           color: Colors.green,
@@ -290,18 +301,21 @@ class _CreatProfileState extends State<CreatProfile> {
     );
   }
 
-  List<DropdownMenuItem<String>> get dropdownItems{
+  List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
-      const DropdownMenuItem(child: Text("Society & Life"),value: "Society & Life"),
-      const DropdownMenuItem(child: Text("Technology"),value: "Technology"),
-      const DropdownMenuItem(child: Text("Nature & Animals"),value: "Nature & Animals"),
-      const DropdownMenuItem(child: Text("Science"),value: "Science"),
-      const DropdownMenuItem(child: Text("Sports"),value: "Sports"),
-      const DropdownMenuItem(child: Text("Entertainments"),value: "Entertainments"),
-
+      const DropdownMenuItem(
+          child: Text("Society & Life"), value: "Society & Life"),
+      const DropdownMenuItem(child: Text("Technology"), value: "Technology"),
+      const DropdownMenuItem(
+          child: Text("Nature & Animals"), value: "Nature & Animals"),
+      const DropdownMenuItem(child: Text("Science"), value: "Science"),
+      const DropdownMenuItem(child: Text("Sports"), value: "Sports"),
+      const DropdownMenuItem(
+          child: Text("Entertainments"), value: "Entertainments"),
     ];
     return menuItems;
   }
+
   String? selectedValue = null;
   final _dropdownFormKey = GlobalKey<FormState>();
 
@@ -315,7 +329,7 @@ class _CreatProfileState extends State<CreatProfile> {
                 decoration: InputDecoration(
                   labelText: "Categories",
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black38 ,width: 1),
+                    borderSide: BorderSide(color: Colors.black38, width: 1),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   border: OutlineInputBorder(
@@ -324,7 +338,8 @@ class _CreatProfileState extends State<CreatProfile> {
                   ),
                   filled: true,
                 ),
-                validator: (value) => value == null ? "Select a category" : null,
+                validator: (value) =>
+                    value == null ? "Select a category" : null,
                 //dropdownColor: Colors.greenAccent,
                 value: selectedValue,
                 onChanged: (String? newValue) {
@@ -332,8 +347,7 @@ class _CreatProfileState extends State<CreatProfile> {
                     selectedValue = newValue!;
                   });
                 },
-                items: dropdownItems
-            ),
+                items: dropdownItems),
           ],
         ));
   }
@@ -348,13 +362,13 @@ class _CreatProfileState extends State<CreatProfile> {
       decoration: const InputDecoration(
         border: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.teal,
-            )),
+          color: Colors.teal,
+        )),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.orange,
-              width: 2,
-            )),
+          color: Colors.orange,
+          width: 2,
+        )),
         prefixIcon: Icon(
           Icons.person,
           color: Colors.green,
@@ -373,17 +387,17 @@ class _CreatProfileState extends State<CreatProfile> {
       decoration: const InputDecoration(
         border: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.teal,
-            )),
+          color: Colors.teal,
+        )),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.orange,
-              width: 2,
-            )),
+          color: Colors.orange,
+          width: 2,
+        )),
         labelText: "About",
         helperText: "Write about your Association & Communication",
         hintText:
-        "We are a group of students of Shahid Behesti University who are working on a project",
+            "We are a group of students of Shahid Behesti University who are working on a project",
       ),
     );
   }
