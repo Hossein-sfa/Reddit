@@ -10,9 +10,10 @@ class Post {
   List<Comment> comments;
   DateTime time;
   bool isLiked = false, isDisLiked = false;
-  Post(this.title, this.description, this.time, this.userName,
-      this.community, this.comments);
+  Post(this.title, this.description, this.time, this.userName, this.community,
+      this.comments);
 
+  factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
   Map<String, dynamic> toJson() => _$PostToJson(this);
   String json = jsonEncode(Post);
 
