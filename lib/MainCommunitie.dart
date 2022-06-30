@@ -101,7 +101,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                     context,
                     MaterialPageRoute(
                       builder: (_) {
-                        return CreatProfile(key: UniqueKey());
+                        return CreateProfile(key: UniqueKey());
                       },
                     ),
                   );

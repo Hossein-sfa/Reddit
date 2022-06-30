@@ -10,7 +10,7 @@ import 'Setting.dart';
 import 'addPost.dart';
 import 'posts.dart';
 import 'user.dart';
-import 'Post.dart';
+import 'post.dart';
 
 class ToHome extends StatefulWidget {
   const ToHome({Key? key}) : super(key: key);
@@ -101,7 +101,7 @@ class HomeState extends State<ToHome> {
                   context,
                   MaterialPageRoute(
                     builder: (_) {
-                      return CreatProfile(key: UniqueKey());
+                      return CreateProfile(key: UniqueKey());
                     },
                   ),
                 );

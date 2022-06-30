@@ -1,19 +1,17 @@
-//import 'dart:io';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:reddit/association.dart';
-import 'package:reddit/user.dart';
+import 'association.dart';
+import 'user.dart';
 import 'ToHome.dart';
 
-class CreatProfile extends StatefulWidget {
-  const CreatProfile({required Key key}) : super(key: key);
-
+class CreateProfile extends StatefulWidget {
+  const CreateProfile({required Key key}) : super(key: key);
   @override
-  _CreatProfileState createState() => _CreatProfileState();
+  _CreateProfileState createState() => _CreateProfileState();
 }
 
-class _CreatProfileState extends State<CreatProfile> {
+class _CreateProfileState extends State<CreateProfile> {
   // final networkHandler = NetworkHandler();
   bool circular = false;
 
@@ -27,26 +25,26 @@ class _CreatProfileState extends State<CreatProfile> {
   DateTime t = DateTime.now();
   User user = new User();
 
-  association assoc() {
+  Association assoc() {
     if (_Case == "Society & Life")
-      return association(_name.text, _Case, _title.text, _about.text,
+      return Association(_name.text, _Case, _title.text, _about.text,
           "assets/images/cover.jpg", t, user); // image must be changed
     else if (_Case == "Technology")
-      return association(_name.text, _Case, _title.text, _about.text,
+      return Association(_name.text, _Case, _title.text, _about.text,
           "assets/images/code.jpg", t, user);
     else if (_Case == "Nature & Animals")
-      return association(_name.text, _Case, _title.text, _about.text,
+      return Association(_name.text, _Case, _title.text, _about.text,
           "assets/images/lion.jpg", t, user);
     else if (_Case == "Science")
-      return association(_name.text, _Case, _title.text, _about.text,
+      return Association(_name.text, _Case, _title.text, _about.text,
           "assets/images/Science.jpg", t, user);
     else if (_Case == "Sports")
-      return association(_name.text, _Case, _title.text, _about.text,
+      return Association(_name.text, _Case, _title.text, _about.text,
           "assets/images/sport.png", t, user);
     else if (_Case == "Entertainments")
-      return association(_name.text, _Case, _title.text, _about.text,
+      return Association(_name.text, _Case, _title.text, _about.text,
           "assets/images/movie.jpg", t, user);
-    return association(_name.text, _Case, _title.text, _about.text,
+    return Association(_name.text, _Case, _title.text, _about.text,
         "assets/images/cover.jpg", t, user);
   }
 

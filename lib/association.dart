@@ -6,7 +6,7 @@ import 'post.dart';
 part 'association.g.dart';
 
 @JsonSerializable()
-class association {
+class Association {
   late String name;
   late String Case;
   late String title;
@@ -18,7 +18,7 @@ class association {
   late List<User> users;
   late List<Post> posts;
 
-  association(
+  Association(
     this.name,
     this.Case,
     this.title,
@@ -32,7 +32,7 @@ class association {
   );
 
   Map<String, dynamic> toJson() => _$associationToJson(this);
-  String json = jsonEncode(association);
+  String json = jsonEncode(Association);
 
   void setMemberCount() {
     memberCount++;

@@ -83,12 +83,4 @@ class Post {
   addComment(comment) {
     comments.add(comment);
   }
-
-  set setTitle(String str) {
-    title = str;
-  }
-
-  set setDescription(String value) {
-    description = value;
-  }
 }
