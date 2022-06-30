@@ -3,7 +3,7 @@ import 'association.dart';
 import 'posts.dart';
 import 'main.dart';
 import 'post.dart';
-
+/*
 class CommunityDetails extends StatefulWidget {
   CommunityDetails({Key? key, required this.community}) : super(key: key);
   final Post post = Post("Test", 'hello \n hi \n \n bye \n', DateTime(2022, 4),
@@ -290,3 +290,4 @@ class _PostDetailsState extends State<CommunityDetails> {
     );
   }
 }
+*/

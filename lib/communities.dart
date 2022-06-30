@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'communitydetails.dart';
 import 'user.dart';
-
+/*
 class Communities extends StatelessWidget {
   const Communities({Key? key}) : super(key: key);
   @override
@@ -85,4 +85,4 @@ class Communities extends StatelessWidget {
       ),
     );
   }
-}
+*/

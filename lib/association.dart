@@ -25,7 +25,7 @@ class association {
       this.about,
       this.image,
       //this.startDate,
-     // this.associationMakerName,
+      // this.associationMakerName,
       //this.memberCount,
       //this.users,
       //this.posts
