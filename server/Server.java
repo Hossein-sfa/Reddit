@@ -59,7 +59,7 @@ class Post {
     }
 }
 
-class association {
+class Association {
     String name;
     String Case;
     String title;
@@ -68,14 +68,15 @@ class association {
     String startDate;
     User associationMakerName;  //String json user
     int memberCount = 1;
-    String users;
-    String posts;
+  //  String users;
+    List<User> users;
+    List<Post> posts;
 
-    public static association fromJson(String json) {
-        return new Gson().fromJson(json, association.class);
+    public static Association fromJson(String json) {
+        return new Gson().fromJson(json, Association.class);
     }
 
-    public association(String name, String Case, String title, String about, String image , String startDate , User associationMakerName) {
+    public Association(String name, String Case, String title, String about, String image , String startDate , User associationMakerName) {
         this.name = name;
         this.Case = Case;
         this.title = title;
@@ -233,7 +234,7 @@ class ClientHandler extends Thread {
                 //addcommunities~JsonString => Json String must be converted to addCommunities object
                 String json = split[1];
                 Gson gson = new Gson();
-                association addCommunity = gson.fromJson(json, association.class);
+                Association addCommunity = gson.fromJson(json, Association.class);
                 String txt = addCommunity.about;
             }
             //addcommunities~Name~case~title~about~image~time~headUser~userList~postList
