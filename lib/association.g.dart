@@ -12,13 +12,12 @@ association _$associationFromJson(Map<String, dynamic> json) => association(
       json['title'] as String,
       json['about'] as String,
       json['image'] as String,
-    )
-      ..startDate = DateTime.parse(json['startDate'] as String)
-      ..associationMakerName = json['associationMakerName'] as String
-      ..memberCount = json['memberCount'] as int
-      ..users = json['users']
-      ..posts = json['posts']
-      ..json = json['json'] as String;
+      DateTime.parse(json['startDate'] as String),
+      User.fromJson(json['associationMakerName'] as Map<String, dynamic>),
+      json['memberCount'] as int,
+      json['users'],
+      json['posts'],
+    )..json = json['json'] as String;
 
 Map<String, dynamic> _$associationToJson(association instance) =>
     <String, dynamic>{

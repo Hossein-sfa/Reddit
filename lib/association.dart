@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'user.dart';
 import 'post.dart';
 
-part  'association.g.dart';
+part 'association.g.dart';
 
 @JsonSerializable()
 class association {
@@ -13,7 +13,7 @@ class association {
   late String about;
   late String image;
   DateTime startDate = DateTime.now();
-  late String associationMakerName;  //String json user
+  User associationMakerName; //String json user
   late int memberCount = 1;
   late var users;
   late var posts;
@@ -24,16 +24,14 @@ class association {
       this.title,
       this.about,
       this.image,
-      //this.startDate,
-      // this.associationMakerName,
-      //this.memberCount,
-      //this.users,
-      //this.posts
-     );
+      this.startDate,
+      this.associationMakerName,
+      this.memberCount,
+      this.users,
+      this.posts);
 
   Map<String, dynamic> toJson() => _$associationToJson(this);
   String json = jsonEncode(association);
-
 
   void setMemberCount() {
     memberCount++;
@@ -59,8 +57,8 @@ class association {
     return name;
   }
 
-  String getAssociationMakerName() {
-    return associationMakerName;    //ToDo => change
+  User getAssociationMakerName() {
+    return associationMakerName; //ToDo => change
   }
 
   DateTime getStartDate() {
