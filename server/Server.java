@@ -1,9 +1,9 @@
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import com.google.gson.GsonBuilder;
 import java.time.LocalDateTime;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import java.util.*;
+import java.net.*;
+import java.io.*;
 
 class Server {
     public static void main(String[] args) throws IOException {
@@ -17,7 +17,7 @@ class Server {
     }
 }
 
-class  User {
+class User {
     String email, userName, password;
 
     public User(String email, String userName, String password) {
@@ -30,70 +30,70 @@ class  User {
 class Comment {
     String userName, description;
     int likes;
-    LocalDateTime time = LocalDateTime.now();
-    Vector<Comment> replies = new Vector<>();
+    LocalDateTime time;
+    Vector<Comment> replies;
 
-    Comment(String userName, String description, int likes) {
+    Comment(String userName, String description, int likes, LocalDateTime time) {
         this.userName = userName;
         this.description = description;
         this.likes = likes;
+        this.time = time;
+        replies = new Vector<>();
     }
 }
 
 class Post {
     String title, description, userName, community;
-    int likes, commentNum;
+    int likes;
     Vector<Comment> comments;
     LocalDateTime time;
 
-    public Post(String title, String description, String userName, String community, int likes, int commentNum, LocalDateTime time, Vector<Comment> comments) {
+    public Post(String title, String description, String userName, String community, int likes, LocalDateTime time, Vector<Comment> comments) {
         this.title = title;
         this.description = description;
         this.userName = userName;
         this.community = community;
         this.likes = likes;
-        this.commentNum = commentNum;
         this.time = time;
         this.comments = comments;
     }
 }
 
-class addCommunities  {
+class addCommunities {
     String name;
     String Case;
     String title;
     String about;
     String image;
     Date startDate;
-    User associationMakerName;  //String json user
+    String associationMakerName;  //String json user
     int memberCount = 1;
     String users;
     String posts;
-    public static addCommunities fromJson(String json){
-        return new Gson().fromJson(json,addCommunities.class);
+
+    public static addCommunities fromJson(String json) {
+        return new Gson().fromJson(json, addCommunities.class);
     }
 
-    public addCommunities(String name, String Case, String title, String about, String image , Date startDate , User associationMakerName) {
+    public addCommunities(String name, String Case, String title, String about, String image) {
         this.name = name;
         this.Case = Case;
         this.title = title;
         this.about = about;
         this.image = image;
-        this.startDate = startDate ; 
-        this.associationMakerName = associationMakerName ; 
-        //  this.associationMakerName = associationMakerName;
-        //this.memberCount = memberCount;
+        // this.associationMakerName = associationMakerName;
+        // this.memberCount = memberCount;
     }
 }
 
-class ClientHandler extends Thread{
+class ClientHandler extends Thread {
     Socket socket;
     DataOutputStream dos;
     DataInputStream dis;
     Vector<User> users;
     Vector<Post> posts;
-    Vector<addCommunities> communities;
-        public ClientHandler(Socket socket, Vector<User> users, Vector<Post> posts) throws IOException {
+
+    public ClientHandler(Socket socket, Vector<User> users, Vector<Post> posts) throws IOException {
         this.socket = socket;
         this.users = users;
         this.posts = posts;
@@ -113,8 +113,9 @@ class ClientHandler extends Thread{
         return sb.toString();
     }
 
+    // send the response to server
     public void writer(String write) throws IOException {
-        dos.writeUTF(write);
+        dos.writeBytes(write);
         dos.flush();
         System.out.println("write: " + write);
     }
@@ -124,31 +125,32 @@ class ClientHandler extends Thread{
         super.run();
         String command;
         try {
-            //command = listener();
+            // command = listener();
             command = dis.readUTF();
             System.out.println("command: " + command);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         String[] split = command.split("~");
-        for (String s : split) {
+        for (String s : split)
             System.out.println(s);
-        }
         switch (split[0]) {
-            case "signin" : {
+            case "signin": {
+                // if both userName and password are correct the response is 1
+                // signin~userName~password
                 boolean signedIn = false;
                 for (User user : users) {
                     if (user.userName.equals(split[1])) {
                         if (user.password.equals(split[2])) {
+                            System.out.println("signed in");
                             try {
-                                System.out.println("signed in");
                                 writer("1");
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
                             signedIn = true;
+                            break;
                         }
-
                     }
                 }
                 if (!signedIn) {
@@ -160,7 +162,9 @@ class ClientHandler extends Thread{
                     }
                 }
             }
-            case "signup" : {
+            case "signup": {
+                // checks the userName if it's taken, the response is zero and usr is not added
+                // signup~email~userName~password
                 boolean duplicate = false;
                 String userName = split[2];
                 for (User user : users) {
@@ -185,17 +189,17 @@ class ClientHandler extends Thread{
                     }
                 }
             }
-            case "addpost" : {
-                // title~description~user~community~like~commentNum~year~month~day~hour~minute~username^likes^replies\...
-                LocalDateTime time = LocalDateTime.of(Integer.parseInt(split[7]), Integer.parseInt(split[8]), Integer.parseInt(split[9]), Integer.parseInt(split[10]), Integer.parseInt(split[11]));
+            case "addpost": {
+                // addpost~title~description~user~community~like~year~month~day~hour~minute~username^description^likes/...
+                LocalDateTime time = LocalDateTime.of(Integer.parseInt(split[6]), Integer.parseInt(split[7]), Integer.parseInt(split[8]), Integer.parseInt(split[9]), Integer.parseInt(split[10]));
                 String reply = split[11];
                 String[] separatedReplies = reply.split("/");
                 Vector<Comment> comments = new Vector<>();
                 for (String s : separatedReplies) {
-                    String[] objects = s.split("^");
-                    comments.add(new Comment(objects[0], objects[1], Integer.parseInt(objects[2]), Integer.parseInt(objects[3])));
+                    String[] objects = s.split("\\^");
+                    comments.add(new Comment(objects[0], objects[1], Integer.parseInt(objects[2]), LocalDateTime.now()));
                 }
-                Post newPost = new Post(split[1], split[2], split[3], split[4], Integer.parseInt(split[5]), Integer.parseInt(split[6]), time, comments);
+                Post newPost = new Post(split[1], split[2], split[3], split[4], Integer.parseInt(split[5]), time, comments);
                 posts.add(newPost);
                 try {
                     DataBase.addPost(newPost);
@@ -204,7 +208,7 @@ class ClientHandler extends Thread{
                     throw new RuntimeException(e);
                 }
             }
-            case "changeinfo" : {
+            case "changeinfo": {
                 // changeinfo~email~userName~password~newEmail~newUserName~newPassword
                 String oldInfo = split[1] + "~" + split[2] + "~" + split[3];
                 String newInfo = split[4] + "~" + split[5] + "~" + split[6];
@@ -224,28 +228,19 @@ class ClientHandler extends Thread{
                     throw new RuntimeException(e);
                 }
             }
-
-            case "addComunities" : {
-                //addComunities~JsonString => Json String must be convert to addComunities object
+            case "addcommunities": {
+                //addcommunities~JsonString => Json String must be converted to addCommunities object
                 String json = split[1];
                 Gson gson = new Gson();
                 addCommunities addCommunity = gson.fromJson(json, addCommunities.class);
-            try{
-                DataBase.addCommunity(addCommunity , json);
-                writer("done");
+                String txt = addCommunity.about;
             }
-            catch (Exception e) {
-                System.out.println("Exception Occured in adding Communities!!");
+            //addcommunities~Name~case~title~about~image~time~headUser~userList~postList
+            try {
+                writer("1");
+            } catch (Exception e) {
+                System.out.println("Exception Occurred in adding Communities!!");
             }
-        }
-
-        case "CommunitiesList" : {
-            // it must get all communitites List that saved in specefic Categories
-            String categories = split[1];
-
-            
-
         }
     }
-}
 }

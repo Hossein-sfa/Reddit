@@ -32,17 +32,17 @@ class DataBase {
         BufferedReader reader = new BufferedReader(new FileReader("DataBase/posts.txt"));
         String line = reader.readLine();
         while (line != null) {
-            // title~description~user~community~like~commentNum~year~month~day~hour~minute~username^description^likes^replies/...
+            // title~description~user~community~like~year~month~day~hour~minute~username^description^likes^replies/...
             String[] elements = line.split("~");
             Vector<Comment> comments = new Vector<>();
-            LocalDateTime time = LocalDateTime.of(Integer.parseInt(elements[6]), Integer.parseInt(elements[7]), Integer.parseInt(elements[8]), Integer.parseInt(elements[9]), Integer.parseInt(elements[10]));
+            LocalDateTime time = LocalDateTime.of(Integer.parseInt(elements[5]), Integer.parseInt(elements[6]), Integer.parseInt(elements[7]), Integer.parseInt(elements[8]), Integer.parseInt(elements[9]));
             String reply = elements[11];
             String[] separatedReplies = reply.split("/");
             for (String s : separatedReplies) {
                 String[] objects = s.split("\\^");
                 comments.add(new Comment(objects[0], objects[1], Integer.parseInt(objects[2])));
             }
-            posts.add(new Post(elements[0], elements[1], elements[2], elements[3], Integer.parseInt(elements[4]), Integer.parseInt(elements[5]), time, comments));
+            posts.add(new Post(elements[0], elements[1], elements[2], elements[3], Integer.parseInt(elements[4]), time, comments));
             line = reader.readLine();
         }
         reader.close();
@@ -81,7 +81,7 @@ class DataBase {
     // save new post to file
     static public void addPost(Post post) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter("DataBase/posts.txt", true));
-        writer.append(post.title).append("~").append(post.description).append("~").append(post.userName).append("~").append(post.community).append("~").append(String.valueOf(post.likes)).append("~").append(String.valueOf(post.commentNum)).append("~").append(String.valueOf(post.time.getYear())).append("~").append(String.valueOf(post.time.getMonthValue())).append("~").append(String.valueOf(post.time.getDayOfMonth())).append("~").append(String.valueOf(post.time.getHour())).append("~").append(String.valueOf(post.time.getMinute()));
+        writer.append(post.title).append("~").append(post.description).append("~").append(post.userName).append("~").append(post.community).append("~").append(String.valueOf(post.likes)).append("~").append(String.valueOf(post.time.getYear())).append("~").append(String.valueOf(post.time.getMonthValue())).append("~").append(String.valueOf(post.time.getDayOfMonth())).append("~").append(String.valueOf(post.time.getHour())).append("~").append(String.valueOf(post.time.getMinute()));
         for (Comment comment : post.comments)
             writer.append(comment.userName).append("^").append(comment.description).append("^").append(String.valueOf(comment.likes)).append("^").append(String.valueOf(comment.replies)).append("/");
         writer.append("\n");

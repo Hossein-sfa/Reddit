@@ -203,7 +203,7 @@ class CreateProfileState extends State<UserSetting> {
     return TextFormField(
       controller: _fullName,
       validator: (value) {
-        return (value!.isEmpty) ? "Name can't be empty" : null;
+        return (value!.isEmpty) ? "Email can't be empty" : null;
       },
       decoration: const InputDecoration(
         border: OutlineInputBorder(
@@ -219,9 +219,9 @@ class CreateProfileState extends State<UserSetting> {
           Icons.person,
           color: Colors.green,
         ),
-        labelText: "Full Name",
-        helperText: "Name can't be empty",
-        hintText: "Navid Raeiszadeh",
+        labelText: "Email",
+        helperText: "email can't be empty",
+        hintText: "Navid@gmail.com",
         //ToDo => It must be the current name of the user auto complete
       ),
     );
@@ -280,9 +280,9 @@ class CreateProfileState extends State<UserSetting> {
           Icons.person,
           color: Colors.green,
         ),
-        labelText: "Email",
-        helperText: "It can't be empty",
-        hintText: "Navid@gmail.com",
+        labelText: "Password",
+        helperText: "Password can't be empty",
+        hintText: "qwER123!"
       ),
     );
   }

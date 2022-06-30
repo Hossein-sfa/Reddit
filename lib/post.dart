@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'dart:convert';
 import 'comment.dart';
+import 'dart:convert';
+
 part 'post.g.dart';
 
 @JsonSerializable()
