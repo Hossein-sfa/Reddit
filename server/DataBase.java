@@ -105,7 +105,7 @@ class DataBase {
         writer.close();
     }
 
-    static public void addCommunity (association addCommunities , String json) throws Exception{
+    static public void addCommunity (Association addCommunities , String json) throws Exception{
         FileWriter f1 = new FileWriter("DataBase/Communities1.txt" , true) ;
         FileWriter f2 = new FileWriter("DataBase/Communities2.txt" , true) ;
         FileWriter f3 = new FileWriter("DataBase/Communities3.txt" , true) ;

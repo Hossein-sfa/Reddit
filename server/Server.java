@@ -82,8 +82,8 @@ class Association {
         this.title = title;
         this.about = about;
         this.image = image;
-        this.startDate = startDate ; 
-        this.associationMakerName = associationMakerName ; 
+        this.startDate = startDate ;
+        this.associationMakerName = associationMakerName ;
     }
 }
 
