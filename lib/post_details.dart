@@ -1,4 +1,3 @@
-import 'package:comment_tree/comment_tree.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 import 'package:flutter/material.dart';
 import 'comment.dart';
@@ -15,7 +14,7 @@ class PostDetails extends StatefulWidget {
 class PostDetailsState extends State<PostDetails> {
   final TextEditingController comment = TextEditingController();
   bool commentChecker = false;
-  List<CommentClass> comments = [];
+  List<Comment> comments = [];
 
   @override
   void initState() {
@@ -206,7 +205,7 @@ class PostDetailsState extends State<PostDetails> {
                             ? () {
                                 // ToDo : sending username and password to server in phase to project
                                 widget.post.addComment(
-                                  CommentClass(
+                                  Comment(
                                     User.name,
                                     comment.text,
                                     DateTime.now(),

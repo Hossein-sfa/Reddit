@@ -7,7 +7,7 @@ part 'post.g.dart';
 class Post {
   String title, description, userName, community;
   int likes = 0;
-  List<CommentClass> comments;
+  List<Comment> comments;
   DateTime time;
   bool isLiked = false, isDisLiked = false;
 
@@ -74,7 +74,7 @@ class Post {
     }
   }
 
-  List<CommentClass> getSortedComments() {
+  List<Comment> getSortedComments() {
     comments.sort((b, a) => a.likes.compareTo(b.likes));
     return comments;
   }

@@ -1,11 +1,11 @@
-class CommentClass {
+class Comment {
   int likes = 0;
   String userName, description;
   bool isLiked = false, isDisLiked = false;
   DateTime time;
   List replies = [];
 
-  CommentClass(this.userName, this.description, this.time);
+  Comment(this.userName, this.description, this.time);
 
   setLike() {
     if (isDisLiked) {
