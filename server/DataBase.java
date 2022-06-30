@@ -40,7 +40,7 @@ class DataBase {
             String[] separatedReplies = reply.split("/");
             for (String s : separatedReplies) {
                 String[] objects = s.split("\\^");
-                comments.add(new Comment(objects[0], objects[1], Integer.parseInt(objects[2])));
+                comments.add(new Comment(objects[0], objects[1], Integer.parseInt(objects[2]), time));
             }
             posts.add(new Post(elements[0], elements[1], elements[2], elements[3], Integer.parseInt(elements[4]), time, comments));
             line = reader.readLine();
@@ -105,7 +105,7 @@ class DataBase {
         writer.close();
     }
 
-    static public void addCommunity (addCommunities addCommunities , String json) throws Exception{
+    static public void addCommunity (association addCommunities , String json) throws Exception{
         FileWriter f1 = new FileWriter("DataBase/Communities1.txt" , true) ;
         FileWriter f2 = new FileWriter("DataBase/Communities2.txt" , true) ;
         FileWriter f3 = new FileWriter("DataBase/Communities3.txt" , true) ;

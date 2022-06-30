@@ -59,32 +59,33 @@ class Post {
     }
 }
 
-class addCommunities {
+class association {
     String name;
     String Case;
     String title;
     String about;
     String image;
-    Date startDate;
-    String associationMakerName;  //String json user
+    String startDate;
+    User associationMakerName;  //String json user
     int memberCount = 1;
     String users;
     String posts;
 
-    public static addCommunities fromJson(String json) {
-        return new Gson().fromJson(json, addCommunities.class);
+    public static association fromJson(String json) {
+        return new Gson().fromJson(json, association.class);
     }
 
-    public addCommunities(String name, String Case, String title, String about, String image) {
+    public association(String name, String Case, String title, String about, String image , String startDate , User associationMakerName) {
         this.name = name;
         this.Case = Case;
         this.title = title;
         this.about = about;
         this.image = image;
-        // this.associationMakerName = associationMakerName;
-        // this.memberCount = memberCount;
+        this.startDate = startDate ; 
+        this.associationMakerName = associationMakerName ; 
     }
 }
+
 
 class ClientHandler extends Thread {
     Socket socket;
@@ -232,7 +233,7 @@ class ClientHandler extends Thread {
                 //addcommunities~JsonString => Json String must be converted to addCommunities object
                 String json = split[1];
                 Gson gson = new Gson();
-                addCommunities addCommunity = gson.fromJson(json, addCommunities.class);
+                association addCommunity = gson.fromJson(json, association.class);
                 String txt = addCommunity.about;
             }
             //addcommunities~Name~case~title~about~image~time~headUser~userList~postList
