@@ -15,20 +15,21 @@ class association {
   DateTime startDate = DateTime.now();
   User associationMakerName; //String json user
   late int memberCount = 1;
-  late var users;
-  late var posts;
+  late List<User> users;
+  late List<Post> posts;
 
   association(
-      this.name,
-      this.Case,
-      this.title,
-      this.about,
-      this.image,
-      this.startDate,
-      this.associationMakerName,
-      this.memberCount,
-      this.users,
-      this.posts);
+    this.name,
+    this.Case,
+    this.title,
+    this.about,
+    this.image,
+    this.startDate,
+    this.associationMakerName,
+    //this.memberCount,
+    //this.users,
+    //this.posts
+  );
 
   Map<String, dynamic> toJson() => _$associationToJson(this);
   String json = jsonEncode(association);
