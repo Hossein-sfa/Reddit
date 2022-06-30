@@ -31,7 +31,7 @@ class Association {
     //this.posts
   );
 
-  Map<String, dynamic> toJson() => _$associationToJson(this);
+  Map<String, dynamic> toJson() => _$AssociationToJson(this);
   String json = jsonEncode(Association);
 
   void setMemberCount() {
