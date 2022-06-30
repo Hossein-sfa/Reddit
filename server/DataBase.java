@@ -142,7 +142,7 @@ class DataBase {
         com.flush();
         com.close(); 
     }
-    
+
 
     void addDataBase (String str, Controller c) {
         dataBase.put(str, c);

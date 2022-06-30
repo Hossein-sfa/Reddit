@@ -52,7 +52,7 @@ class _CreateProfileState extends State<CreateProfile> {
   Future<String> addAssociation() async {
     String showMessage = "";
     String sendmsg = assoc().json;
-    await Socket.connect("\u0000", 8080).then((serverSocket) {
+    await Socket.connect("172.20.10.2", 8080).then((serverSocket) {
       serverSocket.write('addComunities~$sendmsg');
       serverSocket.flush();
       serverSocket.listen((response) {
