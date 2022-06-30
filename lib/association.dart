@@ -2,7 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 import 'user.dart';
 import 'post.dart';
-
 part 'association.g.dart';
 
 @JsonSerializable()
@@ -30,8 +29,9 @@ class Association {
     //this.users,
     //this.posts
   );
-
-  Map<String, dynamic> toJson() => _$associationToJson(this);
+  factory Association.fromJson(Map<String, dynamic> json) =>
+      _$AssociationFromJson(json);
+  Map<String, dynamic> toJson() => _$AssociationToJson(this);
   String json = jsonEncode(Association);
 
   void setMemberCount() {
