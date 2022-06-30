@@ -56,6 +56,8 @@ class DataBase {
         writer.close();
     }
 
+
+
     static public void deleteUser(String userName) throws IOException {
         File file = new File("DataBase/users.txt");
         File tempFile = new File("DataBase/temp.txt");
@@ -101,6 +103,44 @@ class DataBase {
         writer.append(fileContents);
         writer.flush();
         writer.close();
+    }
+
+    static public void addCommunity (addCommunities addCommunities , String json) throws Exception{
+        FileWriter f1 = new FileWriter("DataBase/Communities1.txt" , true) ;
+        FileWriter f2 = new FileWriter("DataBase/Communities2.txt" , true) ;
+        FileWriter f3 = new FileWriter("DataBase/Communities3.txt" , true) ;
+        FileWriter f4 = new FileWriter("DataBase/Communities4.txt" , true) ;
+        FileWriter f5 = new FileWriter("DataBase/Communities5.txt" , true) ;
+        FileWriter f6 = new FileWriter("DataBase/Communities6.txt" , true) ;
+        if (addCommunities.Case.equals("Society & Life"))
+            f1.append(json + "\n");
+        if (addCommunities.Case.equals("Technology"))
+            f2.append(json + "\n");
+        if (addCommunities.Case.equals("Nature & Animals"))
+            f3.append(json + "\n");
+        if (addCommunities.Case.equals("Science"))
+            f4.append(json + "\n");
+        if (addCommunities.Case.equals("Sports"))
+            f5.append(json + "\n");
+        if (addCommunities.Case.equals("Entertainments"))
+            f6.append(json + "\n"); 
+        f1.flush();
+        f2.flush();
+        f3.flush();
+        f4.flush();
+        f5.flush();
+        f6.flush();    
+        f1.close();
+        f2.close();
+        f3.close();
+        f4.close();
+        f5.close();
+        f6.close();
+        User usr = addCommunities.associationMakerName ;
+        FileWriter com = new FileWriter("DataBase/users.txt" , true) ;
+        com.append("CommunityOfUser~" + usr.userName + ":" + json);
+        com.flush();
+        com.close(); 
     }
 
     void addDataBase (String str, Controller c) {
