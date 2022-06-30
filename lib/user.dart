@@ -19,6 +19,7 @@ class User {
   static late List<User> _following;
   static late List<Post> _likedPosts;
 
+
   Map<String, dynamic> toJson() => _$UserToJson(this);
   String jsonUser = jsonEncode(User);
 
