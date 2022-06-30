@@ -65,7 +65,7 @@ class addCommunities  {
     String about;
     String image;
     Date startDate;
-    String associationMakerName;  //String json user
+    User associationMakerName;  //String json user
     int memberCount = 1;
     String users;
     String posts;
@@ -73,12 +73,14 @@ class addCommunities  {
         return new Gson().fromJson(json,addCommunities.class);
     }
 
-    public addCommunities(String name, String Case, String title, String about, String image) {
+    public addCommunities(String name, String Case, String title, String about, String image , Date startDate , User associationMakerName) {
         this.name = name;
         this.Case = Case;
         this.title = title;
         this.about = about;
         this.image = image;
+        this.startDate = startDate ; 
+        this.associationMakerName = associationMakerName ; 
         //  this.associationMakerName = associationMakerName;
         //this.memberCount = memberCount;
     }
@@ -90,8 +92,8 @@ class ClientHandler extends Thread{
     DataInputStream dis;
     Vector<User> users;
     Vector<Post> posts;
-
-    public ClientHandler(Socket socket, Vector<User> users, Vector<Post> posts) throws IOException {
+    Vector<addCommunities> communities;
+        public ClientHandler(Socket socket, Vector<User> users, Vector<Post> posts) throws IOException {
         this.socket = socket;
         this.users = users;
         this.posts = posts;
@@ -224,21 +226,26 @@ class ClientHandler extends Thread{
             }
 
             case "addComunities" : {
-
                 //addComunities~JsonString => Json String must be convert to addComunities object
                 String json = split[1];
                 Gson gson = new Gson();
                 addCommunities addCommunity = gson.fromJson(json, addCommunities.class);
-                String txt = addCommunity.about ;
-            }
-            //addComunities~Name~case~title~about~image~time~headUser~userList~postList
-
             try{
+                DataBase.addCommunity(addCommunity , json);
                 writer("done");
             }
             catch (Exception e) {
                 System.out.println("Exception Occured in adding Communities!!");
             }
         }
+
+        case "CommunitiesList" : {
+            // it must get all communitites List that saved in specefic Categories
+            String categories = split[1];
+
+            
+
+        }
     }
+}
 }
