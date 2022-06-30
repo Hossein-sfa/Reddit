@@ -18,8 +18,9 @@ class User {
   static late List<User> _followers;
   static late List<User> _following;
   static late List<Post> _likedPosts;
+  User(){}
 
-
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);
   String jsonUser = jsonEncode(User);
 
