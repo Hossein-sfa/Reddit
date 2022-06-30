@@ -36,7 +36,7 @@ class DataBase {
             String[] elements = line.split("~");
             Vector<Comment> comments = new Vector<>();
             LocalDateTime time = LocalDateTime.of(Integer.parseInt(elements[5]), Integer.parseInt(elements[6]), Integer.parseInt(elements[7]), Integer.parseInt(elements[8]), Integer.parseInt(elements[9]));
-            String reply = elements[11];
+            String reply = elements[10];
             String[] separatedReplies = reply.split("/");
             for (String s : separatedReplies) {
                 String[] objects = s.split("\\^");
@@ -113,17 +113,17 @@ class DataBase {
         FileWriter f5 = new FileWriter("DataBase/Communities5.txt" , true) ;
         FileWriter f6 = new FileWriter("DataBase/Communities6.txt" , true) ;
         if (addCommunities.Case.equals("Society & Life"))
-            f1.append(json + "\n");
+            f1.append(json).append("\n");
         if (addCommunities.Case.equals("Technology"))
-            f2.append(json + "\n");
+            f2.append(json).append("\n");
         if (addCommunities.Case.equals("Nature & Animals"))
-            f3.append(json + "\n");
+            f3.append(json).append("\n");
         if (addCommunities.Case.equals("Science"))
-            f4.append(json + "\n");
+            f4.append(json).append("\n");
         if (addCommunities.Case.equals("Sports"))
-            f5.append(json + "\n");
+            f5.append(json).append("\n");
         if (addCommunities.Case.equals("Entertainments"))
-            f6.append(json + "\n"); 
+            f6.append(json).append("\n");
         f1.flush();
         f2.flush();
         f3.flush();
@@ -138,7 +138,7 @@ class DataBase {
         f6.close();
         User usr = addCommunities.associationMakerName ;
         FileWriter com = new FileWriter("DataBase/users.txt" , true) ;
-        com.append("CommunityOfUser~" + usr.userName + ":" + json);
+        com.append("CommunityOfUser~").append(usr.userName).append(":").append(json);
         com.flush();
         com.close(); 
     }
