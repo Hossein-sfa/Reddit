@@ -17,7 +17,7 @@ class Server {
     }
 }
 
-class User {
+class  User {
     String email, userName, password;
 
     public User(String email, String userName, String password) {
@@ -65,25 +65,28 @@ class addCommunities  {
     String title;
     String about;
     String image;
-    //DateTime startDate = DateTime.now();
+    Date startDate;
     String associationMakerName;  //String json user
     int memberCount = 1;
-    //var users;
-    //var posts;
+    String users;
+    String posts;
+    public static addCommunities fromJson(String json){
+        return new Gson().fromJson(json,addCommunities.class);
+    }
 
-    public addCommunities(String name, String aCase, String title, String about, String image, String associationMakerName, int memberCount) {
+    public addCommunities(String name, String Case, String title, String about, String image) {
         this.name = name;
-        Case = aCase;
+        this.Case = Case;
         this.title = title;
         this.about = about;
         this.image = image;
-        this.associationMakerName = associationMakerName;
-        this.memberCount = memberCount;
+        //  this.associationMakerName = associationMakerName;
+        //this.memberCount = memberCount;
     }
 }
 
 
-class ClientHandler extends Thread {
+class ClientHandler extends Thread{
     Socket socket;
     DataOutputStream dos;
     DataInputStream dis;
@@ -221,26 +224,22 @@ class ClientHandler extends Thread {
                     throw new RuntimeException(e);
                 }
             }
+
             case "addComunities" : {
+
+                //addComunities~JsonString => Json String must be convert to addComunities object
                 String json = split[1];
                 Gson gson = new Gson();
-                addCommunities addCommunities = gson.fromJson(json, addCommunities.class);
+                addCommunities addCommunity = gson.fromJson(json, addCommunities.class);
+                String txt = addCommunity.about ;
             }
-                //addComunities~Name~case~title~about~image~time~headUser~userList~postList
-                /*
-                HashMap<String, String> data ;
-                addCommunities addCommunities;
-                data = new HashMap<>(Map.of("name" , split[1] , "case" , split[2] ,
-                        "title" , split[3] , "about" , split[4] , "image" , split[5] ,
-                        "time" , split[6] , "headUser" , split[7] , "userList" , split[8] , "postList" , split[9]));
-                addCommunities = new addCommunities(data);
-                */
-                try{
-                    writer("done");
-                }
-                catch (Exception e) {
-                    System.out.println("Exception Occured in adding Communities!!");
-                }
+            //addComunities~Name~case~title~about~image~time~headUser~userList~postList
+
+            try{
+                writer("done");
+            }
+            catch (Exception e) {
+                System.out.println("Exception Occured in adding Communities!!");
             }
         }
     }
