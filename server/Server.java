@@ -29,15 +29,14 @@ class  User {
 
 class Comment {
     String userName, description;
-    int likes, replyNum;
+    int likes;
     LocalDateTime time = LocalDateTime.now();
     Vector<Comment> replies = new Vector<>();
 
-    Comment(String userName, String description, int likes, int replyNum) {
+    Comment(String userName, String description, int likes) {
         this.userName = userName;
         this.description = description;
         this.likes = likes;
-        this.replyNum = replyNum;
     }
 }
 
@@ -84,7 +83,6 @@ class addCommunities  {
         //this.memberCount = memberCount;
     }
 }
-
 
 class ClientHandler extends Thread{
     Socket socket;
