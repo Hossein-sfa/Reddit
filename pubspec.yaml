@@ -45,6 +45,7 @@ dependencies:
   json_serializable: ^6.2.0
   json_annotation: ^4.5.0
   build_runner: ^2.1.11
+  comment_tree: ^0.3.0
 
 
 dev_dependencies:

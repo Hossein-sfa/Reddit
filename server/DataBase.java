@@ -39,8 +39,8 @@ class DataBase {
             String reply = elements[11];
             String[] separatedReplies = reply.split("/");
             for (String s : separatedReplies) {
-                String[] objects = s.split("^");
-                comments.add(new Comment(objects[0], objects[1], Integer.parseInt(objects[2]), Integer.parseInt(objects[3])));
+                String[] objects = s.split("\\^");
+                comments.add(new Comment(objects[0], objects[1], Integer.parseInt(objects[2])));
             }
             posts.add(new Post(elements[0], elements[1], elements[2], elements[3], Integer.parseInt(elements[4]), Integer.parseInt(elements[5]), time, comments));
             line = reader.readLine();
@@ -54,6 +54,26 @@ class DataBase {
         BufferedWriter writer = new BufferedWriter(new FileWriter("DataBase/users.txt", true));
         writer.append(user.email).append("~").append(user.userName).append("~").append(user.password).append("\n");
         writer.close();
+    }
+
+    static public void deleteUser(String userName) throws IOException {
+        File file = new File("DataBase/users.txt");
+        File tempFile = new File("DataBase/temp.txt");
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        String currentLine;
+        while((currentLine = reader.readLine()) != null) {
+            // trim newline when comparing with lineToRemove
+            String trimmedLine = currentLine.trim();
+            if(trimmedLine.contains(userName))
+                continue;
+            writer.write(currentLine + System.getProperty("line.separator"));
+        }
+        writer.close();
+        reader.close();
+        file.delete();
+        boolean successful = tempFile.renameTo(file);
+        System.out.println(successful);
     }
 
     // save new post to file

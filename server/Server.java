@@ -27,15 +27,14 @@ class User {
 
 class Comment {
     String userName, description;
-    int likes, replyNum;
+    int likes;
     LocalDateTime time = LocalDateTime.now();
     Vector<Comment> replies = new Vector<>();
 
-    Comment(String userName, String description, int likes, int replyNum) {
+    Comment(String userName, String description, int likes) {
         this.userName = userName;
         this.description = description;
         this.likes = likes;
-        this.replyNum = replyNum;
     }
 }
 
@@ -57,9 +56,9 @@ class Post {
     }
 }
 
-class addCommunities {
+class AddCommunities {
     private final HashMap<String, String> data;
-    public addCommunities(HashMap<String, String> data) {
+    public AddCommunities(HashMap<String, String> data) {
         this.data = data;
     }
     public HashMap<String, String> getData() {
@@ -96,7 +95,7 @@ class ClientHandler extends Thread {
     }
 
     public void writer(String write) throws IOException {
-        dos.writeUTF(write);
+        dos.writeBytes(write);
         dos.flush();
         System.out.println("write: " + write);
     }
@@ -174,8 +173,8 @@ class ClientHandler extends Thread {
                 String[] separatedReplies = reply.split("/");
                 Vector<Comment> comments = new Vector<>();
                 for (String s : separatedReplies) {
-                    String[] objects = s.split("^");
-                    comments.add(new Comment(objects[0], objects[1], Integer.parseInt(objects[2]), Integer.parseInt(objects[3])));
+                    String[] objects = s.split("\\^");
+                    comments.add(new Comment(objects[0], objects[1], Integer.parseInt(objects[2])));
                 }
                 Post newPost = new Post(split[1], split[2], split[3], split[4], Integer.parseInt(split[5]), Integer.parseInt(split[6]), time, comments);
                 posts.add(newPost);
@@ -206,19 +205,34 @@ class ClientHandler extends Thread {
                     throw new RuntimeException(e);
                 }
             }
-            case "addComunities" ->{
-                //addComunities~Name~case~title~about~image~time~headUser~userList~postList
+            case "addcommunities" -> {
+                //addcommunities~Name~case~title~about~image~time~headUser~userList~postList
                 HashMap<String, String> data ;
-                addCommunities addCommunities;
+                AddCommunities addCommunities;
                 data = new HashMap<>(Map.of("name" , split[1] , "case" , split[2] ,
                         "title" , split[3] , "about" , split[4] , "image" , split[5] ,
                         "time" , split[6] , "headUser" , split[7] , "userList" , split[8] , "postList" , split[9]));
-                addCommunities = new addCommunities(data);
+                addCommunities = new AddCommunities(data);
                 try{
                     writer("done");
+                } catch (Exception e) {
+                    System.out.println("Exception Occurred in adding Communities!!");
                 }
-                catch (Exception e) {
-                    System.out.println("Exception Occured in adding Communities!!");
+            }
+            case "deleteaccount" -> {
+                //deleteaccount~userName
+                String userName = split[1];
+                for (User u : users) {
+                    if (u.userName.equals(userName)) {
+                        users.remove(u);
+                        break;
+                    }
+                }
+                try {
+                    DataBase.deleteUser(userName);
+                    writer("1");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
             }
         }
