@@ -1,8 +1,9 @@
-import 'post.dart';
-import 'comment.dart';
-import 'association.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'association.dart';
+import 'comment.dart';
 import 'dart:convert';
+import 'post.dart';
+
 part 'user.g.dart';
 
 @JsonSerializable()
@@ -11,7 +12,7 @@ class User {
   static late String _email;
   static late String _password;
   static late String _profilePic;
-  static late List<association> associations;
+  static late List<Association> associations;
   static late List<Comment> comments;
   static late List<String> _post;
   static late List<Post> savedPosts;

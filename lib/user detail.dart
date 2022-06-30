@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reddit/userSetting.dart';
+import 'userSetting.dart';
 import 'ToHome.dart';
 
 class UserDetail extends StatelessWidget {
