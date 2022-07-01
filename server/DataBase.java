@@ -3,7 +3,7 @@ import java.util.*;
 import java.time.LocalDateTime;
 
 class DataBase {
-    HashMap<String, Controller> dataBase = new HashMap<>();
+    //HashMap<String, Controller> dataBase = new HashMap<>();
     static DataBase db;
 
     static public DataBase getDb() {
@@ -65,7 +65,6 @@ class DataBase {
         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
         String currentLine;
         while((currentLine = reader.readLine()) != null) {
-            // trim newline when comparing with lineToRemove
             String trimmedLine = currentLine.trim();
             if(trimmedLine.contains(userName))
                 continue;
@@ -74,16 +73,15 @@ class DataBase {
         writer.close();
         reader.close();
         file.delete();
-        boolean successful = tempFile.renameTo(file);
-        System.out.println(successful);
+        tempFile.renameTo(file);
     }
 
     // save new post to file
     static public void addPost(Post post) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter("DataBase/posts.txt", true));
-        writer.append(post.title).append("~").append(post.description).append("~").append(post.userName).append("~").append(post.community).append("~").append(String.valueOf(post.likes)).append("~").append(String.valueOf(post.time.getYear())).append("~").append(String.valueOf(post.time.getMonthValue())).append("~").append(String.valueOf(post.time.getDayOfMonth())).append("~").append(String.valueOf(post.time.getHour())).append("~").append(String.valueOf(post.time.getMinute()));
+        writer.append(post.title).append("~").append(post.description).append("~").append(post.userName).append("~").append(post.community).append("~").append(String.valueOf(post.likes)).append("~").append(String.valueOf(post.time.getYear())).append("~").append(String.valueOf(post.time.getMonthValue())).append("~").append(String.valueOf(post.time.getDayOfMonth())).append("~").append(String.valueOf(post.time.getHour())).append("~").append(String.valueOf(post.time.getMinute())).append("~");
         for (Comment comment : post.comments)
-            writer.append(comment.userName).append("^").append(comment.description).append("^").append(String.valueOf(comment.likes)).append("^").append(String.valueOf(comment.replies)).append("/");
+            writer.append(comment.userName).append("^").append(comment.description).append("^").append(String.valueOf(comment.likes)).append("/");
         writer.append("\n");
         writer.close();
     }
@@ -95,7 +93,7 @@ class DataBase {
         while (scanner.hasNextLine())
             buffer.append(scanner.nextLine()).append(System.lineSeparator());
         String fileContents = buffer.toString();
-        System.out.println("Contents of the file: "+fileContents);
+        System.out.println("Contents of the file: " + fileContents);
         scanner.close();
         fileContents = fileContents.replaceAll(oldLine, newLine);
         FileWriter writer = new FileWriter("DataBase/users.txt");
@@ -144,57 +142,57 @@ class DataBase {
     }
 
 
-    void addDataBase (String str, Controller c) {
-        dataBase.put(str, c);
-    }
-
-    Controller getController(String str) {
-        return dataBase.get(str);
-    }
+//    void addDataBase (String str, Controller c) {
+//        dataBase.put(str, c);
+//    }
+//
+//    Controller getController(String str) {
+//        return dataBase.get(str);
+//    }
 }
 
-class Controller {
-    File file;
-    FileWriter fw;
-    RandomAccessFile raf;
-
-    public Controller(String str) {
-        file = new File (str);
-        try {
-            raf = new RandomAccessFile(file, "rw");
-            String last = readFile();
-            fw = new FileWriter(file);
-            writeFile(last);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    String readFile() throws IOException {
-        StringBuilder recovery = new StringBuilder();
-        String i;
-        while ((i = raf.readLine()) != null) {
-            recovery.append(i).append("\n");
-        }
-        raf.seek(0);
-        return recovery.toString();
-    }
-
-    void writeFile(String str, boolean ... reset) throws IOException {
-        if (reset.length != 0) {
-            fw = new FileWriter(file);
-        }
-        fw.write(str);
-        fw.flush();
-    }
-
-    String getRow(String id) throws IOException {
-        String[] split = this.readFile().split("\n");
-        for (String str : split) {
-            if (str.startsWith(id)) {
-                return str;
-            }
-        }
-        return "invalid";
-    }
-}
+//class Controller {
+//    File file;
+//    FileWriter fw;
+//    RandomAccessFile raf;
+//
+//    public Controller(String str) {
+//        file = new File (str);
+//        try {
+//            raf = new RandomAccessFile(file, "rw");
+//            String last = readFile();
+//            fw = new FileWriter(file);
+//            writeFile(last);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    String readFile() throws IOException {
+//        StringBuilder recovery = new StringBuilder();
+//        String i;
+//        while ((i = raf.readLine()) != null) {
+//            recovery.append(i).append("\n");
+//        }
+//        raf.seek(0);
+//        return recovery.toString();
+//    }
+//
+//    void writeFile(String str, boolean ... reset) throws IOException {
+//        if (reset.length != 0) {
+//            fw = new FileWriter(file);
+//        }
+//        fw.write(str);
+//        fw.flush();
+//    }
+//
+//    String getRow(String id) throws IOException {
+//        String[] split = this.readFile().split("\n");
+//        for (String str : split) {
+//            if (str.startsWith(id)) {
+//                return str;
+//            }
+//        }
+//        return "invalid";
+//    }
+//}
