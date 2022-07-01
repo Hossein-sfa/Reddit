@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'siginpage.dart';
 import 'ToHome.dart';
 import 'main.dart';
+import 'user.dart';
 import 'dart:io';
 
 // validate that password contains 8 chars and  at least one number and  a small and a capital character
@@ -46,10 +47,8 @@ class SignUpState extends State<SignUp> {
       emailChecker = false,
       userNameChecker = false,
       passwordChecker = false;
-  String? emailErrorMessage,
-      userNameErrorMessage,
-      passwordErrorMessage,
-      showMessage;
+  String? emailErrorMessage, userNameErrorMessage, passwordErrorMessage;
+  String showMessage = '', response = '';
 
   // disabling button when password is not valid and username and pass and email are not empty and email is correct
   @override
@@ -94,14 +93,17 @@ class SignUpState extends State<SignUp> {
   }
 
   Future<String> signUp() async {
-    await Socket.connect("172.20.10.2", 8080).then((serverSocket) {
-      serverSocket.write('signup~$email.text~$userName.text~$password.text');
+    await Socket.connect("192.168.1.10", 8080).then((serverSocket) {
+      serverSocket.write(
+          'signup~${email.text}~${userName.text}~${password.text}\u0000');
       serverSocket.flush();
-      serverSocket.listen((response) {
-        showMessage = String.fromCharCodes(response);
+      serverSocket.listen((socket) {
+        setState(() {
+          response = String.fromCharCodes(socket);
+        });
       });
     });
-    return showMessage!;
+    return response;
   }
 
   @override
@@ -124,7 +126,9 @@ class SignUpState extends State<SignUp> {
           constraints: const BoxConstraints.expand(),
           decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/images/bkg4.jpg"), fit: BoxFit.cover),
+              image: AssetImage("assets/images/bkg4.jpg"),
+              fit: BoxFit.cover,
+            ),
           ),
           child: SafeArea(
             child: Center(
@@ -224,9 +228,11 @@ class SignUpState extends State<SignUp> {
                               errorText: passwordErrorMessage,
                               labelText: 'Password: ',
                               suffixIcon: IconButton(
-                                icon: Icon(obscure
-                                    ? Icons.visibility
-                                    : Icons.visibility_off),
+                                icon: Icon(
+                                  obscure
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                ),
                                 onPressed: () {
                                   setState(() {
                                     obscure = !obscure;
@@ -276,8 +282,9 @@ class SignUpState extends State<SignUp> {
                                   passwordChecker
                               ? () async {
                                   String result = await signUp();
-                                  print('this is result: $result');
+                                  print(result);
                                   if (result == '1') {
+                                    User.name = userName.text;
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -285,7 +292,6 @@ class SignUpState extends State<SignUp> {
                                       ),
                                     );
                                   } else {
-                                    // ToDo : show error message that user name is duplicate
                                     showMessage = 'User name is duplicate';
                                   }
                                 }
@@ -304,6 +310,10 @@ class SignUpState extends State<SignUp> {
                               vertical: 10,
                             ),
                           ),
+                        ),
+                        Text(
+                          showMessage,
+                          style: const TextStyle(color: Colors.red),
                         ),
                       ],
                     ),
