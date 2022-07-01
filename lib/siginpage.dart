@@ -16,7 +16,8 @@ class SignInState extends State<SignIn> {
   TextEditingController userName = TextEditingController();
   TextEditingController password = TextEditingController();
   bool obscure = true, userNameChecker = false, passwordChecker = false;
-  String? userNameErrorMessage, passwordErrorMessage, showMessage;
+  String? userNameErrorMessage, passwordErrorMessage;
+  String showMessage = '', response = '';
 
   @override
   void initState() {
@@ -51,14 +52,16 @@ class SignInState extends State<SignIn> {
 
   // connects to server
   Future<String> logIn() async {
-    await Socket.connect("172.20.10.2", 8080).then((serverSocket) {
+    await Socket.connect("192.168.1.10", 8080).then((serverSocket) {
       serverSocket.write('signin~${userName.text}~${password.text}\u0000');
       serverSocket.flush();
-      serverSocket.listen((response) {
-        showMessage = String.fromCharCodes(response);
+      serverSocket.listen((socket) {
+        setState(() {
+          response = String.fromCharCodes(socket);
+        });
       });
     });
-    return showMessage!;
+    return response;
   }
 
   @override
@@ -81,7 +84,9 @@ class SignInState extends State<SignIn> {
           constraints: const BoxConstraints.expand(),
           decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/images/1.jpg"), fit: BoxFit.cover),
+              image: AssetImage("assets/images/1.jpg"),
+              fit: BoxFit.cover,
+            ),
           ),
           child: SafeArea(
             child: Center(
@@ -198,27 +203,19 @@ class SignInState extends State<SignIn> {
                             ),
                             onPressed: userNameChecker && passwordChecker
                                 ? () async {
-                                    User.name = userName.text;
-                                    // String result = await logIn();
-                                    // print('this is result: $result');
-                                    // if (result == '1') {
-                                    //   Navigator.pushReplacement(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //       builder: (context) => const ToHome(),
-                                    //     ),
-                                    //   );
-                                    // } else {
-                                    //   // ToDo : show error message that user name or password is incorrect
-                                    //   showMessage =
-                                    //       'User name or password is incorrect';
-                                    // }
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const ToHome(),
-                                      ),
-                                    );
+                                    String result = await logIn();
+                                    if (result == '1') {
+                                      User.name = userName.text;
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const ToHome(),
+                                        ),
+                                      );
+                                    } else {
+                                      showMessage =
+                                          'Wrong username or password!';
+                                    }
                                   }
                                 : null,
                             style: ElevatedButton.styleFrom(
@@ -232,6 +229,10 @@ class SignInState extends State<SignIn> {
                               ),
                             ),
                           ),
+                        ),
+                        Text(
+                          showMessage,
+                          style: const TextStyle(color: Colors.red),
                         ),
                       ],
                     ),
