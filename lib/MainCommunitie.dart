@@ -240,7 +240,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                           PageRouteBuilder(
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
-                                    ShowCommunitiesCategory(1),
+                                ShowCommunitiesCategory(1),
                             transitionsBuilder: (context, animation,
                                 secondaryAnimation, child) {
                               const begin = Offset(0.0, 1.0);
@@ -284,7 +284,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     children: [
@@ -322,7 +322,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                           PageRouteBuilder(
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
-                                    ShowCommunitiesCategory(2),
+                                ShowCommunitiesCategory(2),
                             transitionsBuilder: (context, animation,
                                 secondaryAnimation, child) {
                               const begin = Offset(0.0, 1.0);
@@ -345,7 +345,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                         decoration: const BoxDecoration(
                             color: Colors.blue,
                             borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
+                            BorderRadius.all(Radius.circular(20))),
                         child: Stack(
                           children: [
                             SizedBox(
@@ -353,7 +353,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                               height: double.infinity,
                               child: ClipRRect(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(20)),
+                                const BorderRadius.all(Radius.circular(20)),
                                 child: Image.asset(
                                   "assets/images/technology.jpg",
                                   fit: BoxFit.cover,
@@ -365,7 +365,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     children: [
@@ -402,7 +402,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                           PageRouteBuilder(
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
-                                    ShowCommunitiesCategory(3),
+                                ShowCommunitiesCategory(3),
                             transitionsBuilder: (context, animation,
                                 secondaryAnimation, child) {
                               const begin = Offset(0.0, 1.0);
@@ -424,7 +424,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                         //  height: double.infinity,
                         decoration: const BoxDecoration(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
+                            BorderRadius.all(Radius.circular(20))),
                         child: Stack(
                           children: [
                             SizedBox(
@@ -432,7 +432,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                               height: double.infinity,
                               child: ClipRRect(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(20)),
+                                const BorderRadius.all(Radius.circular(20)),
                                 child: Container(
                                   decoration: const BoxDecoration(
                                     boxShadow: [
@@ -455,7 +455,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     children: [
@@ -492,7 +492,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                           PageRouteBuilder(
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
-                                    ShowCommunitiesCategory(4),
+                                ShowCommunitiesCategory(4),
                             transitionsBuilder: (context, animation,
                                 secondaryAnimation, child) {
                               const begin = Offset(0.0, 1.0);
@@ -513,7 +513,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                         //  height: double.infinity,
                         decoration: const BoxDecoration(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
+                            BorderRadius.all(Radius.circular(20))),
                         child: Stack(
                           children: [
                             SizedBox(
@@ -521,7 +521,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                               height: double.infinity,
                               child: ClipRRect(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(20)),
+                                const BorderRadius.all(Radius.circular(20)),
                                 child: Image.asset(
                                   "assets/images/science_main.jpg",
                                   fit: BoxFit.cover,
@@ -533,7 +533,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     children: [
@@ -570,7 +570,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                           PageRouteBuilder(
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
-                                    ShowCommunitiesCategory(5),
+                                ShowCommunitiesCategory(5),
                             transitionsBuilder: (context, animation,
                                 secondaryAnimation, child) {
                               const begin = Offset(0.0, 1.0);
@@ -600,7 +600,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                               height: double.infinity,
                               child: ClipRRect(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(20)),
+                                const BorderRadius.all(Radius.circular(20)),
                                 child: Image.asset(
                                   "assets/images/Sp.jpg",
                                   fit: BoxFit.cover,
@@ -612,7 +612,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     children: [
@@ -649,7 +649,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                           PageRouteBuilder(
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
-                                    ShowCommunitiesCategory(6),
+                                ShowCommunitiesCategory(6),
                             transitionsBuilder: (context, animation,
                                 secondaryAnimation, child) {
                               const begin = Offset(0.0, 1.0);
@@ -679,7 +679,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                               height: double.infinity,
                               child: ClipRRect(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(20)),
+                                const BorderRadius.all(Radius.circular(20)),
                                 child: Image.asset(
                                   "assets/images/movie.jpg",
                                   fit: BoxFit.cover,
@@ -691,7 +691,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     children: [
@@ -732,7 +732,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                     autoPlay: true,
                     autoPlayInterval: const Duration(seconds: 3),
                     autoPlayAnimationDuration:
-                        const Duration(milliseconds: 800),
+                    const Duration(milliseconds: 800),
                     autoPlayCurve: Curves.fastOutSlowIn,
                     enlargeCenterPage: true,
                     scrollDirection: Axis.horizontal,
@@ -781,7 +781,7 @@ class _CommunitiesMainPage extends State<CommunitiesMainPage> {
                           height: 80,
                           child: ClipRRect(
                             borderRadius:
-                                const BorderRadius.all(Radius.circular(15)),
+                            const BorderRadius.all(Radius.circular(15)),
                             child: Image.asset(
                               "assets/images/cover.jpg",
                               fit: BoxFit.cover,

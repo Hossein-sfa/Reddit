@@ -18,7 +18,7 @@ class DarkThemePreference {
     return prefs.getBool(themeStatus) ?? false;
   }
 }
-
+/*
 class Themes {
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {
     return ThemeData(
@@ -48,7 +48,7 @@ class Themes {
     );
   }
 }
-
+*/
 // contains app bar for different pages
 class AppBars {
   static var reddit = AppBar(
@@ -101,7 +101,7 @@ class MyAppState extends State<MyApp> {
 
   void getCurrentAppTheme() async {
     themeChangeProvider.darkTheme =
-        await themeChangeProvider.darkThemePreference.getTheme();
+    await themeChangeProvider.darkThemePreference.getTheme();
   }
 
   @override
@@ -114,7 +114,7 @@ class MyAppState extends State<MyApp> {
         builder: (context, value, Widget? child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: Themes.themeData(themeChangeProvider.darkTheme, context),
+            //          theme: Themes.themeData(themeChangeProvider.darkTheme, context),
             home: const SignIn(),
           );
         },
