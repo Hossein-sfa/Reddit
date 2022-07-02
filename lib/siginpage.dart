@@ -17,7 +17,7 @@ class SignInState extends State<SignIn> {
   TextEditingController password = TextEditingController();
   bool obscure = true, userNameChecker = false, passwordChecker = false;
   String? userNameErrorMessage, passwordErrorMessage;
-  String showMessage = '', response = '';
+  String showMessage = '' , response = '';
 
   @override
   void initState() {
@@ -52,11 +52,11 @@ class SignInState extends State<SignIn> {
 
   // connects to server
   Future<String> logIn() async {
-    await Socket.connect("192.168.1.10", 8080).then((serverSocket) {
+    await Socket.connect("192.168.1.34", 8080).then((serverSocket) {
       serverSocket.write('signin~${userName.text}~${password.text}\u0000');
       serverSocket.flush();
       serverSocket.listen((socket) {
-        setState(() {
+        setState((){
           response = String.fromCharCodes(socket);
         });
       });
@@ -84,9 +84,7 @@ class SignInState extends State<SignIn> {
           constraints: const BoxConstraints.expand(),
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/1.jpg"),
-              fit: BoxFit.cover,
-            ),
+                image: AssetImage("assets/images/1.jpg"), fit: BoxFit.cover),
           ),
           child: SafeArea(
             child: Center(
@@ -121,12 +119,12 @@ class SignInState extends State<SignIn> {
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                    const BorderSide(color: Color(0xfffdfdfd)),
+                                const BorderSide(color: Color(0xfffdfdfd)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                    const BorderSide(color: Color(0xfffc4040)),
+                                const BorderSide(color: Color(0xfffc4040)),
                               ),
                             ),
                           ),
@@ -141,7 +139,7 @@ class SignInState extends State<SignIn> {
                             textAlign: TextAlign.center,
                             onChanged: (text) {
                               passwordErrorMessage = isValidPassword(
-                                      password.text)
+                                  password.text)
                                   ? null
                                   : 'This password is not strong enough.\nIt should have at least one lowercase, uppercase letter and a number.\nand it should be more than 8 characters.';
                             },
@@ -165,12 +163,12 @@ class SignInState extends State<SignIn> {
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                    const BorderSide(color: Color(0xfffdfdfd)),
+                                const BorderSide(color: Color(0xfffdfdfd)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                    const BorderSide(color: Color(0xfffc4040)),
+                                const BorderSide(color: Color(0xfffc4040)),
                               ),
                             ),
                           ),
@@ -203,20 +201,20 @@ class SignInState extends State<SignIn> {
                             ),
                             onPressed: userNameChecker && passwordChecker
                                 ? () async {
-                                    String result = await logIn();
-                                    if (result == '1') {
-                                      User.name = userName.text;
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => const ToHome(),
-                                        ),
-                                      );
-                                    } else {
-                                      showMessage =
-                                          'Wrong username or password!';
-                                    }
-                                  }
+                              String result = await logIn();
+                              if (result == '1') {
+                                User.name = userName.text ;
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const ToHome(),
+                                  ),
+                                );
+                              } else {
+                                showMessage =
+                                'User name or password is incorrect!';
+                              }
+                            }
                                 : null,
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
@@ -229,10 +227,6 @@ class SignInState extends State<SignIn> {
                               ),
                             ),
                           ),
-                        ),
-                        Text(
-                          showMessage,
-                          style: const TextStyle(color: Colors.red),
                         ),
                       ],
                     ),

@@ -1,9 +1,9 @@
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:reddit/user.dart';
 import 'siginpage.dart';
 import 'ToHome.dart';
 import 'main.dart';
-import 'user.dart';
 import 'dart:io';
 
 // validate that password contains 8 chars and  at least one number and  a small and a capital character
@@ -19,7 +19,7 @@ isValidPassword(String pass) {
 isValidEmail(String email) {
   if (email.isNotEmpty) {
     return RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email);
   }
   return false;
@@ -49,6 +49,7 @@ class SignUpState extends State<SignUp> {
       passwordChecker = false;
   String? emailErrorMessage, userNameErrorMessage, passwordErrorMessage;
   String showMessage = '', response = '';
+
 
   // disabling button when password is not valid and username and pass and email are not empty and email is correct
   @override
@@ -93,7 +94,7 @@ class SignUpState extends State<SignUp> {
   }
 
   Future<String> signUp() async {
-    await Socket.connect("192.168.1.10", 8080).then((serverSocket) {
+    await Socket.connect("192.168.1.34", 8080).then((serverSocket) {
       serverSocket.write(
           'signup~${email.text}~${userName.text}~${password.text}\u0000');
       serverSocket.flush();
@@ -126,9 +127,7 @@ class SignUpState extends State<SignUp> {
           constraints: const BoxConstraints.expand(),
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/bkg4.jpg"),
-              fit: BoxFit.cover,
-            ),
+                image: AssetImage("assets/images/bkg4.jpg"), fit: BoxFit.cover),
           ),
           child: SafeArea(
             child: Center(
@@ -163,16 +162,16 @@ class SignUpState extends State<SignUp> {
                               errorText: emailErrorMessage,
                               labelText: 'Email: ',
                               labelStyle:
-                                  const TextStyle(color: Colors.redAccent),
+                              const TextStyle(color: Colors.redAccent),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                    const BorderSide(color: Color(0xfffdfdfd)),
+                                const BorderSide(color: Color(0xfffdfdfd)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                    const BorderSide(color: Color(0xfffc4040)),
+                                const BorderSide(color: Color(0xfffc4040)),
                               ),
                             ),
                           ),
@@ -186,25 +185,25 @@ class SignUpState extends State<SignUp> {
                             textAlign: TextAlign.center,
                             onChanged: (text) {
                               userNameErrorMessage =
-                                  isValidUserName(userName.text)
-                                      ? null
-                                      : 'This username is already chosen';
+                              isValidUserName(userName.text)
+                                  ? null
+                                  : 'This username is already chosen';
                             },
                             decoration: InputDecoration(
                               filled: true,
                               errorText: userNameErrorMessage,
                               labelText: 'UserName: ',
                               labelStyle:
-                                  const TextStyle(color: Colors.redAccent),
+                              const TextStyle(color: Colors.redAccent),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                    const BorderSide(color: Color(0xfffdfdfd)),
+                                const BorderSide(color: Color(0xfffdfdfd)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                    const BorderSide(color: Color(0xfffc4040)),
+                                const BorderSide(color: Color(0xfffc4040)),
                               ),
                             ),
                           ),
@@ -219,7 +218,7 @@ class SignUpState extends State<SignUp> {
                             textAlign: TextAlign.center,
                             onChanged: (text) {
                               passwordErrorMessage = isValidPassword(
-                                      password.text)
+                                  password.text)
                                   ? null
                                   : 'This password is not strong enough.\nIt should have at least one lowercase, uppercase letter and a number.\nand it should be more than 8 characters.';
                             },
@@ -228,11 +227,9 @@ class SignUpState extends State<SignUp> {
                               errorText: passwordErrorMessage,
                               labelText: 'Password: ',
                               suffixIcon: IconButton(
-                                icon: Icon(
-                                  obscure
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                ),
+                                icon: Icon(obscure
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
                                 onPressed: () {
                                   setState(() {
                                     obscure = !obscure;
@@ -240,16 +237,16 @@ class SignUpState extends State<SignUp> {
                                 },
                               ),
                               labelStyle:
-                                  const TextStyle(color: Colors.redAccent),
+                              const TextStyle(color: Colors.redAccent),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                    const BorderSide(color: Color(0xfffdfdfd)),
+                                const BorderSide(color: Color(0xfffdfdfd)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100),
                                 borderSide:
-                                    const BorderSide(color: Color(0xfffc4040)),
+                                const BorderSide(color: Color(0xfffc4040)),
                               ),
                             ),
                           ),
@@ -278,23 +275,24 @@ class SignUpState extends State<SignUp> {
                         const SizedBox(height: 10),
                         ElevatedButton(
                           onPressed: emailChecker &&
-                                  userNameChecker &&
-                                  passwordChecker
+                              userNameChecker &&
+                              passwordChecker
                               ? () async {
-                                  String result = await signUp();
-                                  print(result);
-                                  if (result == '1') {
-                                    User.name = userName.text;
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const ToHome(),
-                                      ),
-                                    );
-                                  } else {
-                                    showMessage = 'User name is duplicate';
-                                  }
-                                }
+                            String result = await signUp();
+                            print('this is result: $result');
+                            if (result == '1') {
+                              User.name = userName.text ;
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ToHome(),
+                                ),
+                              );
+                            } else {
+                              // ToDo : show error message that user name is duplicate
+                              showMessage = 'User name is duplicate';
+                            }
+                          }
                               : null,
                           child: const Text(
                             'Sign In',
