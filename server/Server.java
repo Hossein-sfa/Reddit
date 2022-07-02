@@ -7,6 +7,7 @@ import java.io.*;
 
 class Server {
     public static void main(String[] args) throws IOException {
+        System.out.println("salam");
         ServerSocket serverSocket = new ServerSocket(8080);
         Vector<User> users = DataBase.usersLoader();
         Vector<Post> posts = DataBase.postsLoader();
@@ -30,29 +31,32 @@ class User {
 class Comment {
     String userName, description;
     int likes;
-    LocalDateTime time;
+    boolean isLiked = false;
+    boolean isDisLiked = false;
+    //String time;
+    List<Comment> replies ; //= new ArrayList<>();
 
-    Comment(String userName, String description, int likes, LocalDateTime time) {
+    Comment(String userName, String description) {
         this.userName = userName;
         this.description = description;
-        this.likes = likes;
-        this.time = time;
+        //  this.time = time;
     }
 }
 
 class Post {
     String title, description, userName, community;
-    int likes;
-    Vector<Comment> comments;
-    LocalDateTime time;
+    int likes = 0;
+    List<Comment> comments;
+    String time;
+    boolean isLiked = false;
+    boolean isDisLiked = false;
 
-    public Post(String title, String description, String userName, String community, int likes, LocalDateTime time, Vector<Comment> comments) {
+    Post(String title, String description, String time ,String userName, String community, List<Comment> comments) {
         this.title = title;
         this.description = description;
+        this.time = time;
         this.userName = userName;
         this.community = community;
-        this.likes = likes;
-        this.time = time;
         this.comments = comments;
     }
 }
@@ -64,17 +68,11 @@ class Association {
     String about;
     String image;
     String startDate;
-    User associationMakerName;  //String json user
-    int memberCount = 1;
+    String associationMakerName;  //String json user
+    int memberCount;
     //  String users;
-    List<User> users;
-    List<Post> posts;
 
-    public static Association fromJson(String json) {
-        return new Gson().fromJson(json, Association.class);
-    }
-
-    public Association(String name, String Case, String title, String about, String image , String startDate , User associationMakerName) {
+    public Association(String name, String Case, String title, String about, String image , String startDate , String associationMakerName , int memberCount) {
         this.name = name;
         this.Case = Case;
         this.title = title;
@@ -82,6 +80,7 @@ class Association {
         this.image = image;
         this.startDate = startDate ;
         this.associationMakerName = associationMakerName ;
+        this.memberCount = memberCount ;
     }
 }
 
@@ -104,12 +103,16 @@ class ClientHandler extends Thread {
 
     // convert sever message to string
     public String listener() throws IOException {
+        System.out.println("listener");
         StringBuilder sb = new StringBuilder();
         int b = dis.read();
         while (b != 0) {
             sb.append((char) b);
             b = dis.read();
         }
+        Scanner scanner = new Scanner(sb.toString());
+        String command = scanner.nextLine();
+        System.out.println("listener2");
         return sb.toString();
     }
 
@@ -129,7 +132,6 @@ class ClientHandler extends Thread {
         String command;
         try {
             command = listener();
-            // command = dis.readUTF();
             System.out.println("command: " + command);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -196,15 +198,15 @@ class ClientHandler extends Thread {
             }
             case "addpost": {
                 // addpost~title~description~user~community~like~year~month~day~hour~minute~username^description^likes/...
-                LocalDateTime time = LocalDateTime.of(Integer.parseInt(split[6]), Integer.parseInt(split[7]), Integer.parseInt(split[8]), Integer.parseInt(split[9]), Integer.parseInt(split[10]));
+                String time = (split[6] + split[7] + split[8] + split[9] + split[10]);
                 String reply = split[11];
                 String[] separatedReplies = reply.split("/");
                 Vector<Comment> comments = new Vector<>();
                 for (String s : separatedReplies) {
                     String[] objects = s.split("\\^");
-                    comments.add(new Comment(objects[0], objects[1], Integer.parseInt(objects[2]), LocalDateTime.now()));
+                    comments.add(new Comment(objects[0], objects[1]));
                 }
-                Post newPost = new Post(split[1], split[2], split[3], split[4], Integer.parseInt(split[5]), time, comments);
+                Post newPost = new Post(split[1], split[2],time,split[3], split[4] , comments);
                 posts.add(newPost);
                 try {
                     DataBase.addPost(newPost);
@@ -212,6 +214,7 @@ class ClientHandler extends Thread {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+                break;
             }
             case "changeinfo": {
                 // changeinfo~email~userName~password~newEmail~newUserName~newPassword
@@ -236,18 +239,28 @@ class ClientHandler extends Thread {
             }
             case "addcommunities": {
                 //addcommunities~JsonString => Json String must be converted to addCommunities object
-                String json = split[1];
-                Gson gson = new Gson();
-                Association addCommunity = gson.fromJson(json, Association.class);
-                String txt = addCommunity.about;
+                //~name~Case~title~about~image~time~user~1
+                String json = (split[1]+"~"+ split[2] +"~"+ split[3]+"~"+split[4]+"~"+ split[5]+"~"+split[6]+"~"+split[7]+"~"+"1");
+                Association addCommunity = new Association(split[1] , split[2] , split[3] ,split[4] , split[5] ,split[6] , split[7] , 1);
                 //addcommunities~Name~case~title~about~image~time~headUser~userList~postList
                 try {
+                    DataBase.addCommunity(addCommunity , json);
                     writer("1");
                 } catch (Exception e) {
                     System.out.println("Exception Occurred in adding Communities!!");
                 }
                 break;
             }
+            case "getcommunities": {
+                try {
+                    String sr = DataBase.getCommunity(split[1]);
+                    writer(sr);
+                } catch (Exception e) {
+                    System.out.println("Exception Occurred in adding Communities!!");
+                }
+                break;
+            }
+
         }
     }
 }

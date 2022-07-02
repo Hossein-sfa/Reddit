@@ -3,9 +3,8 @@ import java.util.*;
 import java.time.LocalDateTime;
 
 class DataBase {
-    //HashMap<String, Controller> dataBase = new HashMap<>();
+    HashMap<String, Controller> dataBase = new HashMap<>();
     static DataBase db;
-
     static public DataBase getDb() {
         if (db == null)
             db = new DataBase();
@@ -15,7 +14,7 @@ class DataBase {
     // load users from file
     static public Vector<User> usersLoader() throws IOException {
         Vector<User> users = new Vector<>();
-        BufferedReader reader = new BufferedReader(new FileReader("DataBase/users.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\Lenovo\\Desktop\\untitled\\DataBase\\users.txt"));
         String line = reader.readLine();
         while (line != null) {
             String[] elements = line.split("~");
@@ -35,14 +34,15 @@ class DataBase {
             // title~description~user~community~like~year~month~day~hour~minute~username^description^likes^replies/...
             String[] elements = line.split("~");
             Vector<Comment> comments = new Vector<>();
-            LocalDateTime time = LocalDateTime.of(Integer.parseInt(elements[5]), Integer.parseInt(elements[6]), Integer.parseInt(elements[7]), Integer.parseInt(elements[8]), Integer.parseInt(elements[9]));
+
+            String  time = (elements[5] + elements[6] + elements[7] + elements[8] + elements[9]);
             String reply = elements[10];
             String[] separatedReplies = reply.split("/");
             for (String s : separatedReplies) {
                 String[] objects = s.split("\\^");
-                comments.add(new Comment(objects[0], objects[1], Integer.parseInt(objects[2]), time));
+                comments.add(new Comment(objects[0], objects[1]));
             }
-            posts.add(new Post(elements[0], elements[1], elements[2], elements[3], Integer.parseInt(elements[4]), time, comments));
+            posts.add(new Post(elements[0], elements[1], time, elements[2], elements[3], comments));
             line = reader.readLine();
         }
         reader.close();
@@ -51,12 +51,10 @@ class DataBase {
 
     // save new user to file
     static public void addUser(User user) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("DataBase/users.txt", true));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Lenovo\\Desktop\\untitled\\DataBase\\users.txt", true));
         writer.append(user.email).append("~").append(user.userName).append("~").append(user.password).append("\n");
         writer.close();
     }
-
-
 
     static public void deleteUser(String userName) throws IOException {
         File file = new File("DataBase/users.txt");
@@ -65,6 +63,7 @@ class DataBase {
         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
         String currentLine;
         while((currentLine = reader.readLine()) != null) {
+            // trim newline when comparing with lineToRemove
             String trimmedLine = currentLine.trim();
             if(trimmedLine.contains(userName))
                 continue;
@@ -73,15 +72,16 @@ class DataBase {
         writer.close();
         reader.close();
         file.delete();
-        tempFile.renameTo(file);
+        boolean successful = tempFile.renameTo(file);
+        System.out.println(successful);
     }
 
     // save new post to file
     static public void addPost(Post post) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter("DataBase/posts.txt", true));
-        writer.append(post.title).append("~").append(post.description).append("~").append(post.userName).append("~").append(post.community).append("~").append(String.valueOf(post.likes)).append("~").append(String.valueOf(post.time.getYear())).append("~").append(String.valueOf(post.time.getMonthValue())).append("~").append(String.valueOf(post.time.getDayOfMonth())).append("~").append(String.valueOf(post.time.getHour())).append("~").append(String.valueOf(post.time.getMinute())).append("~");
+        // writer.append(post.title).append("~").append(post.description).append("~").append(post.userName).append("~").append(post.community).append("~").append(String.valueOf(post.likes)).append("~").append(String.valueOf(post.time.getYear())).append("~").append(String.valueOf(post.time.getMonthValue())).append("~").append(String.valueOf(post.time.getDayOfMonth())).append("~").append(String.valueOf(post.time.getHour())).append("~").append(String.valueOf(post.time.getMinute()));
         for (Comment comment : post.comments)
-            writer.append(comment.userName).append("^").append(comment.description).append("^").append(String.valueOf(comment.likes)).append("/");
+            writer.append(comment.userName).append("^").append(comment.description).append("^").append(String.valueOf(comment.likes)).append("^").append(String.valueOf(comment.replies)).append("/");
         writer.append("\n");
         writer.close();
     }
@@ -93,7 +93,7 @@ class DataBase {
         while (scanner.hasNextLine())
             buffer.append(scanner.nextLine()).append(System.lineSeparator());
         String fileContents = buffer.toString();
-        System.out.println("Contents of the file: " + fileContents);
+        System.out.println("Contents of the file: "+fileContents);
         scanner.close();
         fileContents = fileContents.replaceAll(oldLine, newLine);
         FileWriter writer = new FileWriter("DataBase/users.txt");
@@ -104,6 +104,7 @@ class DataBase {
     }
 
     static public void addCommunity (Association addCommunities , String json) throws Exception{
+        System.out.println("addCommunity");
         FileWriter f1 = new FileWriter("DataBase/Communities1.txt" , true) ;
         FileWriter f2 = new FileWriter("DataBase/Communities2.txt" , true) ;
         FileWriter f3 = new FileWriter("DataBase/Communities3.txt" , true) ;
@@ -127,72 +128,146 @@ class DataBase {
         f3.flush();
         f4.flush();
         f5.flush();
-        f6.flush();    
+        f6.flush();
         f1.close();
         f2.close();
         f3.close();
         f4.close();
         f5.close();
         f6.close();
-        User usr = addCommunities.associationMakerName ;
+        String usr = addCommunities.associationMakerName ;
         FileWriter com = new FileWriter("DataBase/users.txt" , true) ;
-        com.append("CommunityOfUser~").append(usr.userName).append(":").append(json);
+        com.append("CommunityOfUser~").append(usr).append(":").append(json);
         com.flush();
-        com.close(); 
+        com.close();
+    }
+    static public String getCommunity(String caseOfCommunity){
+        if (caseOfCommunity.equals("Society & Life"))   {
+            StringBuilder sb = new StringBuilder();
+            try {
+                FileReader fr = new FileReader ("DataBase/Communities1.txt");
+                int i;
+                while ((i = fr.read()) != -1)
+                    sb.append((char)i);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return sb.toString();
+        }
+        if (caseOfCommunity.equals("Nature & Animals"))   {
+            StringBuilder sb = new StringBuilder();
+            try {
+                FileReader fr = new FileReader ("DataBase/Communities3.txt");
+                int i;
+                while ((i = fr.read()) != -1)
+                    sb.append((char)i);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return sb.toString();
+        }
+        if (caseOfCommunity.equals("Technology"))   {
+            StringBuilder sb = new StringBuilder();
+            try {
+                FileReader fr = new FileReader ("DataBase/Communities2.txt");
+                int i;
+                while ((i = fr.read()) != -1)
+                    sb.append((char)i);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return sb.toString();
+        }
+        if (caseOfCommunity.equals("Science"))   {
+            StringBuilder sb = new StringBuilder();
+            try {
+                FileReader fr = new FileReader ("DataBase/Communities4.txt");
+                int i;
+                while ((i = fr.read()) != -1)
+                    sb.append((char)i);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return sb.toString();
+        }
+        if (caseOfCommunity.equals("Sports"))   {
+            StringBuilder sb = new StringBuilder();
+            try {
+                FileReader fr = new FileReader ("DataBase/Communities5.txt");
+                int i;
+                while ((i = fr.read()) != -1)
+                    sb.append((char)i);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return sb.toString();
+        }
+        if (caseOfCommunity.equals("Entertainments"))   {
+            StringBuilder sb = new StringBuilder();
+            try {
+                FileReader fr = new FileReader ("DataBase/Communities6.txt");
+                int i;
+                while ((i = fr.read()) != -1)
+                    sb.append((char)i);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return sb.toString();
+        }
+        return "" ;
     }
 
 
-//    void addDataBase (String str, Controller c) {
-//        dataBase.put(str, c);
-//    }
-//
-//    Controller getController(String str) {
-//        return dataBase.get(str);
-//    }
+    void addDataBase (String str, Controller c) {
+        dataBase.put(str, c);
+    }
+    Controller getController(String str) {
+        return dataBase.get(str);
+    }
 }
 
-//class Controller {
-//    File file;
-//    FileWriter fw;
-//    RandomAccessFile raf;
-//
-//    public Controller(String str) {
-//        file = new File (str);
-//        try {
-//            raf = new RandomAccessFile(file, "rw");
-//            String last = readFile();
-//            fw = new FileWriter(file);
-//            writeFile(last);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    String readFile() throws IOException {
-//        StringBuilder recovery = new StringBuilder();
-//        String i;
-//        while ((i = raf.readLine()) != null) {
-//            recovery.append(i).append("\n");
-//        }
-//        raf.seek(0);
-//        return recovery.toString();
-//    }
-//
-//    void writeFile(String str, boolean ... reset) throws IOException {
-//        if (reset.length != 0) {
-//            fw = new FileWriter(file);
-//        }
-//        fw.write(str);
-//        fw.flush();
-//    }
-//
-//    String getRow(String id) throws IOException {
-//        String[] split = this.readFile().split("\n");
-//        for (String str : split) {
-//            if (str.startsWith(id)) {
-//                return str;
-//            }
-//        }
-//        return "invalid";
-//    }
-//}
+class Controller {
+    File file;
+    FileWriter fw;
+    RandomAccessFile raf;
+
+    public Controller(String str) {
+        file = new File (str);
+        try {
+            raf = new RandomAccessFile(file, "rw");
+            String last = readFile();
+            fw = new FileWriter(file);
+            writeFile(last);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    String readFile() throws IOException {
+        StringBuilder recovery = new StringBuilder();
+        String i;
+        while ((i = raf.readLine()) != null) {
+            recovery.append(i).append("\n");
+        }
+        raf.seek(0);
+        return recovery.toString();
+    }
+
+    void writeFile(String str, boolean ... reset) throws IOException {
+        if (reset.length != 0) {
+            fw = new FileWriter(file);
+        }
+        fw.write(str);
+        fw.flush();
+    }
+
+    String getRow(String id) throws IOException {
+        String[] split = this.readFile().split("\n");
+        for (String str : split) {
+            if (str.startsWith(id)) {
+                return str;
+            }
+        }
+        return "invalid";
+    }
+}
