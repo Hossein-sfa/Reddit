@@ -247,7 +247,7 @@ class HomeState extends State<ToHome> {
                       children: [
                         const CircleAvatar(
                           backgroundImage:
-                              AssetImage('assets/images/circleAvatar.png'),
+                          AssetImage('assets/images/circleAvatar.png'),
                         ),
                         const SizedBox(width: 10),
                         Column(

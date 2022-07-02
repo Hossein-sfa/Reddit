@@ -40,7 +40,7 @@ class UserProfilePage extends StatelessWidget {
   Widget _buildProfileImage() {
     return Center(
       child: Container(
-        margin: const EdgeInsets.only(top: 45.0, bottom: 10.0),
+        margin: const EdgeInsets.only(top: 25.0, bottom: 20.0),
         width: 140.0,
         height: 140.0,
         decoration: BoxDecoration(
@@ -68,30 +68,6 @@ class UserProfilePage extends StatelessWidget {
     return Text(
       _userName,
       style: nameTextStyle,
-    );
-  }
-
-  Widget _buildFullName(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 20.0, bottom: 10.0),
-      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 17.0),
-      decoration: BoxDecoration(
-        color: Colors.white70,
-        border: Border.all(
-          color: Colors.deepOrangeAccent,
-          width: 1.0,
-        ),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Text(
-        _fullName,
-        style: const TextStyle(
-          fontFamily: 'Spectral',
-          color: Colors.black,
-          fontSize: 15.0,
-          fontWeight: FontWeight.w300,
-        ),
-      ),
     );
   }
 
@@ -127,7 +103,7 @@ class UserProfilePage extends StatelessWidget {
     return Container(
       height: 65.0,
       width: 450.0,
-      margin: const EdgeInsets.only(top: 20.0, bottom: 30.0),
+      margin: const EdgeInsets.only(top: 23.0, bottom: 80.0),
       decoration: const BoxDecoration(
         color: Colors.white70,
       ),
@@ -152,7 +128,7 @@ class UserProfilePage extends StatelessWidget {
     );
     return Container(
       //color: Colors.white70,
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(20.0),
       child: Text(
         "\"$_bio\"",
         style: bioTextStyle,
@@ -165,7 +141,7 @@ class UserProfilePage extends StatelessWidget {
       width: screenSize.width / 1.2,
       height: 3.0,
       color: Colors.white60,
-      margin: const EdgeInsets.only(top: 8.0),
+      margin: const EdgeInsets.only(top: 10.0),
     );
   }
 
@@ -189,7 +165,7 @@ class UserProfilePage extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      const UserSetting(key: Key('userSetting')),
+                  const UserSetting(key: Key('userSetting')),
                 ),
               );
             },
@@ -222,10 +198,9 @@ class UserProfilePage extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  SizedBox(height: screenSize.height / 6),
+                  SizedBox(height: screenSize.height / 8),
                   _buildProfileImage(),
                   _buildUserName(),
-                  _buildFullName(context),
                   _buildStatContainer(),
                   _buildBio(context),
                   // _nameText(context),

@@ -15,7 +15,7 @@ class User {
   static late List<Association> associations;
   static late List<Comment> comments;
   static late List<String> _post;
-  static late List<Post> savedPosts;
+  static late List<Post> savedPosts = [];
   static late List<User> _followers;
   static late List<User> _following;
   static late List<Post> _likedPosts;
@@ -23,6 +23,11 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);
   String jsonUser = jsonEncode(User);
+
+  String userstr () {
+    return jsonUser ;
+  }
+
 
   static bool isSaved(Post post) {
     for (Post p in savedPosts) {

@@ -102,13 +102,13 @@ class CreateProfileState extends State<UserSetting> {
                       child: circular
                           ? const CircularProgressIndicator()
                           : const Text(
-                              "Save",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                        "Save",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -265,24 +265,24 @@ class CreateProfileState extends State<UserSetting> {
         return null;
       },
       decoration: const InputDecoration(
-        border: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.teal,
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.teal,
+            ),
           ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.orange,
-            width: 2,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.orange,
+              width: 2,
+            ),
           ),
-        ),
-        prefixIcon: Icon(
-          Icons.person,
-          color: Colors.green,
-        ),
-        labelText: "Password",
-        helperText: "Password can't be empty",
-        hintText: "qwER123!"
+          prefixIcon: Icon(
+            Icons.person,
+            color: Colors.green,
+          ),
+          labelText: "Password",
+          helperText: "Password can't be empty",
+          hintText: "qwER123!"
       ),
     );
   }
