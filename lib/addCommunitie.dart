@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'association.dart';
 import 'user.dart';
 import 'ToHome.dart';
@@ -18,21 +19,23 @@ class _CreateProfileState extends State<CreateProfile> {
   //late PickedFile _imageFile;
   final _globalkey = GlobalKey<FormState>();
   final TextEditingController _name = TextEditingController();
-  late String _Case;
+  String _Case = "Society & Life";
   final TextEditingController _title = TextEditingController();
   final TextEditingController _about = TextEditingController();
   final ImagePicker _picker = ImagePicker();
-  DateTime t = DateTime.now();
-  User user = new User();
+  String t = DateFormat('2022-07-01 17:30:08.653').format(DateTime.now());
+  //DateTime t = DateTime.now();
+  String user = "navid" ;
+  String response = '';
 
   Association assoc() {
-    if (_Case == "Society & Life")
+    if (_Case == "Society & Life") {
       return Association(_name.text, _Case, _title.text, _about.text,
-          "assets/images/cover.jpg", t, user); // image must be changed
-    else if (_Case == "Technology")
+          "assets/images/cover.jpg", t, user);
+    } else if (_Case == "Technology") {
       return Association(_name.text, _Case, _title.text, _about.text,
           "assets/images/code.jpg", t, user);
-    else if (_Case == "Nature & Animals")
+    } else if (_Case == "Nature & Animals")
       return Association(_name.text, _Case, _title.text, _about.text,
           "assets/images/lion.jpg", t, user);
     else if (_Case == "Science")
@@ -50,16 +53,18 @@ class _CreateProfileState extends State<CreateProfile> {
 
   // Future<> ImagePicker
   Future<String> addAssociation() async {
-    String showMessage = "";
-    String sendmsg = assoc().json;
-    await Socket.connect("172.20.10.2", 8080).then((serverSocket) {
-      serverSocket.write('addComunities~$sendmsg');
+    await Socket.connect("192.168.1.33", 8080).then((serverSocket) {
+      String association = "salam" ;
+      serverSocket.write(
+          'addcommunities~$association\u0000');
       serverSocket.flush();
-      serverSocket.listen((response) {
-        showMessage = String.fromCharCodes(response);
+      serverSocket.listen((socket) {
+        setState(() {
+          response = String.fromCharCodes(socket);
+        });
       });
     });
-    return showMessage;
+    return response;
   }
 
   @override
@@ -117,16 +122,8 @@ class _CreateProfileState extends State<CreateProfile> {
               ),
               InkWell(
                 onTap: () async {
-                  setState(() {
-                    circular = true;
-                  });
                   if (_globalkey.currentState!.validate()) {
-                    Map<String, String> data = {
-                      "name": _name.text,
-                      "Case": _Case,
-                      "title": _title.text,
-                      "about": _about.text,
-                    };
+
                     /*
                     var response = await networkHandler.post("/profile/add", data);
                     if (response.statusCode == 200 ||
@@ -148,7 +145,6 @@ class _CreateProfileState extends State<CreateProfile> {
                       }
                     }
                */
-
                     String result = await addAssociation();
                     if (result != "") {
                       Navigator.pushReplacement(
@@ -172,13 +168,13 @@ class _CreateProfileState extends State<CreateProfile> {
                       child: circular
                           ? const CircularProgressIndicator()
                           : const Text(
-                              "Submit",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                        "Submit",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -281,13 +277,13 @@ class _CreateProfileState extends State<CreateProfile> {
       decoration: const InputDecoration(
         border: OutlineInputBorder(
             borderSide: BorderSide(
-          color: Colors.teal,
-        )),
+              color: Colors.teal,
+            )),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-          color: Colors.orange,
-          width: 2,
-        )),
+              color: Colors.orange,
+              width: 2,
+            )),
         prefixIcon: Icon(
           Icons.person,
           color: Colors.green,
@@ -337,11 +333,12 @@ class _CreateProfileState extends State<CreateProfile> {
                   filled: true,
                 ),
                 validator: (value) =>
-                    value == null ? "Select a category" : null,
+                value == null ? "Select a category" : null,
                 //dropdownColor: Colors.greenAccent,
                 value: selectedValue,
                 onChanged: (String? newValue) {
                   setState(() {
+                    _Case = selectedValue! ;
                     selectedValue = newValue!;
                   });
                 },
@@ -360,13 +357,13 @@ class _CreateProfileState extends State<CreateProfile> {
       decoration: const InputDecoration(
         border: OutlineInputBorder(
             borderSide: BorderSide(
-          color: Colors.teal,
-        )),
+              color: Colors.teal,
+            )),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-          color: Colors.orange,
-          width: 2,
-        )),
+              color: Colors.orange,
+              width: 2,
+            )),
         prefixIcon: Icon(
           Icons.person,
           color: Colors.green,
@@ -385,17 +382,17 @@ class _CreateProfileState extends State<CreateProfile> {
       decoration: const InputDecoration(
         border: OutlineInputBorder(
             borderSide: BorderSide(
-          color: Colors.teal,
-        )),
+              color: Colors.teal,
+            )),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-          color: Colors.orange,
-          width: 2,
-        )),
+              color: Colors.orange,
+              width: 2,
+            )),
         labelText: "About",
         helperText: "Write about your Association & Communication",
         hintText:
-            "We are a group of students of Shahid Behesti University who are working on a project",
+        "We are a group of students of Shahid Behesti University who are working on a project",
       ),
     );
   }
