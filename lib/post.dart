@@ -11,10 +11,7 @@ class Post {
   List<Comment> comments;
   String time = DateFormat('2022-07-01 17:30:08.653').format(DateTime.now());
   bool isLiked = false, isDisLiked = false;
-
-  Post(this.title, this.description, this.time, this.userName, this.community,
-      this.comments);
-
+  Post(this.title, this.description, this.time, this.userName, this.community , this.comments);
 /*
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
   Map<String, dynamic> toJson() => _$PostToJson(this);
@@ -34,7 +31,7 @@ class Post {
     isLiked = true;
   }
 
-  DateTime getTime(String time) {
+  DateTime getTime(String time){
     return DateTime.parse(time);
   }
 
@@ -71,13 +68,12 @@ class Post {
     } else if (date.difference(getTime(time)).inDays < 30) {
       return (date.difference(getTime(time)).inDays ~/ 7).toString() + " week";
     } else if (date.difference(getTime(time)).inDays < 365) {
-      return (date.difference(getTime(time)).inDays ~/ 30).toString() +
-          " month";
+      return (date.difference(getTime(time)).inDays ~/ 30).toString() + " month";
     } else {
-      return (date.difference(getTime(time)).inDays ~/ 365).toString() +
-          " year";
+      return (date.difference(getTime(time)).inDays ~/ 365).toString() + " year";
     }
   }
+
 
   List<Comment> getSortedComments() {
     comments.sort((b, a) => a.likes.compareTo(b.likes));
@@ -87,4 +83,6 @@ class Post {
   addComment(comment) {
     comments.add(comment);
   }
+
+
 }
