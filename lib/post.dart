@@ -1,19 +1,21 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'comment.dart';
 import 'dart:convert';
+import 'package:intl/intl.dart';
+//part 'post.g.dart';
 
-part 'post.g.dart';
-
-@JsonSerializable()
+//@JsonSerializable()
 class Post {
   String title, description, userName, community;
   int likes = 0;
   List<Comment> comments;
-  DateTime time;
+  String time = DateFormat('2022-07-01 17:30:08.653').format(DateTime.now());
   bool isLiked = false, isDisLiked = false;
+
   Post(this.title, this.description, this.time, this.userName, this.community,
       this.comments);
 
+/*
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
   Map<String, dynamic> toJson() => _$PostToJson(this);
   String json = jsonEncode(Post);
@@ -21,7 +23,7 @@ class Post {
   String getJson() {
     return json;
   }
-
+*/
   setLike() {
     if (isDisLiked) {
       isDisLiked = false;
@@ -30,6 +32,10 @@ class Post {
       likes++;
     }
     isLiked = true;
+  }
+
+  DateTime getTime(String time) {
+    return DateTime.parse(time);
   }
 
   setVoteLess() {
@@ -52,26 +58,24 @@ class Post {
     isDisLiked = true;
   }
 
-  set setDateTime(DateTime date) {
-    time = date;
-  }
-
   // Method that calculate how much time is passed since the post was created
   String passedTime(DateTime date) {
-    if (date.difference(time).inSeconds < 60) {
-      return date.difference(time).inSeconds.toString() + " sec";
-    } else if (date.difference(time).inMinutes < 60) {
-      return date.difference(time).inMinutes.toString() + " min";
-    } else if (date.difference(time).inHours < 24) {
-      return date.difference(time).inHours.toString() + " hour";
-    } else if (date.difference(time).inDays < 7) {
-      return date.difference(time).inDays.toString() + " day";
-    } else if (date.difference(time).inDays < 30) {
-      return (date.difference(time).inDays ~/ 7).toString() + " week";
-    } else if (date.difference(time).inDays < 365) {
-      return (date.difference(time).inDays ~/ 30).toString() + " month";
+    if (date.difference(getTime(time)).inSeconds < 60) {
+      return date.difference(getTime(time)).inSeconds.toString() + " sec";
+    } else if (date.difference(getTime(time)).inMinutes < 60) {
+      return date.difference(getTime(time)).inMinutes.toString() + " min";
+    } else if (date.difference(getTime(time)).inHours < 24) {
+      return date.difference(getTime(time)).inHours.toString() + " hour";
+    } else if (date.difference(getTime(time)).inDays < 7) {
+      return date.difference(getTime(time)).inDays.toString() + " day";
+    } else if (date.difference(getTime(time)).inDays < 30) {
+      return (date.difference(getTime(time)).inDays ~/ 7).toString() + " week";
+    } else if (date.difference(getTime(time)).inDays < 365) {
+      return (date.difference(getTime(time)).inDays ~/ 30).toString() +
+          " month";
     } else {
-      return (date.difference(time).inDays ~/ 365).toString() + " year";
+      return (date.difference(getTime(time)).inDays ~/ 365).toString() +
+          " year";
     }
   }
 

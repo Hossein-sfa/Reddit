@@ -49,6 +49,7 @@ class PostDetailsState extends State<PostDetails> {
     return Material(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.black45,
           title: const Text('Reddit'),
         ),
         body: SafeArea(
@@ -66,7 +67,7 @@ class PostDetailsState extends State<PostDetails> {
                     children: [
                       const CircleAvatar(
                         backgroundImage:
-                            AssetImage('assets/images/circleAvatar.png'),
+                        AssetImage('assets/images/circleAvatar.png'),
                       ),
                       const SizedBox(width: 10),
                       Column(
@@ -91,7 +92,7 @@ class PostDetailsState extends State<PostDetails> {
                       ),
                       const Spacer(),
                       Text(
-                        jalaliFormat(Jalali.fromDateTime(widget.post.time)),
+                        jalaliFormat(Jalali.fromDateTime(widget.post.getTime(widget.post.time))),
                         style: TextStyle(
                           color: Colors.black.withOpacity(0.7),
                           fontSize: 10,
@@ -138,7 +139,7 @@ class PostDetailsState extends State<PostDetails> {
                         icon: Icon(
                           Icons.thumb_down,
                           color:
-                              widget.post.isDisLiked ? Colors.deepOrange : null,
+                          widget.post.isDisLiked ? Colors.deepOrange : null,
                         ),
                         onPressed: () {
                           // Todo : send liking and disliking to server in phase 2 project
@@ -188,7 +189,7 @@ class PostDetailsState extends State<PostDetails> {
                     child: ListTile(
                       leading: const CircleAvatar(
                         backgroundImage:
-                            AssetImage('assets/images/circleAvatar.png'),
+                        AssetImage('assets/images/circleAvatar.png'),
                       ),
                       title: TextFormField(
                         controller: comment,
@@ -203,17 +204,17 @@ class PostDetailsState extends State<PostDetails> {
                       trailing: TextButton(
                         onPressed: commentChecker
                             ? () {
-                                // ToDo : sending username and password to server in phase to project
-                                widget.post.addComment(
-                                  Comment(
-                                    User.name,
-                                    comment.text,
-                                    DateTime.now(),
-                                  ),
-                                );
-                                comment.clear();
-                                refreshComments();
-                              }
+                          // ToDo : sending username and password to server in phase to project
+                          widget.post.addComment(
+                            Comment(
+                              User.name,
+                              comment.text,
+                              //DateTime.now(),
+                            ),
+                          );
+                          comment.clear();
+                          refreshComments();
+                        }
                             : null,
                         child: const Text(
                           'Post',
@@ -253,7 +254,7 @@ class PostDetailsState extends State<PostDetails> {
                                         Column(
                                           mainAxisSize: MainAxisSize.min,
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                           children: [
                                             const SizedBox(height: 4),
                                             Text(
@@ -269,7 +270,7 @@ class PostDetailsState extends State<PostDetails> {
                                           comments[index].time.toString(),
                                           style: TextStyle(
                                             color:
-                                                Colors.white.withOpacity(0.7),
+                                            Colors.white.withOpacity(0.7),
                                             fontSize: 10,
                                           ),
                                         ),
