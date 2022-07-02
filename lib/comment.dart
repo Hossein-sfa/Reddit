@@ -1,51 +1,88 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'ToHome.dart';
+import 'user.dart';
+import 'communitydetails.dart';
 
-//part 'comment.g.dart';
-
-@JsonSerializable()
-class Comment {
-  int likes = 0;
-  String userName, description;
-  bool isLiked = false, isDisLiked = false;
-  DateTime time = DateTime.now() ;
-  List replies = [];
-  Comment(this.userName, this.description);
-/*
-  factory Comment.fromJson(Map<String, dynamic> json) => _$CommentFromJson(json);
-  Map<String, dynamic> toJson() => _$CommentToJson(this);
-  String json = jsonEncode(Comment);
-*/
-  setLike() {
-    if (isDisLiked) {
-      isDisLiked = false;
-      likes += 2;
-    }
-    else {
-      likes++;
-    }
-    isLiked = true;
-  }
-
-  setVoteLess() {
-    if (isLiked) {
-      likes--;
-      isLiked = false;
-    }
-    else if (isDisLiked) {
-      likes++;
-      isDisLiked = false;
-    }
-  }
-
-  setDisLike() {
-    if (isLiked) {
-      isLiked = false;
-      likes -= 2;
-    }
-    else {
-      likes--;
-    }
-    isDisLiked = true;
+class CommunitiesCategoryShow extends StatelessWidget {
+  const CommunitiesCategoryShow({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          physics: const ScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 10),
+              Text(
+                'Favorites',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white.withOpacity(0.7),
+                ),
+              ),
+              const SizedBox(height: 10),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: User.favCommunities.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: const CircleAvatar(
+                      backgroundImage:
+                      AssetImage('assets/images/circleAvatar.png'),
+                    ),
+                    title: Text(User.favCommunities[index].associationName),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ToHome(
+                              // community: User.favCommunities[index]),
+                            ),
+                          ));
+                    },
+                  );
+                },
+              ),
+              const Divider(thickness: 0.8),
+              Text(
+                'Other communities',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white.withOpacity(0.7),
+                ),
+              ),
+              const SizedBox(height: 10),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: User.favCommunities.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: const CircleAvatar(
+                      backgroundImage:
+                      AssetImage('assets/images/circleAvatar.png'),
+                    ),
+                    title: Text(User.favCommunities[index].associationName),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ToHome(
+                              //     community: User.communities[index]),
+                            ),
+                          ));
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
